@@ -159,6 +159,34 @@
   }
   .paybtn:disabled { background: #b8c4bd; }
 
+  /* in-app receipt (link / browser launches) */
+  .rc {
+    position: fixed; inset: 0; z-index: 40; background: var(--bg); overflow-y: auto; display: none;
+    padding: 28px 18px calc(28px + env(safe-area-inset-bottom));
+  }
+  .rc.show { display: block; animation: up .3s cubic-bezier(.2,.8,.2,1); }
+  @keyframes up { from { transform: translateY(30px); opacity: 0; } to { transform: none; opacity: 1; } }
+  .ok {
+    width: 74px; height: 74px; border-radius: 50%; background: var(--green); color: #fff; font-size: 40px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center; margin: 8px auto 14px; box-shadow: 0 8px 22px rgba(11,122,67,.35);
+  }
+  .rc h2 { text-align: center; margin: 0; font-size: 24px; font-weight: 800; }
+  .rc .big { text-align: center; font-size: 38px; font-weight: 800; color: var(--green); margin: 6px 0 20px; letter-spacing: -.01em; }
+  .paper { background: #fff; border-radius: 18px; padding: 20px 18px 22px; box-shadow: var(--shadow); border-top: 6px solid var(--green); }
+  .paper .st { text-align: center; font-weight: 800; font-size: 20px; }
+  .paper .ss { text-align: center; color: var(--muted); font-size: 12px; margin: 2px 0 12px; }
+  .kv, .it { display: flex; justify-content: space-between; gap: 10px; font-size: 14px; padding: 4px 0; }
+  .kv span:first-child { color: var(--muted); }
+  .dash { border-top: 2px dashed var(--line); margin: 10px 0; }
+  .it b { font-weight: 600; }
+  .it small { display: block; color: var(--muted); font-size: 12px; }
+  .it .a { font-weight: 700; white-space: nowrap; }
+  .tot { display: flex; justify-content: space-between; align-items: baseline; font-weight: 800; font-size: 16px; }
+  .tot strong { font-size: 24px; color: var(--green); }
+  .thx { text-align: center; color: var(--green); font-weight: 700; margin-top: 14px; font-size: 14px; }
+  .rc .note { color: var(--muted); font-size: 12.5px; text-align: center; margin: 22px 10px 14px; line-height: 1.5; }
+  .again { height: 56px; border-radius: 16px; background: var(--green); color: #fff; font-weight: 800; font-size: 17px; width: 100%; }
+
   .toast {
     position: fixed; left: 50%; top: 18px; transform: translate(-50%, -150%); z-index: 50; background: var(--ink); color: #fff;
     padding: 12px 18px; border-radius: 14px; font-weight: 600; font-size: 14px; transition: transform .25s; max-width: 90vw; text-align: center;
@@ -192,11 +220,15 @@
   <div class="sum"><span id="sumL"></span><strong id="sumT">₱0</strong></div>
   <button class="paybtn" id="payBtn"></button>
 </section>
+<section class="rc" id="rc"></section>
 <div class="toast" id="toast"></div>
 
 <script>
 const tg = window.Telegram && window.Telegram.WebApp;
-const inTelegram = !!(tg && tg.initData);
+// Only a mini app opened from the bot's keyboard button can send the sale back to the bot,
+// and Telegram gives exactly those launches no initData. Opened from a plain link (or a
+// browser), the page completes the sale itself and shows its own receipt.
+const canSend = !!(tg && tg.platform && tg.platform !== "unknown" && !tg.initData);
 const P = new URLSearchParams(location.search);
 const LANG = P.get("lang") === "en" ? "en" : "ko";
 const IMG = P.get("ib") || "https://raw.githubusercontent.com/kimsungyong1117-jpg/shopon-mart-demo/main/images/";
@@ -206,12 +238,14 @@ const L = {
         count: n => `상품 ${n}개`, stock: s => `재고 ${s}`, low: s => `부족 ${s}`, none: "품절",
         ea: "개", cartL: n => `${n}개 상품 담음`, go: "결제하기 →", title: "장바구니", clear: "전체 비우기",
         payTitle: "결제수단", sum: "합계", pay: t => `${t} 결제하기`, empty: "찾는 상품이 없어요 🥲",
-        max: "재고가 부족해요", added: n => `${n} 담았어요`, outside: "텔레그램 봇 안에서 열면 결제가 봇으로 전송돼요 🙂" },
+        max: "재고가 부족해요", added: n => `${n} 담았어요`, paid: "결제 완료!", order: "주문번호", date: "일시", payBy: "결제", again: "새 주문 시작하기",
+        thanks: "감사합니다 · Salamat po!", note: "실제 매장에서는 이 영수증과 매출이 봇과 마감 리포트에 자동으로 기록돼요" },
   en: { sub: "Tap a photo to add, then check out", search: "Search products", all: "All",
         count: n => `${n} products`, stock: s => `Stock ${s}`, low: s => `Low ${s}`, none: "Sold out",
         ea: "pc", cartL: n => `${n} items in cart`, go: "Checkout →", title: "Cart", clear: "Clear all",
         payTitle: "Payment method", sum: "Total", pay: t => `Pay ${t}`, empty: "No matching products 🥲",
-        max: "Not enough stock", added: n => `Added ${n}`, outside: "Open inside the Telegram bot to send the sale 🙂" },
+        max: "Not enough stock", added: n => `Added ${n}`, paid: "Payment complete!", order: "Order", date: "Date", payBy: "Payment", again: "Start a new order",
+        thanks: "Thank you · Salamat po!", note: "In a live store this sale also lands in the bot and the daily report automatically" },
 }[LANG];
 const METHODS = [["Cash", "💵"], ["GCash", "📱"], ["Maya", "💳"], ["Card", "🏦"]];
 
@@ -317,12 +351,46 @@ function closeSheet() { $("dim").classList.remove("show"); $("sheet").classList.
 function pay() {
   if (!cart.size) return;
   const payload = JSON.stringify({ t: "sale", pay: method, items: [...cart.entries()] });
-  if (inTelegram) {
-    try { tg.HapticFeedback.notificationOccurred("success"); } catch (e) {}
+  try { tg.HapticFeedback.notificationOccurred("success"); } catch (e) {}
+  if (canSend) {
     tg.sendData(payload);       // closes the mini app; the bot replies with the receipt
   } else {
-    toast(L.outside);
+    showReceipt();
   }
+}
+
+let orderNo = 18 + Math.floor(Math.random() * 6);
+
+function showReceipt() {
+  const items = [...cart.entries()].map(([id, q]) => [DATA.byId[id], q]);
+  const sum = total();
+  items.forEach(([p, q]) => { stock[p.id] = Math.round((stock[p.id] - q) * 100) / 100; });
+  orderNo += 1;
+  const d = new Date();
+  const when = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")} ` +
+               `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
+  $("rc").innerHTML = `<div class="ok">✓</div><h2>${L.paid}</h2><div class="big">${money(sum)}</div>
+    <div class="paper">
+      <div class="st">${esc($("store").textContent)}</div><div class="ss">ShopOn POS</div>
+      <div class="kv"><span>${L.order}</span><span>#${String(orderNo).padStart(4, "0")}</span></div>
+      <div class="kv"><span>${L.date}</span><span>${when}</span></div>
+      <div class="dash"></div>
+      ${items.map(([p, q]) => `<div class="it"><div><b>${esc(p.n)}</b><small>${fmtQ(q)}${unit(p)} × ${money(p.p)}</small></div>
+        <div class="a">${money(p.p * q)}</div></div>`).join("")}
+      <div class="dash"></div>
+      <div class="tot"><span>${L.sum}</span><strong>${money(sum)}</strong></div>
+      <div class="kv" style="margin-top:6px"><span>${L.payBy}</span><span>${method}</span></div>
+      <div class="thx">${L.thanks}</div>
+    </div>
+    <p class="note">${L.note}</p>
+    <button class="again" id="again">${L.again}</button>`;
+  closeSheet();
+  $("toast").classList.remove("show");
+  $("rc").classList.add("show");
+  $("rc").scrollTop = 0;
+  $("again").addEventListener("click", () => {
+    cart.clear(); renderGrid(); renderBar(); $("rc").classList.remove("show"); window.scrollTo({ top: 0 });
+  });
 }
 
 function bind() {
@@ -375,7 +443,7 @@ async function main() {
   DATA.products.forEach(p => DATA.byId[p.id] = p);
   // Live stock arrives from the bot as "s" = comma-separated values in id order.
   const s = (P.get("s") || "").split(",");
-  DATA.products.forEach((p, i) => { const v = parseFloat(s[i]); stock[p.id] = isNaN(v) ? 99 : v; });
+  DATA.products.forEach((p, i) => { const v = parseFloat(s[i]); stock[p.id] = isNaN(v) ? p.s : v; });
   renderChips(); renderGrid(); renderBar(); bind();
 }
 main();

@@ -13,6 +13,7 @@ Run:  python mart_demo_bot.py      (needs BOT_TOKEN in demo_bot/.env)
 import csv
 import hashlib
 import html
+import json
 import logging
 import os
 import random
@@ -24,7 +25,10 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 
 from dotenv import load_dotenv
-from telegram import BotCommand, InlineKeyboardButton as Btn, InlineKeyboardMarkup as Kb, InputMediaPhoto, Update
+from telegram import (
+    BotCommand, InlineKeyboardButton as Btn, InlineKeyboardMarkup as Kb, InputMediaPhoto, KeyboardButton,
+    ReplyKeyboardMarkup, Update, WebAppInfo,
+)
 from telegram.error import BadRequest
 from telegram.ext import (
     Application, CallbackQueryHandler, CommandHandler, ContextTypes, MessageHandler, filters,
@@ -44,6 +48,8 @@ TZ = ZoneInfo(os.getenv("TIMEZONE", "Asia/Manila"))
 # Optional: a group chat that also receives low-stock alerts (get the id with /chatid).
 ALERT_CHAT_ID = os.getenv("ALERT_CHAT_ID")
 # Optional: comma-separated Telegram user ids allowed to /reset. Empty = anyone (fine for a demo).
+# The photo shop mini app (docs/index.html), served over HTTPS by GitHub Pages.
+WEBAPP_URL = os.getenv("WEBAPP_URL", "https://kimsungyong1117-jpg.github.io/shopon-mart-demo/")
 ADMIN_IDS = {int(x) for x in os.getenv("ADMIN_IDS", "").replace(" ", "").split(",") if x}
 
 PAY_METHODS = ["Cash", "GCash", "Maya", "Card"]
@@ -163,6 +169,12 @@ T = {
     "search_none": {"ko": "🔎 '<b>{q}</b>' 상품을 찾지 못했어요.", "en": "🔎 No product matches '<b>{q}</b>'."},
     "reset_done": {"ko": "♻️ 데모 데이터를 초기화했어요. (상품 {n}개)", "en": "♻️ Demo data reset. ({n} products)"},
     "no_perm": {"ko": "⛔ 권한이 없어요.", "en": "⛔ Not allowed."},
+    "kb_shop": {"ko": "🛍 사진 보고 판매하기", "en": "🛍 Shop by photo"},
+    "kb_home": {"ko": "🏠 홈", "en": "🏠 Home"},
+    "kb_report": {"ko": "📊 오늘 마감", "en": "📊 Daily report"},
+    "shop_hint": {"ko": "👇 아래 <b>🛍 사진 보고 판매하기</b>를 누르면\n쇼핑앱처럼 사진을 눌러 담고 바로 결제할 수 있어요!",
+                  "en": "👇 Tap <b>🛍 Shop by photo</b> below to\nadd products by tapping their photos and check out!"},
+    "webapp_bad": {"ko": "⚠️ 주문 내용을 읽지 못했어요. 다시 시도해주세요.", "en": "⚠️ Could not read the order. Please try again."},
 }
 
 BOT_DESCRIPTION = {
@@ -398,6 +410,22 @@ def remember_photo(key, msg):
 
 def home_row(lang):
     return [Btn(tr("btn_home", lang), callback_data="m:home")]
+
+
+def webapp_url(lang):
+    # Live stock rides along in the URL (values in product-id order), since the static
+    # page on GitHub Pages can't reach this bot's database.
+    stock = ",".join(qty_str(r[0]) for r in db.execute("SELECT stock FROM products ORDER BY id"))
+    sep = "&" if "?" in WEBAPP_URL else "?"
+    return f"{WEBAPP_URL}{sep}lang={lang}&s={stock}"
+
+
+def reply_kb(lang):
+    """Keyboard under the chat. Only a keyboard button may open a mini app that sends data back."""
+    return ReplyKeyboardMarkup(
+        [[KeyboardButton(tr("kb_shop", lang), web_app=WebAppInfo(webapp_url(lang)))],
+         [KeyboardButton(tr("kb_home", lang)), KeyboardButton(tr("kb_report", lang))]],
+        resize_keyboard=True, is_persistent=True)
 
 
 def home_screen(lang, context, caption=None):
@@ -670,19 +698,13 @@ def apply_qty(update, context, mode, pid, q):
     return text, kb, product_pic(p)
 
 
-async def checkout(update, context, query, method):
-    lang = lang_of(context)
-    cart = cart_of(context)
-    if not cart:
-        await show(query, *cart_screen(lang, context))
-        return
-    items = [(product(int(pid)), q) for pid, q in cart.items()]
+def record_sale(update, lang, items, method):
+    """items: [(product row, qty)]. Saves the sale and draws its receipt.
+    Returns (error text, None, None) or (None, (caption, receipt key), low-stock products)."""
     for p, q in items:
         if q > p["stock"]:
-            err = tr("not_enough", lang, name=esc(p["name"]), stock=qty_str(p["stock"]), qty=qty_str(q),
-                     unit=unit_label(p["unit"], lang))
-            await show(query, *cart_screen(lang, context, err))
-            return
+            return tr("not_enough", lang, name=esc(p["name"]), stock=qty_str(p["stock"]), qty=qty_str(q),
+                      unit=unit_label(p["unit"], lang)), None, None
     total = sum(p["price"] * q for p, q in items)
     ts = now()
     cur = db.execute("INSERT INTO sales (ts, day, user_id, user_name, total, payment) VALUES (?,?,?,?,?,?)",
@@ -692,7 +714,6 @@ async def checkout(update, context, query, method):
         db.execute("INSERT INTO sale_items VALUES (?,?,?,?,?)", (sid, p["id"], p["name"], q, p["price"]))
         db.execute("UPDATE products SET stock = stock - ? WHERE id=?", (q, p["id"]))
     db.commit()
-    context.user_data["cart"] = {}
 
     lines = [(p["name"], f"{qty_str(q)}{unit_label(p['unit'], lang)} × {money(p['price'])}", money(p["price"] * q))
              for p, q in items]
@@ -701,25 +722,75 @@ async def checkout(update, context, query, method):
             lines, tr("total", lang), money(total),
             [(tr("r_pay", lang), method), (tr("r_staff", lang), user_name(update))], tr("r_thanks", lang))
     key = pic("receipt", lambda: cards.receipt(*args, seed=sid), args, sid)
-    kb = Kb([[Btn(tr("btn_sell", lang), callback_data="m:sell")], home_row(lang)])
-    await show(query, tr("receipt_cap", lang, total=money(total), pay=method), kb, key)
-
-    # Alert on anything this sale pushed to or below its minimum.
     low = [product(p["id"]) for p, _ in items]
-    low = [p for p in low if is_low(p)]
-    if low:
-        tiles = [product_tile(n, p, lang) for n, p in enumerate(low[:8], 1)]
-        alert_key = grid_pic(tr("alert_title", lang), tr("alert_sub", lang), tiles, cards.RED)
-        names = "\n".join(f"🔴 {esc(p['name'])} · <b>{qty_str(p['stock'])}{unit_label(p['unit'], lang)}</b>"
-                          for p in low)
-        caption = tr("alert_cap", lang, items=names)
-        kb = Kb([[Btn(tr("btn_restock", lang), callback_data=f"p:i:{low[0]['id']}")]])
-        await send_screen(query.message.chat, caption, kb, alert_key)
-        if ALERT_CHAT_ID and str(ALERT_CHAT_ID) != str(query.message.chat.id):
-            try:
-                await context.bot.send_photo(ALERT_CHAT_ID, photo_media(alert_key), caption=caption, parse_mode="HTML")
-            except Exception:
-                log.exception("Could not send low-stock alert to ALERT_CHAT_ID")
+    return None, (tr("receipt_cap", lang, total=money(total), pay=method), key), [p for p in low if is_low(p)]
+
+
+async def send_low_alert(context, chat, lang, low):
+    """Alert card for anything a sale pushed to or below its minimum."""
+    if not low:
+        return
+    tiles = [product_tile(n, p, lang) for n, p in enumerate(low[:8], 1)]
+    alert_key = grid_pic(tr("alert_title", lang), tr("alert_sub", lang), tiles, cards.RED)
+    names = "\n".join(f"🔴 {esc(p['name'])} · <b>{qty_str(p['stock'])}{unit_label(p['unit'], lang)}</b>"
+                      for p in low)
+    caption = tr("alert_cap", lang, items=names)
+    kb = Kb([[Btn(tr("btn_restock", lang), callback_data=f"p:i:{low[0]['id']}")]])
+    await send_screen(chat, caption, kb, alert_key)
+    if ALERT_CHAT_ID and str(ALERT_CHAT_ID) != str(chat.id):
+        try:
+            await context.bot.send_photo(ALERT_CHAT_ID, photo_media(alert_key), caption=caption, parse_mode="HTML")
+        except Exception:
+            log.exception("Could not send low-stock alert to ALERT_CHAT_ID")
+
+
+async def checkout(update, context, query, method):
+    lang = lang_of(context)
+    cart = cart_of(context)
+    if not cart:
+        await show(query, *cart_screen(lang, context))
+        return
+    items = [(product(int(pid)), q) for pid, q in cart.items()]
+    err, receipt, low = record_sale(update, lang, items, method)
+    if err:
+        await show(query, *cart_screen(lang, context, err))
+        return
+    context.user_data["cart"] = {}
+    kb = Kb([[Btn(tr("btn_sell", lang), callback_data="m:sell")], home_row(lang)])
+    await show(query, receipt[0], kb, receipt[1])
+    await send_low_alert(context, query.message.chat, lang, low)
+
+
+async def on_webapp_data(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """A checkout sent from the photo shop mini app."""
+    lang = lang_of(context)
+    chat = update.effective_chat
+    try:
+        data = json.loads(update.effective_message.web_app_data.data)
+        if data.get("t") != "sale" or data.get("pay") not in PAY_METHODS:
+            raise ValueError("unexpected payload")
+        merged = {}
+        for pid, q in data["items"]:
+            merged[int(pid)] = merged.get(int(pid), 0) + float(q)
+        items = []
+        for pid, q in merged.items():
+            p = product(pid)
+            if p is None or q <= 0 or (p["unit"] != "kg" and not float(q).is_integer()):
+                raise ValueError(f"bad item {pid}")
+            items.append((p, q))
+        if not items:
+            raise ValueError("empty cart")
+    except (ValueError, TypeError, KeyError, AttributeError) as e:
+        log.warning("Bad web app data: %s", e)
+        await chat.send_message(tr("webapp_bad", lang), reply_markup=reply_kb(lang))
+        return
+    err, receipt, low = record_sale(update, lang, items, data["pay"])
+    if err:
+        await chat.send_message(err, reply_markup=reply_kb(lang), parse_mode="HTML")
+        return
+    # The receipt carries a fresh keyboard so the mini app reopens with up-to-date stock.
+    await send_screen(chat, receipt[0], reply_kb(lang), receipt[1])
+    await send_low_alert(context, chat, lang, low)
 
 
 # ---------------------------------------------------------------- handlers
@@ -729,6 +800,7 @@ async def cmd_start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     context.user_data.pop("await", None)
     welcome = tr("welcome", lang, store=esc(STORE_NAME))
     await send_screen(update.effective_chat, *home_screen(lang, context, caption=welcome))
+    await update.effective_chat.send_message(tr("shop_hint", lang), reply_markup=reply_kb(lang), parse_mode="HTML")
 
 
 async def cmd_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -748,6 +820,7 @@ async def cmd_reset(update: Update, context: ContextTypes.DEFAULT_TYPE):
     n = init_db(reset=True)
     context.user_data["cart"] = {}
     await send_screen(update.effective_chat, *home_screen(lang, context, caption=tr("reset_done", lang, n=n)))
+    await update.effective_chat.send_message(tr("shop_hint", lang), reply_markup=reply_kb(lang), parse_mode="HTML")
 
 
 async def on_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -763,6 +836,7 @@ async def on_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         if what == "lang":
             context.user_data["lang"] = lang = "en" if lang == "ko" else "ko"
             await show(query, *home_screen(lang, context))
+            await query.message.chat.send_message(tr("shop_hint", lang), reply_markup=reply_kb(lang), parse_mode="HTML")
         elif what == "home":
             await show(query, *home_screen(lang, context))
         elif what == "sell":
@@ -863,6 +937,15 @@ async def on_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat = update.effective_chat
     waiting = context.user_data.get("await")
 
+    if text in (T["kb_home"]["ko"], T["kb_home"]["en"]):
+        context.user_data.pop("await", None)
+        await send_screen(chat, *home_screen(lang, context))
+        return
+    if text in (T["kb_report"]["ko"], T["kb_report"]["en"]):
+        context.user_data.pop("await", None)
+        await send_screen(chat, *report_screen(lang))
+        return
+
     if waiting and waiting[0] == "qty":
         _, mode, pid = waiting
         p = product(pid)
@@ -930,6 +1013,7 @@ def build_app():
     app.add_handler(CommandHandler("chatid", cmd_chatid))
     app.add_handler(CommandHandler("reset", cmd_reset))
     app.add_handler(CallbackQueryHandler(on_callback))
+    app.add_handler(MessageHandler(filters.StatusUpdate.WEB_APP_DATA, on_webapp_data))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, on_text))
     app.add_error_handler(on_error)
     return app

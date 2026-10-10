@@ -17,6 +17,15 @@
 
 화면 이미지는 `cards.py`가 그립니다. 폰트는 Pretendard(SIL Open Font License, `fonts/OFL-LICENSE.txt`)를 사용합니다.
 
+## 🛍 사진 보고 판매하기 (텔레그램 미니앱)
+채팅창 아래 **🛍 사진 보고 판매하기** 버튼을 누르면 쇼핑앱 같은 화면이 열립니다.
+상품 사진을 눌러 담고(＋/－), 카테고리·검색으로 찾고, 결제수단을 골라 결제하면 봇이 영수증 이미지를 보냅니다.
+
+- 화면: `docs/index.html` (GitHub Pages로 서비스, 저장소 설정 → Pages → `main` 브랜치 `/docs`)
+- 상품 목록: `docs/products.json` — `products.csv`를 고친 뒤 `python build_webapp.py`로 다시 만들기
+- 실시간 재고는 봇이 미니앱 주소에 붙여서 전달하고, 결제 시 봇이 재고를 다시 확인합니다
+- 다른 주소에 올렸다면 `.env`에 `WEBAPP_URL=`로 지정
+
 ## 한 줄 설치 (서버에서)
 ```bash
 curl -fsSL https://raw.githubusercontent.com/kimsungyong1117-jpg/shopon-mart-demo/main/install.sh | bash -s <BOT_TOKEN>

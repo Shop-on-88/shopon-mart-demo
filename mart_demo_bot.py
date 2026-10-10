@@ -13,11 +13,13 @@ import logging
 import os
 import sqlite3
 from datetime import datetime
+from io import BytesIO
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
 from dotenv import load_dotenv
-from telegram import InlineKeyboardButton as Btn, InlineKeyboardMarkup as Kb, Update
+from PIL import Image, ImageDraw, ImageFont
+from telegram import InlineKeyboardButton as Btn, InlineKeyboardMarkup as Kb, InputMediaPhoto, Update
 from telegram.error import BadRequest
 from telegram.ext import (
     Application, CallbackQueryHandler, CommandHandler, ContextTypes, MessageHandler, filters,
@@ -41,6 +43,8 @@ PAY_METHODS = ["Cash", "GCash", "Maya", "Card"]
 PAGE_SIZE = 8
 QTY_EA = [1, 2, 3, 5, 10]
 QTY_KG = [0.5, 1, 1.5, 2, 3]
+TILE = 300   # px per picture in a menu collage
+COLS = 4
 
 logging.basicConfig(format="%(asctime)s %(levelname)s %(name)s: %(message)s", level=logging.INFO)
 logging.getLogger("httpx").setLevel(logging.WARNING)
@@ -238,6 +242,59 @@ def user_name(update):
     return u.full_name or u.username or str(u.id)
 
 
+# ---------------------------------------------------------------- menu pictures
+
+# Telegram buttons can't hold images, so each menu screen gets one picture: a grid of
+# the product photos with numbered badges that match the numbered buttons below it.
+_collages = {}   # key -> JPEG bytes
+_file_ids = {}   # key -> Telegram file_id, so each grid is uploaded only once
+
+
+def _badge_font(size):
+    try:
+        return ImageFont.load_default(size=size)
+    except TypeError:  # Pillow < 10.1 has no scalable default font
+        return ImageFont.load_default()
+
+
+def collage(tiles):
+    """tiles: [(image file name, is_low_stock)]. Returns a cache key for photo_media()."""
+    key = "|".join(f"{img}:{int(low)}" for img, low in tiles)
+    if key in _collages:
+        return key
+    rows = (len(tiles) + COLS - 1) // COLS
+    sheet = Image.new("RGB", (COLS * TILE, rows * TILE), "white")
+    draw = ImageDraw.Draw(sheet)
+    font = _badge_font(36)
+    for i, (img, low) in enumerate(tiles):
+        x, y = (i % COLS) * TILE, (i // COLS) * TILE
+        path = IMAGE_DIR / (img or "")
+        if img and path.is_file():
+            with Image.open(path) as im:
+                sheet.paste(im.convert("RGB").resize((TILE - 8, TILE - 8)), (x + 4, y + 4))
+        r = 27
+        cx, cy = x + r + 8, y + r + 8
+        draw.ellipse((cx - r, cy - r, cx + r, cy + r), fill="#d92d20" if low else "#0f766e", outline="white", width=4)
+        try:
+            draw.text((cx, cy), str(i + 1), fill="white", font=font, anchor="mm")
+        except (TypeError, ValueError):  # bitmap fallback font can't anchor
+            draw.text((cx - 10, cy - 8), str(i + 1), fill="white", font=font)
+    buf = BytesIO()
+    sheet.save(buf, "JPEG", quality=82)
+    _collages[key] = buf.getvalue()
+    return key
+
+
+def photo_media(key):
+    return _file_ids.get(key) or BytesIO(_collages[key])
+
+
+def remember_photo(key, msg):
+    photos = getattr(msg, "photo", None)
+    if photos:
+        _file_ids[key] = photos[-1].file_id
+
+
 # ---------------------------------------------------------------- screens
 
 def main_menu(lang, context):
@@ -260,11 +317,13 @@ def home_row(lang):
 def category_screen(mode, lang):
     """mode: s = sell, i = stock in, v = view stock."""
     cats = categories()
-    rows, row = [], []
+    rows, row, tiles = [], [], []
     for ci, cat in enumerate(cats):
-        label = cat_label(cat, lang)
+        prods = products_in(cat)
+        tiles.append((prods[0]["image"] if prods else None, False))
+        label = f"{ci + 1}. {cat_label(cat, lang)}"
         if mode == "v":
-            low = sum(1 for p in products_in(cat) if p["stock"] <= p["min_stock"])
+            low = sum(1 for p in prods if p["stock"] <= p["min_stock"])
             label += f" 🔴{low}" if low else ""
         row.append(Btn(label, callback_data=f"c:{mode}:{ci}:0"))
         if len(row) == 2:
@@ -276,7 +335,7 @@ def category_screen(mode, lang):
         rows.append([Btn(tr("btn_low", lang), callback_data="v:low")])
     rows.append(home_row(lang))
     title = {"s": "pick_cat_sell", "i": "pick_cat_in", "v": "pick_cat_stock"}[mode]
-    return tr(title, lang), Kb(rows)
+    return tr(title, lang), Kb(rows), collage(tiles)
 
 
 def product_list_screen(mode, ci, page, lang, context):
@@ -294,10 +353,12 @@ def product_list_screen(mode, ci, page, lang, context):
 
     pages = max(1, (len(prods) + PAGE_SIZE - 1) // PAGE_SIZE)
     page = min(max(page, 0), pages - 1)
-    rows = []
-    for p in prods[page * PAGE_SIZE:(page + 1) * PAGE_SIZE]:
-        label = f"{p['name']} · {money(p['price'])}"
-        if p["stock"] <= p["min_stock"]:
+    rows, tiles = [], []
+    for n, p in enumerate(prods[page * PAGE_SIZE:(page + 1) * PAGE_SIZE], 1):
+        low = p["stock"] <= p["min_stock"]
+        tiles.append((p["image"], low))
+        label = f"{n}. {p['name']} · {money(p['price'])}"
+        if low:
             label = "🔴 " + label
         rows.append([Btn(label, callback_data=f"p:{mode}:{p['id']}")])
     nav = []
@@ -311,7 +372,7 @@ def product_list_screen(mode, ci, page, lang, context):
     if mode == "s" and cart_of(context):
         rows.append([Btn(tr("btn_cart", lang, n=len(cart_of(context))), callback_data="k:view")])
     rows.append(home_row(lang))
-    return tr("pick_prod", lang, cat=esc(cat_label(cat, lang)), page=page + 1, pages=pages), Kb(rows)
+    return tr("pick_prod", lang, cat=esc(cat_label(cat, lang)), page=page + 1, pages=pages), Kb(rows), collage(tiles)
 
 
 def product_card(mode, p, lang):
@@ -399,10 +460,25 @@ def close_report(lang):
 
 # ---------------------------------------------------------------- message helpers
 
-async def show(query, text, kb):
-    """Replace the tapped message with a text screen. Product cards are photos, which
-    can't be edited into text, so those get deleted and re-sent instead."""
+async def show(query, text, kb, photo=None):
+    """Replace the tapped message with the next screen. A photo message can only be edited
+    into another photo, so switching between photo and text screens deletes and re-sends."""
     msg = query.message
+    if photo:
+        if msg.photo:
+            try:
+                sent = await msg.edit_media(InputMediaPhoto(photo_media(photo), caption=text, parse_mode="HTML"),
+                                            reply_markup=kb)
+                remember_photo(photo, sent)
+                return
+            except BadRequest as e:
+                if "not modified" in str(e).lower():
+                    return
+                log.warning("edit_media failed, re-sending: %s", e)
+        await remove(msg)
+        sent = await msg.chat.send_photo(photo_media(photo), caption=text, reply_markup=kb, parse_mode="HTML")
+        remember_photo(photo, sent)
+        return
     if msg.photo:
         try:
             await msg.delete()
@@ -715,9 +791,13 @@ async def on_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
         _, kb = main_menu(lang, context)
         await chat.send_message(tr("search_none", lang, q=esc(text)), reply_markup=kb, parse_mode="HTML")
         return
-    rows = [[Btn(f"{p['name']} · {money(p['price'])}", callback_data=f"p:s:{p['id']}")] for p in hits]
+    rows = [[Btn(f"{n}. {p['name']} · {money(p['price'])}", callback_data=f"p:s:{p['id']}")]
+            for n, p in enumerate(hits, 1)]
     rows.append(home_row(lang))
-    await chat.send_message(tr("search_title", lang, q=esc(text)), reply_markup=Kb(rows), parse_mode="HTML")
+    key = collage([(p["image"], p["stock"] <= p["min_stock"]) for p in hits])
+    sent = await chat.send_photo(photo_media(key), caption=tr("search_title", lang, q=esc(text)),
+                                 reply_markup=Kb(rows), parse_mode="HTML")
+    remember_photo(key, sent)
 
 
 async def on_error(update: object, context: ContextTypes.DEFAULT_TYPE):

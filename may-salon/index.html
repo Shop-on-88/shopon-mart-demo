@@ -1,0 +1,391 @@
+<title>오월에 미용실</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,400;1,500&family=Gowun+Batang:wght@400;700&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap">
+<style>
+/* Layout: 한 줄 세로 스크롤 원페이지. 신록(5월의 새잎) 그린 + 장미 포인트, 섹션마다 좌우 비대칭 */
+:root {
+  --bg: #f5f7f1;
+  --surface: #ffffff;
+  --leaf: #e3ebd9;
+  --ink: #1d3328;
+  --muted: #5d6e63;
+  --line: #d3dccb;
+  --rose: #c8475e;
+  --rose-ink: #ffffff;
+  --display-en: "Cormorant Garamond", "Times New Roman", serif;
+  --display-ko: "Gowun Batang", "Noto Serif KR", serif;
+  --body: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --gutter: max(16px, env(safe-area-inset-left, 0px));
+  --gutter-r: max(16px, env(safe-area-inset-right, 0px));
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #121a15; --surface: #18221c; --leaf: #1f2c24; --ink: #e4ece2; --muted: #9aab9f;
+    --line: #2d3b32; --rose: #e2768a; --rose-ink: #1a0f12; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #121a15; --surface: #18221c; --leaf: #1f2c24; --ink: #e4ece2; --muted: #9aab9f;
+  --line: #2d3b32; --rose: #e2768a; --rose-ink: #1a0f12; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 15px; line-height: 1.7; word-break: keep-all; }
+a { color: inherit; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--rose); outline-offset: 3px; }
+.wrap { max-width: 1080px; margin: 0 auto; padding-left: var(--gutter); padding-right: var(--gutter-r); }
+.eyebrow { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+h1, h2, h3 { text-wrap: balance; margin: 0; }
+h2 { font-family: var(--display-ko); font-weight: 700; font-size: clamp(24px, 3.4vw, 34px); line-height: 1.35; }
+section { padding-block: clamp(56px, 9vw, 104px); }
+
+/* 시안 배너 */
+.draft { background: var(--ink); color: var(--bg); font-size: 12.5px; text-align: center; padding-block: 8px; }
+.draft .wrap { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+
+/* Header */
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 14px; }
+.logo { display: flex; align-items: baseline; gap: 10px; text-decoration: none; }
+.logo b { font-family: var(--display-ko); font-size: 20px; }
+.logo i { font-family: var(--display-en); font-size: 15px; color: var(--muted); }
+nav { display: flex; gap: 22px; font-size: 14px; }
+nav a { text-decoration: none; color: var(--muted); }
+nav a:hover { color: var(--ink); }
+.btn { display: inline-flex; align-items: center; gap: 8px; border: 0; border-radius: 999px; padding: 11px 20px; font: 600 14px var(--body); text-decoration: none; cursor: pointer; }
+.btn-rose { background: var(--rose); color: var(--rose-ink); }
+.btn-line { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1px var(--line); }
+@media (max-width: 760px) { nav { display: none; } header .btn { padding: 9px 14px; font-size: 13px; } }
+
+/* Hero */
+.hero { padding-block: clamp(48px, 8vw, 96px) clamp(56px, 8vw, 88px); }
+.hero .wrap { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(28px, 5vw, 64px); align-items: center; }
+.hero h1 { font-family: var(--display-en); font-style: italic; font-weight: 400; font-size: clamp(44px, 7.4vw, 92px); line-height: .98; letter-spacing: -.01em; }
+.hero h1 span { color: var(--rose); }
+.hero .ko { font-family: var(--display-ko); font-size: clamp(18px, 2.2vw, 22px); margin-top: 22px; }
+.hero p.lead { color: var(--muted); max-width: 34em; margin: 14px 0 28px; }
+.hero .ctas { display: flex; gap: 10px; flex-wrap: wrap; }
+.photo { position: relative; border-radius: 4px; overflow: hidden; max-width: 100%; background: var(--leaf); }
+.photo::after { content: attr(data-label); position: absolute; left: 12px; bottom: 10px; font-size: 11px; letter-spacing: .08em; color: var(--muted); background: var(--surface); padding: 3px 8px; border-radius: 3px; }
+.hero .photo { aspect-ratio: 4 / 5; border-radius: 200px 200px 4px 4px; }
+.leaves { position: absolute; inset: 0; width: 100%; height: 100%; }
+@media (max-width: 760px) { .hero .wrap { grid-template-columns: 1fr; } .hero .photo { max-width: 340px; } }
+
+/* Facts strip */
+.facts { border-block: 1px solid var(--line); padding-block: 0; }
+.facts .wrap { display: grid; grid-template-columns: repeat(4, 1fr); }
+.facts div { padding-block: 20px; padding-inline: 16px; border-left: 1px solid var(--line); }
+.facts div:first-child { border-left: 0; padding-left: 0; }
+.facts dt { font-size: 12px; color: var(--muted); }
+.facts dd { margin: 2px 0 0; font-weight: 500; }
+@media (max-width: 760px) { .facts .wrap { grid-template-columns: 1fr 1fr; } .facts div:nth-child(3) { border-left: 0; padding-left: 0; } .facts div:nth-child(n+3) { border-top: 1px solid var(--line); } }
+
+/* About */
+.about .wrap { display: grid; grid-template-columns: 1fr 1.3fr; gap: clamp(24px, 6vw, 80px); }
+.about p { color: var(--muted); max-width: 36em; margin: 0 0 14px; }
+.about blockquote { margin: 26px 0 0; font-family: var(--display-ko); font-size: 18px; color: var(--ink); border-left: 2px solid var(--rose); padding-left: 16px; }
+@media (max-width: 760px) { .about .wrap { grid-template-columns: 1fr; } }
+
+/* Menu / price */
+.menu { background: var(--surface); border-block: 1px solid var(--line); }
+.menu-head { display: flex; justify-content: space-between; align-items: end; gap: 16px; flex-wrap: wrap; margin-bottom: 28px; }
+.tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+.tab { border: 1px solid var(--line); background: transparent; color: var(--muted); border-radius: 999px; padding: 7px 16px; font: 500 13.5px var(--body); cursor: pointer; }
+.tab[aria-selected="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.price-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; column-gap: 56px; }
+.price-list li { display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; padding-block: 16px; border-bottom: 1px dashed var(--line); }
+.price-list .name { font-weight: 600; }
+.price-list .price { font-variant-numeric: tabular-nums; font-weight: 500; }
+.price-list .desc { grid-column: 1 / -1; font-size: 13px; color: var(--muted); }
+.price-note { font-size: 12.5px; color: var(--muted); margin-top: 20px; }
+@media (max-width: 760px) { .price-list { grid-template-columns: 1fr; } }
+
+/* Designers */
+.team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 32px; }
+.person .photo { aspect-ratio: 3 / 4; }
+.person h3 { font-family: var(--display-ko); font-size: 19px; margin-top: 14px; display: flex; gap: 8px; align-items: baseline; }
+.person h3 small { font-family: var(--body); font-size: 12.5px; color: var(--muted); font-weight: 400; }
+.person p { margin: 4px 0 10px; color: var(--muted); font-size: 14px; }
+.chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.chip { font-size: 12px; padding: 3px 10px; border-radius: 999px; background: var(--leaf); }
+@media (max-width: 760px) { .team-grid { grid-template-columns: 1fr 1fr; } .team-grid .person:last-child { grid-column: 1 / -1; } .team-grid .person:last-child .photo { aspect-ratio: 16 / 9; } }
+
+/* Gallery */
+.gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 180px; gap: 10px; margin-top: 32px; }
+.gallery-grid .photo:nth-child(1) { grid-row: span 2; }
+.gallery-grid .photo:nth-child(4) { grid-column: span 2; }
+@media (max-width: 760px) { .gallery-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: 140px; } .gallery-grid .photo:nth-child(4) { grid-column: span 1; } }
+.g1 { background: linear-gradient(160deg, #cdb59a, #8a6a4f); }
+.g2 { background: linear-gradient(200deg, #e9d7cf, #b98a80); }
+.g3 { background: linear-gradient(140deg, #3b302b, #7a5c4b); }
+.g4 { background: linear-gradient(110deg, #d8c3a5 0%, #a98467 55%, #6b4f3a 100%); }
+.g5 { background: linear-gradient(170deg, #f0e3d6, #c9a98f); }
+.g6 { background: linear-gradient(190deg, #5b4038, #2a201c); }
+.g7 { background: linear-gradient(150deg, #dcc8b8, #9c7b67); }
+
+/* Reviews */
+.reviews { background: var(--leaf); }
+.review-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 32px; }
+.review { background: var(--surface); padding: 22px; border-radius: 4px; display: flex; flex-direction: column; gap: 12px; }
+.review .stars { color: var(--rose); letter-spacing: 2px; font-size: 13px; }
+.review p { margin: 0; flex: 1; }
+.review footer { font-size: 12.5px; color: var(--muted); }
+@media (max-width: 760px) { .review-grid { grid-template-columns: 1fr; } }
+
+/* Booking / location */
+.visit .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 64px); }
+.map { aspect-ratio: 4 / 3; max-width: 100%; border: 1px solid var(--line); border-radius: 4px; background:
+  linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 36px 36px,
+  linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 36px 36px, var(--surface);
+  position: relative; display: grid; place-items: center; }
+.pin { width: 18px; height: 18px; border-radius: 50% 50% 50% 0; background: var(--rose); transform: rotate(-45deg); box-shadow: 0 0 0 6px color-mix(in srgb, var(--rose) 20%, transparent); }
+.map span { position: absolute; bottom: 12px; left: 12px; font-size: 12px; color: var(--muted); }
+.info { display: grid; gap: 18px; margin: 24px 0 28px; }
+.info div { display: grid; grid-template-columns: 72px 1fr; gap: 12px; }
+.info dt { font-size: 13px; color: var(--muted); }
+.info dd { margin: 0; }
+.copy { border: 0; background: none; color: var(--rose); font: 500 12.5px var(--body); cursor: pointer; padding: 0 0 0 8px; }
+.book-ways { display: flex; gap: 10px; flex-wrap: wrap; }
+@media (max-width: 760px) { .visit .wrap { grid-template-columns: 1fr; } }
+
+footer.site { border-top: 1px solid var(--line); padding-block: 28px 96px; font-size: 12.5px; color: var(--muted); }
+footer.site .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+/* 모바일 하단 고정 예약 바 */
+.mbar { display: none; }
+@media (max-width: 760px) {
+  .mbar { display: flex; gap: 8px; position: fixed; left: 0; right: 0; bottom: 0; z-index: 6; background: var(--surface); border-top: 1px solid var(--line);
+    padding: 10px var(--gutter-r) calc(10px + env(safe-area-inset-bottom, 0px)) var(--gutter); }
+  .mbar .btn { flex: 1; justify-content: center; }
+}
+</style>
+
+<div class="draft"><div class="wrap"><strong>홈페이지 시안 (샘플)</strong><span>사진·가격·주소·연락처는 예시이며, 실제 정보로 교체됩니다.</span></div></div>
+
+<header>
+  <div class="wrap">
+    <a class="logo" href="#top"><b>오월에</b><i>in the month of May</i></a>
+    <nav aria-label="주요 메뉴">
+      <a href="#about">소개</a><a href="#menu">메뉴·가격</a><a href="#team">디자이너</a><a href="#gallery">스타일</a><a href="#visit">오시는 길</a>
+    </nav>
+    <a class="btn btn-rose" href="#visit">예약하기</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <div class="eyebrow">Hair Salon · 1:1 예약제</div>
+        <h1>In the month<br>of <span>May</span></h1>
+        <div class="ko">일 년 중 가장 산뜻한 계절처럼,<br>당신의 머리도 가볍게.</div>
+        <p class="lead">오월에는 한 번에 한 분의 고객만 모시는 예약제 미용실입니다. 상담부터 마무리까지 한 디자이너가 끝까지 함께합니다.</p>
+        <div class="ctas">
+          <a class="btn btn-rose" href="#visit">네이버로 예약</a>
+          <a class="btn btn-line" href="#menu">메뉴·가격 보기</a>
+        </div>
+      </div>
+      <div class="photo" data-label="대표 사진 · 매장 또는 시술컷">
+        <canvas class="leaves" id="leaves" aria-hidden="true"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <section class="facts" aria-label="매장 요약">
+    <div class="wrap">
+      <dl><div><dt>영업시간</dt><dd>11:00 – 20:00</dd></div></dl>
+      <dl><div><dt>정기휴무</dt><dd>매주 화요일</dd></div></dl>
+      <dl><div><dt>예약</dt><dd>네이버 · 카카오톡</dd></div></dl>
+      <dl><div><dt>주차</dt><dd>건물 내 1시간 무료</dd></div></dl>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <div class="wrap">
+      <div>
+        <div class="eyebrow">About</div>
+        <h2>손질이 쉬운 머리를<br>만듭니다</h2>
+      </div>
+      <div>
+        <p>미용실에서 나온 직후보다, 집에서 혼자 말렸을 때 더 예쁜 머리. 오월에가 가장 중요하게 생각하는 기준입니다.</p>
+        <p>모발 상태와 생활 습관을 먼저 묻고, 꼭 필요한 시술만 권해 드립니다. 과한 추가 시술 권유는 하지 않습니다.</p>
+        <blockquote>“머리가 가벼워지면, 하루도 가벼워집니다.”</blockquote>
+      </div>
+    </div>
+  </section>
+
+  <section class="menu" id="menu">
+    <div class="wrap">
+      <div class="menu-head">
+        <div><div class="eyebrow">Menu &amp; Price</div><h2>메뉴 · 가격</h2></div>
+        <div class="tabs" role="tablist" aria-label="시술 분류">
+          <button class="tab" role="tab" id="tab-cut" aria-selected="true" data-cat="cut">커트</button>
+          <button class="tab" role="tab" id="tab-perm" aria-selected="false" data-cat="perm">펌</button>
+          <button class="tab" role="tab" id="tab-color" aria-selected="false" data-cat="color">컬러</button>
+          <button class="tab" role="tab" id="tab-care" aria-selected="false" data-cat="care">클리닉</button>
+        </div>
+      </div>
+      <ul class="price-list" id="price-list" role="tabpanel"></ul>
+      <p class="price-note">* 기장 추가: 어깨선 아래 +10,000원 / 가슴선 아래 +20,000원 · 모든 가격은 예시입니다.</p>
+    </div>
+  </section>
+
+  <section id="team">
+    <div class="wrap">
+      <div class="eyebrow">Designers</div>
+      <h2>디자이너</h2>
+      <div class="team-grid">
+        <article class="person">
+          <div class="photo" data-label="프로필 사진" style="background:linear-gradient(170deg,var(--leaf),var(--line))"></div>
+          <h3>오월 <small>원장 · 경력 14년</small></h3>
+          <p>얼굴형에 맞춘 커트와 자연스러운 볼륨 펌을 좋아합니다.</p>
+          <div class="chips"><span class="chip">레이어드 컷</span><span class="chip">빌드펌</span></div>
+        </article>
+        <article class="person">
+          <div class="photo" data-label="프로필 사진" style="background:linear-gradient(190deg,var(--line),var(--leaf))"></div>
+          <h3>하린 <small>실장 · 경력 8년</small></h3>
+          <p>탈색 없이도 밝아 보이는 톤 다운 컬러가 전문입니다.</p>
+          <div class="chips"><span class="chip">애쉬 컬러</span><span class="chip">새치 커버</span></div>
+        </article>
+        <article class="person">
+          <div class="photo" data-label="프로필 사진" style="background:linear-gradient(150deg,var(--leaf),var(--surface))"></div>
+          <h3>도윤 <small>디자이너 · 경력 5년</small></h3>
+          <p>남성 커트와 다운펌, 짧은 머리 스타일링을 맡고 있습니다.</p>
+          <div class="chips"><span class="chip">투블럭</span><span class="chip">다운펌</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery" style="padding-top:0">
+    <div class="wrap">
+      <div class="eyebrow">Style</div>
+      <h2>최근 스타일</h2>
+      <div class="gallery-grid">
+        <div class="photo g1" data-label="허쉬컷"></div>
+        <div class="photo g2" data-label="히피펌"></div>
+        <div class="photo g3" data-label="애쉬브라운"></div>
+        <div class="photo g4" data-label="레이어드 C컬"></div>
+        <div class="photo g5" data-label="단발 S컬"></div>
+        <div class="photo g6" data-label="남성 리프컷"></div>
+        <div class="photo g7" data-label="뿌리염색"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="reviews">
+    <div class="wrap">
+      <div class="eyebrow">Reviews · 네이버 리뷰 연동 예정</div>
+      <h2>다녀가신 분들의 이야기</h2>
+      <div class="review-grid">
+        <article class="review"><div class="stars" aria-label="별점 5점">★★★★★</div><p>(예시) 상담을 길게 해 주셔서 좋았어요. 집에서 드라이해도 모양이 그대로 나와요.</p><footer>커트 + 볼륨펌</footer></article>
+        <article class="review"><div class="stars" aria-label="별점 5점">★★★★★</div><p>(예시) 1:1 예약이라 조용하고 편했습니다. 추가 시술 권유가 없어서 믿음이 가요.</p><footer>뿌리염색</footer></article>
+        <article class="review"><div class="stars" aria-label="별점 5점">★★★★★</div><p>(예시) 매장 분위기가 이름처럼 산뜻해요. 주차도 편해서 재방문할게요.</p><footer>남성 커트</footer></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="visit" id="visit">
+    <div class="wrap">
+      <div>
+        <div class="eyebrow">Visit &amp; Booking</div>
+        <h2>오시는 길 · 예약</h2>
+        <dl class="info">
+          <div><dt>주소</dt><dd><span id="addr">서울시 ○○구 ○○로 00, 2층 (예시)</span><button class="copy" data-copy="addr" type="button">복사</button></dd></div>
+          <div><dt>전화</dt><dd><span id="tel">02-000-0000 (예시)</span><button class="copy" data-copy="tel" type="button">복사</button></dd></div>
+          <div><dt>영업</dt><dd>11:00 – 20:00 · 마지막 예약 18:30<br>매주 화요일 휴무</dd></div>
+          <div><dt>주차</dt><dd>건물 내 주차장, 시술 고객 1시간 무료</dd></div>
+        </dl>
+        <div class="book-ways">
+          <a class="btn btn-rose" href="#visit">네이버 예약</a>
+          <a class="btn btn-line" href="#visit">카카오톡 문의</a>
+          <a class="btn btn-line" href="#visit">인스타그램</a>
+        </div>
+      </div>
+      <div class="map" role="img" aria-label="지도 자리"><div class="pin"></div><span>네이버/카카오 지도 링크 연결 자리</span></div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>오월에 미용실 · In the month of May hair salon</span>
+    <span>사업자 정보 · 개인정보처리방침</span>
+  </div>
+</footer>
+
+<div class="mbar">
+  <a class="btn btn-line" href="#visit">전화</a>
+  <a class="btn btn-rose" href="#visit">예약하기</a>
+</div>
+
+<script>
+const MENU = {
+  cut: [
+    ["디자인 커트", "35,000", "샴푸·드라이 포함"],
+    ["남성 커트", "25,000", "다운펌 함께 시 10% 할인"],
+    ["앞머리 커트", "10,000", "기존 고객 무료"],
+    ["드라이 / 스타일링", "20,000~", "행사·촬영 전 스타일링"]
+  ],
+  perm: [
+    ["볼륨매직", "150,000~", "기장·모량에 따라 상담 후 결정"],
+    ["셋팅펌 (C컬·S컬)", "130,000~", "커트 포함"],
+    ["히피펌", "120,000~", "커트 포함"],
+    ["남성 다운펌", "30,000", "옆머리·뒷머리"]
+  ],
+  color: [
+    ["전체 염색", "90,000~", "톤다운·톤업"],
+    ["뿌리 염색", "60,000", "새치 커버 가능"],
+    ["탈색 (1회)", "80,000~", "케어 앰플 포함"],
+    ["부분 컬러 (하이라이트)", "50,000~", "포인트 컬러"]
+  ],
+  care: [
+    ["두피 스케일링", "40,000", "각질·피지 정리"],
+    ["단백질 클리닉", "50,000", "손상모 회복"],
+    ["시술 추가 클리닉", "30,000", "펌·염색과 함께"],
+    ["홈케어 상담", "무료", "샴푸·에센스 추천"]
+  ]
+};
+const list = document.getElementById("price-list");
+function render(cat) {
+  list.innerHTML = MENU[cat].map(([n, p, d]) =>
+    `<li><span class="name">${n}</span><span class="price">${p}${/\d/.test(p) ? "원" : ""}</span><span class="desc">${d}</span></li>`).join("");
+  list.setAttribute("aria-labelledby", "tab-" + cat);
+  document.querySelectorAll(".tab").forEach(t => t.setAttribute("aria-selected", t.dataset.cat === cat));
+}
+document.querySelectorAll(".tab").forEach(t => t.addEventListener("click", () => render(t.dataset.cat)));
+render("cut");
+
+document.querySelectorAll(".copy").forEach(b => b.addEventListener("click", async () => {
+  const el = document.getElementById(b.dataset.copy);
+  try { await navigator.clipboard.writeText(el.textContent); b.textContent = "복사됨"; }
+  catch { const r = document.createRange(); r.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = "선택됨"; }
+  setTimeout(() => b.textContent = "복사", 1600);
+}));
+
+// 대표 사진 자리: 5월 신록 잎사귀 (실제 사진으로 교체 예정)
+(function leaves() {
+  const c = document.getElementById("leaves"), ctx = c.getContext("2d");
+  const css = getComputedStyle(document.documentElement);
+  function draw() {
+    const w = c.clientWidth, h = c.clientHeight, dpr = devicePixelRatio || 1;
+    c.width = w * dpr; c.height = h * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const greens = [css.getPropertyValue("--ink"), "#4f7a5a", "#7fa36f", "#a9c48e"];
+    let seed = 7; const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
+    for (let i = 0; i < 46; i++) {
+      const x = rnd() * w, y = rnd() * h * 1.05, s = 14 + rnd() * 34, a = rnd() * Math.PI * 2;
+      ctx.save(); ctx.translate(x, y); ctx.rotate(a);
+      ctx.globalAlpha = .35 + rnd() * .5; ctx.fillStyle = greens[Math.floor(rnd() * greens.length)];
+      ctx.beginPath(); ctx.moveTo(0, 0); ctx.quadraticCurveTo(s * .5, -s * .45, s, 0); ctx.quadraticCurveTo(s * .5, s * .45, 0, 0); ctx.fill();
+      ctx.restore();
+    }
+    ctx.globalAlpha = 1; ctx.fillStyle = css.getPropertyValue("--rose");
+    for (let i = 0; i < 3; i++) { ctx.beginPath(); ctx.arc(w * (.3 + i * .22), h * (.28 + (i % 2) * .3), 7 + i * 2, 0, Math.PI * 2); ctx.fill(); }
+  }
+  draw(); addEventListener("resize", draw);
+})();
+</script>

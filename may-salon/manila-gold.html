@@ -442,7 +442,7 @@ section.chat { padding: 0; }
             <a class="now-item" href="tel:+639477841312"><b data-en="Call" data-ko="전화">Call</b><span>0947 784 1312</span></a>
             <a class="now-item" href="sms:+639477841312"><b data-en="Text message" data-ko="문자">Text message</b><span>0947 784 1312</span></a>
             <a class="now-item" href="https://m.me/maysalonkim"><b>Messenger</b><span>maysalonkim</span></a>
-            <button class="now-item" type="button" data-copytext="ConyK"><b>KakaoTalk</b><span data-en="ID: ConyK · tap to copy" data-ko="ID: ConyK · 눌러서 복사">ID: ConyK · tap to copy</span></button>
+            <button class="now-item" type="button" data-kakao><b>KakaoTalk</b><span data-en="ID: ConyK · open chat" data-ko="ID: ConyK · 카톡 열기">ID: ConyK · open chat</span></button>
           </div>
         </div>
         <div class="bk-form gbook">
@@ -521,7 +521,7 @@ section.chat { padding: 0; }
   <div class="chat-human">
     <span data-en="Talk to the owner" data-ko="원장님과 1:1 상담">Talk to the owner</span>
     <div>
-      <button type="button" data-copytext="ConyK">KakaoTalk</button>
+      <button type="button" data-kakao>KakaoTalk</button>
       <a href="https://m.me/maysalonkim">Messenger</a>
       <a href="sms:+639477841312" data-en="Text" data-ko="문자">Text</a>
     </div>
@@ -536,6 +536,18 @@ section.chat { padding: 0; }
     <div class="cs-btns">
       <button class="btn btn-rose" type="button" data-copytext="09477841312" id="cs-copy"></button>
       <button class="btn btn-line" type="button" id="cs-close"></button>
+    </div>
+  </div>
+</div>
+
+<div class="callsheet" id="kakaosheet" role="dialog" aria-label="KakaoTalk" hidden>
+  <div class="cs-box">
+    <b data-en="Chat on KakaoTalk" data-ko="카카오톡 상담">Chat on KakaoTalk</b>
+    <span class="cs-num">ConyK</span>
+    <p data-en="The ID is copied. Open KakaoTalk, tap Add friend → ID, paste and send a message." data-ko="ID가 복사됐어요. 카카오톡을 열고 친구 추가 → ID로 추가에 붙여넣은 뒤 메시지를 보내주세요.">The ID is copied. Open KakaoTalk, tap Add friend → ID, paste and send a message.</p>
+    <div class="cs-btns">
+      <a class="btn btn-rose" href="kakaotalk://launch" data-en="Open KakaoTalk" data-ko="카카오톡 열기">Open KakaoTalk</a>
+      <button class="btn btn-line" type="button" id="ks-close" data-en="Close" data-ko="닫기">Close</button>
     </div>
   </div>
 </div>
@@ -723,4 +735,16 @@ document.addEventListener("click", e => {
 $("cs-close").addEventListener("click", () => $("callsheet").hidden = true);
 $("callsheet").addEventListener("click", e => { if (e.target.id === "callsheet") $("callsheet").hidden = true; });
 document.addEventListener("keydown", e => { if (e.key === "Escape") $("callsheet").hidden = true; });
+
+// 카카오톡: 원장님이 1:1 오픈채팅이나 카카오톡 채널을 만들면 그 링크를 KAKAO_URL에 넣으세요. 버튼을 누르면 대화창이 바로 열립니다.
+// 링크가 없으면 ID를 복사하고 카카오톡 앱을 여는 안내를 보여줍니다.
+const KAKAO_URL = "";
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-kakao]"); if (!b) return;
+  if (KAKAO_URL) { location.href = KAKAO_URL; return; }
+  navigator.clipboard?.writeText("ConyK").catch(() => {});
+  $("kakaosheet").hidden = false;
+});
+$("ks-close").addEventListener("click", () => $("kakaosheet").hidden = true);
+$("kakaosheet").addEventListener("click", e => { if (e.target.id === "kakaosheet") $("kakaosheet").hidden = true; });
 </script>

@@ -286,9 +286,16 @@ section.chat { padding: 0; }
 .fr-list a { font-size: 13px; color: var(--rose); text-decoration: none; border: 1px solid color-mix(in srgb, var(--rose) 55%, transparent); border-radius: 999px; padding: 4px 12px; }
 .fr-main { justify-content: center; }
 @media (max-width: 480px) { .fr-steps { grid-template-columns: 1fr; } }
+
+.callsheet { position: fixed; inset: 0; z-index: 10; background: rgba(0,0,0,.6); display: grid; place-items: end center; padding: 16px max(16px, env(safe-area-inset-right, 0px)) calc(16px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
+.callsheet[hidden] { display: none; }
+.cs-box { width: min(420px, 100%); background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 22px; display: grid; gap: 10px; text-align: center; }
+.cs-num { font-family: var(--display-en); font-size: 38px; color: var(--plum); text-decoration: none; font-variant-numeric: tabular-nums; user-select: all; }
+.cs-box p { margin: 0; font-size: 13.5px; color: var(--muted); }
+.cs-btns { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
 </style>
 
-<div class="draft"><div class="wrap"><strong data-en="Website draft (sample)" data-ko="홈페이지 시안 (샘플)">Website draft (sample)</strong><span data-en="Address, hours, reviews and cut/color prices are real. Photos, stylist profiles and some prices are placeholders." data-ko="주소·영업시간·리뷰·커트/염색 가격은 실제 정보입니다. 사진·디자이너 소개·일부 가격은 예시입니다.">Address, hours, reviews and cut/color prices are real. Photos, stylist profiles and some prices are placeholders.</span></div></div>
+<div class="draft"><div class="wrap"><strong data-en="Website draft (sample)" data-ko="홈페이지 시안 (샘플)">Website draft (sample)</strong><span data-en="Address, hours, reviews and cut/color prices are real. Photos and some prices are placeholders." data-ko="주소·영업시간·리뷰·커트/염색 가격은 실제 정보입니다. 사진·일부 가격은 예시입니다.">Address, hours, reviews and cut/color prices are real. Photos and some prices are placeholders.</span></div></div>
 
 <header>
   <div class="wrap">
@@ -521,6 +528,18 @@ section.chat { padding: 0; }
   </div>
 </section>
 
+<div class="callsheet" id="callsheet" role="dialog" aria-label="Call or text" hidden>
+  <div class="cs-box">
+    <b id="cs-title"></b>
+    <a class="cs-num" id="cs-num" href="tel:+639477841312">0947 784 1312</a>
+    <p id="cs-hint"></p>
+    <div class="cs-btns">
+      <button class="btn btn-rose" type="button" data-copytext="09477841312" id="cs-copy"></button>
+      <button class="btn btn-line" type="button" id="cs-close"></button>
+    </div>
+  </div>
+</div>
+
 <div class="mbar">
   <a class="btn btn-line" href="tel:+639477841312" data-en="Call" data-ko="전화">Call</a>
   <a class="btn btn-rose" data-booking href="https://calendar.google.com/calendar/u/0/appointments" data-en="Book now" data-ko="예약하기">Book now</a>
@@ -684,4 +703,24 @@ document.addEventListener("keydown", e => { if (e.key === "Escape" && !$("chat")
 
 langHooks.push(renderBooking, renderChat, liveStatus);
 renderBooking(); renderChat(); liveStatus(); setInterval(() => { liveStatus(); }, 60000);
+
+// 전화·문자 버튼: 휴대폰에서는 바로 전화/문자 앱이 열립니다.
+// 앱이 열리지 않는 환경(PC, 미리보기 화면 등)에서는 번호를 크게 보여주고 복사할 수 있게 합니다.
+function showCallSheet(kind) {
+  $("cs-title").textContent = kind === "sms" ? T("Text us", "문자 보내기") : T("Call us", "전화하기");
+  $("cs-num").href = (kind === "sms" ? "sms:" : "tel:") + "+639477841312";
+  $("cs-hint").textContent = T("If your phone didn't open the dialer, copy the number or tap it.", "전화 앱이 열리지 않으면 번호를 복사하거나 번호를 눌러 주세요.");
+  $("cs-copy").textContent = T("Copy number", "번호 복사");
+  $("cs-close").textContent = T("Close", "닫기");
+  $("callsheet").hidden = false;
+}
+document.addEventListener("click", e => {
+  const a = e.target.closest('a[href^="tel:"], a[href^="sms:"]');
+  if (!a || a.id === "cs-num") return;
+  const kind = a.getAttribute("href").startsWith("sms") ? "sms" : "tel";
+  setTimeout(() => { if (!document.hidden) showCallSheet(kind); }, 700);
+});
+$("cs-close").addEventListener("click", () => $("callsheet").hidden = true);
+$("callsheet").addEventListener("click", e => { if (e.target.id === "callsheet") $("callsheet").hidden = true; });
+document.addEventListener("keydown", e => { if (e.key === "Escape") $("callsheet").hidden = true; });
 </script>

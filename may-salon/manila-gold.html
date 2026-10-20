@@ -211,6 +211,70 @@ footer.site .wrap { display: flex; justify-content: space-between; gap: 12px; fl
 @media (max-width: 760px) { .promo .wrap { grid-template-columns: 1fr; } }
 .pay { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
 .ko-sub { font-family: var(--display-ko); color: var(--muted); font-size: .7em; font-weight: 400; display: block; margin-top: 4px; }
+
+/* Booking */
+.booking { border-top: 1px solid var(--line); }
+.bk-head { display: flex; justify-content: space-between; align-items: end; gap: 16px; flex-wrap: wrap; margin-bottom: 28px; }
+.live { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; padding: 7px 14px; border: 1px solid var(--line); border-radius: 999px; }
+.live .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); }
+.live.open .dot { background: #4cc38a; box-shadow: 0 0 0 4px color-mix(in srgb, #4cc38a 25%, transparent); }
+.bk-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 20px; align-items: start; }
+.bk-grid > * { min-width: 0; }
+.bk-now, .bk-form, .bk-done { background: var(--surface); border: 1px solid var(--line); padding: clamp(20px, 3vw, 32px); border-radius: 4px; }
+.bk-now h3, .bk-form h3, .bk-done h3 { font-family: var(--display-ko); font-size: 20px; margin: 6px 0 10px; }
+.bk-now p { color: var(--muted); margin: 0 0 18px; }
+.now-list { display: grid; gap: 8px; }
+.now-item { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 16px; border: 1px solid var(--line); border-radius: 4px; text-decoration: none; color: var(--ink); background: transparent; font: inherit; cursor: pointer; text-align: left; }
+.now-item:hover { border-color: var(--rose); }
+.now-item span { font-size: 13px; color: var(--muted); }
+.bk-form { display: grid; gap: 14px; }
+.bk-form label { display: grid; gap: 6px; font-size: 13px; color: var(--muted); }
+.bk-form select, .bk-form input, .bk-form textarea { font: 15px var(--body); color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 4px; padding: 10px 12px; width: 100%; min-width: 0; }
+.bk-form select:focus, .bk-form input:focus, .bk-form textarea:focus { outline: 2px solid var(--rose); outline-offset: 1px; }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+legend { font-size: 13px; color: var(--muted); margin-bottom: 6px; padding: 0; }
+.slots { display: grid; grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); gap: 6px; }
+.slots label { display: block; }
+.slots input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.slots span { display: block; text-align: center; padding: 8px 0; border: 1px solid var(--line); border-radius: 4px; color: var(--ink); font-size: 13.5px; font-variant-numeric: tabular-nums; cursor: pointer; }
+.slots input:checked + span { background: var(--rose); color: var(--rose-ink); border-color: var(--rose); }
+.slots input:focus-visible + span { outline: 2px solid var(--rose); outline-offset: 2px; }
+.slots input:disabled + span { opacity: .35; cursor: not-allowed; text-decoration: line-through; }
+.slots .none { grid-column: 1 / -1; font-size: 13px; color: var(--muted); }
+.bk-err { margin: 0; color: #f08a7e; font-size: 13.5px; }
+.bk-done { margin-top: 20px; }
+.bk-done pre { white-space: pre-wrap; font: 14px/1.7 var(--body); background: var(--bg); border: 1px solid var(--line); padding: 16px; border-radius: 4px; margin: 8px 0 12px; }
+.bk-small { font-size: 13px; color: var(--muted); margin: 0 0 16px; }
+@media (max-width: 860px) { .bk-grid { grid-template-columns: 1fr; } }
+@media (max-width: 480px) { .row2 { grid-template-columns: 1fr; } }
+
+/* Chat */
+.chat-fab { position: fixed; right: max(20px, env(safe-area-inset-right, 0px)); bottom: calc(20px + env(safe-area-inset-bottom, 0px)); z-index: 7; display: inline-flex; align-items: center; gap: 8px; border: 0; border-radius: 999px; padding: 14px 20px; background: var(--rose); color: var(--rose-ink); font: 600 14px var(--body); cursor: pointer; box-shadow: 0 8px 28px rgba(0,0,0,.45); }
+.chat-fab svg { width: 18px; height: 18px; fill: currentColor; }
+.chat { position: fixed; right: max(20px, env(safe-area-inset-right, 0px)); bottom: calc(84px + env(safe-area-inset-bottom, 0px)); z-index: 8; width: min(360px, calc(100vw - 32px)); max-height: min(560px, calc(100vh - 120px)); display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 16px 48px rgba(0,0,0,.5); overflow: hidden; }
+.chat[hidden] { display: none; }
+section.chat { padding: 0; }
+.chat-top { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-bottom: 1px solid var(--line); position: static; background: none; backdrop-filter: none; }
+.chat-top img { width: 34px; height: 34px; border-radius: 50%; }
+.chat-top div { flex: 1; min-width: 0; }
+.chat-top b { display: block; font-size: 14px; }
+.chat-top small { font-size: 12px; color: var(--muted); }
+.chat-top button { border: 0; background: none; color: var(--muted); font-size: 22px; cursor: pointer; padding: 0 4px; }
+.chat-log { flex: 1; overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 8px; min-height: 160px; }
+.msg { max-width: 85%; padding: 9px 12px; border-radius: 12px; font-size: 14px; line-height: 1.55; white-space: pre-line; }
+.msg.bot { background: var(--leaf); border-bottom-left-radius: 3px; align-self: flex-start; }
+.msg.me { background: var(--rose); color: var(--rose-ink); border-bottom-right-radius: 3px; align-self: flex-end; }
+.chat-chips { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 14px 12px; }
+.chat-chips button { border: 1px solid color-mix(in srgb, var(--rose) 55%, transparent); background: transparent; color: var(--plum); border-radius: 999px; padding: 6px 12px; font: 13px var(--body); cursor: pointer; }
+.chat-human { border-top: 1px solid var(--line); padding: 10px 14px 12px; font-size: 12.5px; color: var(--muted); display: grid; gap: 8px; }
+.chat-human div { display: flex; gap: 6px; }
+.chat-human a, .chat-human button { flex: 1; text-align: center; border: 1px solid var(--line); background: var(--bg); color: var(--ink); border-radius: 4px; padding: 8px 4px; font: 500 13px var(--body); text-decoration: none; cursor: pointer; }
+.toast { position: fixed; left: 50%; bottom: calc(96px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: 9; background: var(--ink); color: var(--bg); padding: 9px 16px; border-radius: 999px; font-size: 13.5px; }
+@media (max-width: 760px) {
+  .chat-fab { bottom: calc(76px + env(safe-area-inset-bottom, 0px)); padding: 12px 16px; }
+  .chat { bottom: calc(136px + env(safe-area-inset-bottom, 0px)); max-height: calc(100vh - 170px); }
+}
 </style>
 
 <div class="draft"><div class="wrap"><strong data-en="Website draft (sample)" data-ko="홈페이지 시안 (샘플)">Website draft (sample)</strong><span data-en="Address, hours, reviews and cut/color prices are real. Photos, stylist profiles and some prices are placeholders." data-ko="주소·영업시간·리뷰·커트/염색 가격은 실제 정보입니다. 사진·디자이너 소개·일부 가격은 예시입니다.">Address, hours, reviews and cut/color prices are real. Photos, stylist profiles and some prices are placeholders.</span></div></div>
@@ -223,6 +287,7 @@ footer.site .wrap { display: flex; justify-content: space-between; gap: 12px; fl
       <a href="#menu" data-en="Services" data-ko="메뉴·가격">Services</a>
       <a href="#team" data-en="Stylists" data-ko="디자이너">Stylists</a>
       <a href="#gallery" data-en="Looks" data-ko="스타일">Looks</a>
+      <a href="#booking" data-en="Booking" data-ko="예약">Booking</a>
       <a href="#visit" data-en="Visit" data-ko="오시는 길">Visit</a>
     </nav>
     <div class="head-right">
@@ -230,7 +295,7 @@ footer.site .wrap { display: flex; justify-content: space-between; gap: 12px; fl
         <button type="button" id="lang-en" aria-pressed="true" data-lang="en">EN</button>
         <button type="button" id="lang-ko" aria-pressed="false" data-lang="ko">한국어</button>
       </div>
-      <a class="btn btn-rose" href="#visit" data-en="Book" data-ko="예약">Book</a>
+      <a class="btn btn-rose" href="#booking" data-en="Book" data-ko="예약">Book</a>
     </div>
   </div>
 </header>
@@ -268,7 +333,7 @@ footer.site .wrap { display: flex; justify-content: space-between; gap: 12px; fl
         <h2 data-en="First visit promo: Korean perm + cut" data-ko="첫 방문 프로모션: 한국식 펌 + 커트">First visit promo: Korean perm + cut</h2>
         <p data-en="Show this page or mention the promo when you book. Valid until May 31 (sample)." data-ko="예약 시 이 페이지를 보여주세요. 5월 31일까지 (예시).">Show this page or mention the promo when you book. Valid until May 31 (sample).</p>
       </div>
-      <a class="btn" href="#visit" data-en="Claim promo" data-ko="프로모션 예약">Claim promo</a>
+      <a class="btn" href="#booking" data-en="Claim promo" data-ko="프로모션 예약">Claim promo</a>
     </div>
   </section>
 
@@ -369,6 +434,63 @@ footer.site .wrap { display: flex; justify-content: space-between; gap: 12px; fl
     </div>
   </section>
 
+  <section class="booking" id="booking">
+    <div class="wrap">
+      <div class="bk-head">
+        <div>
+          <div class="eyebrow">Booking</div>
+          <h2 data-en="Book your visit" data-ko="예약하기">Book your visit</h2>
+        </div>
+        <div class="live" id="live" aria-live="polite"><span class="dot" aria-hidden="true"></span><span id="live-text"></span></div>
+      </div>
+      <div class="bk-grid">
+        <div class="bk-now">
+          <div class="eyebrow" data-en="Instant booking" data-ko="실시간 예약">Instant booking</div>
+          <h3 data-en="Call or message now" data-ko="전화·메시지로 바로 예약">Call or message now</h3>
+          <p data-en="During opening hours the owner answers directly. Tell us the service and time you want, and we confirm on the spot." data-ko="영업시간에는 원장님이 직접 받습니다. 원하는 시술과 시간을 말씀해 주시면 바로 확정해 드려요.">During opening hours the owner answers directly. Tell us the service and time you want, and we confirm on the spot.</p>
+          <div class="now-list">
+            <a class="now-item" href="tel:+639477841312"><b data-en="Call" data-ko="전화">Call</b><span>0947 784 1312</span></a>
+            <a class="now-item" href="sms:+639477841312"><b data-en="Text message" data-ko="문자">Text message</b><span>0947 784 1312</span></a>
+            <a class="now-item" href="https://m.me/maysalonkim"><b>Messenger</b><span>maysalonkim</span></a>
+            <button class="now-item" type="button" data-copytext="ConyK"><b>KakaoTalk</b><span data-en="ID: ConyK · tap to copy" data-ko="ID: ConyK · 눌러서 복사">ID: ConyK · tap to copy</span></button>
+          </div>
+        </div>
+        <form class="bk-form" id="bk-form" novalidate>
+          <div class="eyebrow" data-en="Booking request" data-ko="일반 예약">Booking request</div>
+          <h3 data-en="Pick a service and time" data-ko="시술과 시간을 골라 주세요">Pick a service and time</h3>
+          <div class="row2">
+            <label><span data-en="Service type" data-ko="시술 분류">Service type</span><select id="bk-cat"></select></label>
+            <label><span data-en="Service" data-ko="시술">Service</span><select id="bk-item"></select></label>
+          </div>
+          <div class="row2">
+            <label><span data-en="Stylist" data-ko="디자이너">Stylist</span><select id="bk-stylist"></select></label>
+            <label><span data-en="Date" data-ko="날짜">Date</span><select id="bk-date"></select></label>
+          </div>
+          <fieldset><legend data-en="Time" data-ko="시간">Time</legend><div class="slots" id="bk-slots"></div></fieldset>
+          <div class="row2">
+            <label><span data-en="Name" data-ko="이름">Name</span><input id="bk-name" autocomplete="name" placeholder="Maria Santos"></label>
+            <label><span data-en="Mobile number" data-ko="연락처">Mobile number</span><input id="bk-phone" inputmode="tel" autocomplete="tel" placeholder="09XX XXX XXXX"></label>
+          </div>
+          <label><span data-en="Request (optional)" data-ko="요청사항 (선택)">Request (optional)</span><textarea id="bk-note" rows="2"></textarea></label>
+          <p class="bk-err" id="bk-err" role="alert" hidden></p>
+          <button class="btn btn-rose" type="submit" data-en="Send booking request" data-ko="예약 신청하기">Send booking request</button>
+        </form>
+      </div>
+      <div class="bk-done" id="bk-done" hidden>
+        <div class="eyebrow" data-en="Almost done" data-ko="거의 다 됐어요">Almost done</div>
+        <h3 data-en="Send this message to finish booking" data-ko="이 메시지를 보내면 예약 신청이 완료돼요">Send this message to finish booking</h3>
+        <pre id="bk-msg"></pre>
+        <p class="bk-small" data-en="Your booking is confirmed when the salon replies. Usually within a few minutes during opening hours." data-ko="매장에서 답장을 드리면 예약이 확정됩니다. 영업시간에는 보통 몇 분 안에 답장드려요.">Your booking is confirmed when the salon replies. Usually within a few minutes during opening hours.</p>
+        <div class="book-ways">
+          <a class="btn btn-rose" id="bk-sms" href="sms:+639477841312" data-en="Send by text" data-ko="문자로 보내기">Send by text</a>
+          <a class="btn btn-line" href="https://m.me/maysalonkim" data-en="Send on Messenger" data-ko="메신저로 보내기">Send on Messenger</a>
+          <button class="btn btn-line" type="button" id="bk-copy" data-en="Copy message" data-ko="메시지 복사">Copy message</button>
+          <button class="btn btn-line" type="button" id="bk-edit" data-en="Edit" data-ko="수정">Edit</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="visit" id="visit">
     <div class="wrap">
       <div>
@@ -414,9 +536,31 @@ footer.site .wrap { display: flex; justify-content: space-between; gap: 12px; fl
   </div>
 </footer>
 
+<button class="chat-fab" id="chat-fab" type="button" aria-expanded="false" aria-controls="chat">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg>
+  <span data-en="Chat" data-ko="상담">Chat</span>
+</button>
+<section class="chat" id="chat" role="dialog" aria-label="Chat" hidden>
+  <header class="chat-top">
+    <img src="data:image/jpeg;base64,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" alt="">
+    <div><b data-en="오월에 consultation" data-ko="오월에 상담">오월에 consultation</b><small id="chat-status"></small></div>
+    <button type="button" id="chat-close" aria-label="Close">×</button>
+  </header>
+  <div class="chat-log" id="chat-log" aria-live="polite"></div>
+  <div class="chat-chips" id="chat-chips"></div>
+  <div class="chat-human">
+    <span data-en="Talk to the owner" data-ko="원장님과 1:1 상담">Talk to the owner</span>
+    <div>
+      <button type="button" data-copytext="ConyK">KakaoTalk</button>
+      <a href="https://m.me/maysalonkim">Messenger</a>
+      <a href="sms:+639477841312" data-en="Text" data-ko="문자">Text</a>
+    </div>
+  </div>
+</section>
+
 <div class="mbar">
   <a class="btn btn-line" href="tel:+639477841312" data-en="Call" data-ko="전화">Call</a>
-  <a class="btn btn-rose" href="#visit" data-en="Book now" data-ko="예약하기">Book now</a>
+  <a class="btn btn-rose" href="#booking" data-en="Book now" data-ko="예약하기">Book now</a>
 </div>
 
 <script>
@@ -453,6 +597,21 @@ const MENU = {
     ["Nail Art", "네일 아트", "1,000+", "Korean-style designs", "한국식 디자인"]
   ]
 };
+// 구글 리뷰: 실제 사이트에서는 서버가 Google Places API로 하루 몇 번 받아와 이 배열을 채웁니다.
+// 시안에는 구글 지도에 올라온 실제 리뷰를 넣어 두었습니다 (이름은 가림 처리).
+const REVIEWS = [
+  { name: "김*현", when: "8개월 전", rating: 5, tag: "볼륨펌", text: "볼륨펌 완전 만족! 처음 방문했는데 친절하게 상담해주시고, 머리 손질도 깔끔하게 해주셨어요. 무엇보다 가격이 정말 착해서 부담 없이 받을 수 있었습니다." },
+  { name: "김*연", when: "8개월 전", rating: 5, tag: "숏단발 커트", text: "처음으로 숏단발에 도전했는데, 기대 이상으로 너무 잘 어울리게 잘라주셨어요. 손질 방법도 알려주셔서 유지하기 쉬웠어요." },
+  { name: "seo j.", when: "8개월 전", rating: 5, tag: "셋팅펌", text: "첫 방문때, 남편 커트 잘하시는거 보고, 오늘 전 셋팅펌하러 방문했네요. 아주 만족스럽게 잘 나왔어요!" },
+  { name: "윤*희", when: "8개월 전", rating: 5, tag: "단발 커트", text: "처음 방문했는데, 왜 이제야 알았는지 후회될 정도로 완벽하게 만족한 곳입니다. 단발을 이렇게 섬세하고 깔끔하게 해주셨어요." },
+  { name: "최*원", when: "8개월 전", rating: 5, tag: "재방문", text: "매번 시술받을때마다 한국원장님의 꼼꼼함과 세심함에 정말 마음에 드는 샵이예요^^~" }
+];
+document.getElementById("rv-track").innerHTML = REVIEWS.map(r => `<article class="review">
+  <header><span class="avatar" aria-hidden="true">${r.name.slice(0, 1)}</span><div><b>${r.name}</b><small>${r.when}</small></div></header>
+  <div class="stars" aria-label="${r.rating} / 5">${"★".repeat(r.rating)}</div>
+  <p lang="ko">${r.text}</p><span class="tag">${r.tag}</span></article>`).join("");
+
+const langHooks = [];
 let lang = "en", cat = "cut";
 const list = document.getElementById("price-list");
 function render() {
@@ -468,23 +627,10 @@ function setLang(l) {
   document.documentElement.lang = l;
   document.querySelectorAll("[data-en]").forEach(el => { el.innerHTML = el.dataset[l]; });
   document.querySelectorAll(".lang button").forEach(b => b.setAttribute("aria-pressed", b.dataset.lang === l));
-  // 구글 리뷰: 실제 사이트에서는 서버가 Google Places API로 하루 몇 번 받아와 이 배열을 채웁니다.
-// 시안에는 구글 지도에 올라온 실제 리뷰를 넣어 두었습니다 (이름은 가림 처리).
-const REVIEWS = [
-  { name: "김*현", when: "8개월 전", rating: 5, tag: "볼륨펌", text: "볼륨펌 완전 만족! 처음 방문했는데 친절하게 상담해주시고, 머리 손질도 깔끔하게 해주셨어요. 무엇보다 가격이 정말 착해서 부담 없이 받을 수 있었습니다." },
-  { name: "김*연", when: "8개월 전", rating: 5, tag: "숏단발 커트", text: "처음으로 숏단발에 도전했는데, 기대 이상으로 너무 잘 어울리게 잘라주셨어요. 손질 방법도 알려주셔서 유지하기 쉬웠어요." },
-  { name: "seo j.", when: "8개월 전", rating: 5, tag: "셋팅펌", text: "첫 방문때, 남편 커트 잘하시는거 보고, 오늘 전 셋팅펌하러 방문했네요. 아주 만족스럽게 잘 나왔어요!" },
-  { name: "윤*희", when: "8개월 전", rating: 5, tag: "단발 커트", text: "처음 방문했는데, 왜 이제야 알았는지 후회될 정도로 완벽하게 만족한 곳입니다. 단발을 이렇게 섬세하고 깔끔하게 해주셨어요." },
-  { name: "최*원", when: "8개월 전", rating: 5, tag: "재방문", text: "매번 시술받을때마다 한국원장님의 꼼꼼함과 세심함에 정말 마음에 드는 샵이예요^^~" }
-];
-document.getElementById("rv-track").innerHTML = REVIEWS.map(r => `<article class="review">
-  <header><span class="avatar" aria-hidden="true">${r.name.slice(0, 1)}</span><div><b>${r.name}</b><small>${r.when}</small></div></header>
-  <div class="stars" aria-label="${r.rating} / 5">${"★".repeat(r.rating)}</div>
-  <p lang="ko">${r.text}</p><span class="tag">${r.tag}</span></article>`).join("");
-
 document.querySelectorAll(".copy").forEach(b => b.textContent = l === "ko" ? "복사" : "Copy");
   try { localStorage.setItem("may-lang", l); } catch {}
   render();
+  langHooks.forEach(f => f());
 }
 document.querySelectorAll(".lang button").forEach(b => b.addEventListener("click", () => setLang(b.dataset.lang)));
 let saved = "en"; try { saved = localStorage.getItem("may-lang") || "en"; } catch {}
@@ -512,4 +658,105 @@ document.querySelectorAll(".copy").forEach(b => b.addEventListener("click", asyn
   }
   draw(); addEventListener("resize", draw);
 })();
+
+// 예약 · 상담 (시안: 실제 사이트에서는 예약 신청이 매장 관리자 페이지/구글 캘린더로 바로 들어갑니다)
+const T = (en, ko) => lang === "ko" ? ko : en;
+const MANILA = "Asia/Manila";
+function manilaNow() {
+  const parts = new Intl.DateTimeFormat("en-CA", { timeZone: MANILA, year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).formatToParts(new Date());
+  const g = t => parts.find(p => p.type === t).value;
+  return { date: `${g("year")}-${g("month")}-${g("day")}`, mins: +g("hour") * 60 + +g("minute") };
+}
+const OPEN = 9 * 60, CLOSE = 19 * 60, LAST = 18 * 60;
+function liveStatus() {
+  const { mins } = manilaNow(), open = mins >= OPEN && mins < CLOSE;
+  document.getElementById("live").classList.toggle("open", open);
+  document.getElementById("live-text").textContent = open
+    ? T(`Open now · closes 7PM (Manila time)`, `지금 영업 중 · 오후 7시 마감 (필리핀 시간)`)
+    : T(`Closed now · opens 9AM (Manila time)`, `영업 종료 · 오전 9시 오픈 (필리핀 시간)`);
+  const cs = document.getElementById("chat-status");
+  if (cs) cs.textContent = open ? T("Online · replies in a few minutes", "상담 가능 · 보통 몇 분 안에 답장") : T("Away · replies from 9AM", "부재 중 · 오전 9시부터 답장");
+}
+const CATS = { cut: ["Cut", "커트"], perm: ["Perm & Straight", "펌·매직"], color: ["Color", "컬러"], care: ["Extensions & Clinic", "붙임머리·클리닉"], nail: ["Nail", "네일"] };
+const STYLISTS = [["Any stylist", "상관없음"], ["May Kim (owner)", "원장님"], ["Harin", "하린"], ["Paolo", "파올로"]];
+const $ = id => document.getElementById(id);
+const bk = { cat: "cut", item: 0, stylist: 0, date: 0, slot: "" };
+function days() {
+  const { date } = manilaNow(), base = new Date(date + "T00:00:00Z"), out = [];
+  for (let i = 0; i < 14; i++) {
+    const d = new Date(base.getTime() + i * 864e5), iso = d.toISOString().slice(0, 10);
+    const label = new Intl.DateTimeFormat(lang === "ko" ? "ko-KR" : "en-PH", { timeZone: "UTC", month: "short", day: "numeric", weekday: "short" }).format(d);
+    out.push({ iso, label: (i === 0 ? T("Today · ", "오늘 · ") : i === 1 ? T("Tomorrow · ", "내일 · ") : "") + label, today: i === 0 });
+  }
+  return out;
+}
+function opts(el, list, sel) { el.innerHTML = list.map((t, i) => `<option value="${i}"${i == sel ? " selected" : ""}>${t}</option>`).join(""); }
+function fmt(m) { const h = Math.floor(m / 60), mm = String(m % 60).padStart(2, "0"); return `${h}:${mm}`; }
+function renderBooking() {
+  const catKeys = Object.keys(CATS);
+  $("bk-cat").innerHTML = catKeys.map(k => `<option value="${k}"${k === bk.cat ? " selected" : ""}>${T(...CATS[k])}</option>`).join("");
+  opts($("bk-item"), MENU[bk.cat].map(([en, ko, p]) => `${T(en, ko)} · ₱${p}`), bk.item);
+  opts($("bk-stylist"), STYLISTS.map(s => T(...s)), bk.stylist);
+  const ds = days(); opts($("bk-date"), ds.map(d => d.label), bk.date);
+  const { mins } = manilaNow(), isToday = ds[bk.date].today;
+  let html = "", any = false;
+  for (let m = OPEN; m <= LAST; m += 30) {
+    const past = isToday && m < mins + 30; if (!past) any = true;
+    if (past && bk.slot === fmt(m)) bk.slot = "";
+    html += `<label><input type="radio" name="bk-slot" value="${fmt(m)}"${past ? " disabled" : ""}${bk.slot === fmt(m) ? " checked" : ""}><span>${fmt(m)}</span></label>`;
+  }
+  $("bk-slots").innerHTML = any ? html : `<p class="none">${T("No times left today. Pick another date.", "오늘은 예약 가능한 시간이 없어요. 다른 날짜를 골라 주세요.")}</p>`;
+}
+$("bk-cat").addEventListener("change", e => { bk.cat = e.target.value; bk.item = 0; renderBooking(); });
+$("bk-item").addEventListener("change", e => bk.item = +e.target.value);
+$("bk-stylist").addEventListener("change", e => bk.stylist = +e.target.value);
+$("bk-date").addEventListener("change", e => { bk.date = +e.target.value; renderBooking(); });
+$("bk-slots").addEventListener("change", e => bk.slot = e.target.value);
+$("bk-form").addEventListener("submit", e => {
+  e.preventDefault();
+  const name = $("bk-name").value.trim(), phone = $("bk-phone").value.trim(), note = $("bk-note").value.trim();
+  const err = !bk.slot ? T("Pick a time.", "시간을 골라 주세요.") : !name ? T("Enter your name.", "이름을 적어 주세요.") : phone.replace(/\D/g, "").length < 10 ? T("Enter a mobile number we can reply to, like 0917 123 4567.", "답장 받을 연락처를 적어 주세요. 예: 0917 123 4567") : "";
+  $("bk-err").hidden = !err; $("bk-err").textContent = err; if (err) return;
+  const [en, ko, p] = MENU[bk.cat][bk.item], d = days()[bk.date];
+  const msg = `[오월에 예약 신청 / Booking request]\n${T("Service", "시술")}: ${T(en, ko)} (₱${p})\n${T("Stylist", "디자이너")}: ${T(...STYLISTS[bk.stylist])}\n${T("Date", "날짜")}: ${d.label.replace(/^.*· /, "")} ${bk.slot}\n${T("Name", "이름")}: ${name}\n${T("Mobile", "연락처")}: ${phone}` + (note ? `\n${T("Request", "요청")}: ${note}` : "");
+  $("bk-msg").textContent = msg;
+  $("bk-sms").href = "sms:+639477841312?body=" + encodeURIComponent(msg);
+  $("bk-done").hidden = false; $("bk-done").scrollIntoView({ behavior: "smooth", block: "start" });
+});
+$("bk-edit").addEventListener("click", () => { $("bk-done").hidden = true; $("bk-form").scrollIntoView({ behavior: "smooth" }); });
+function toast(t) { const el = document.createElement("div"); el.className = "toast"; el.textContent = t; document.body.append(el); setTimeout(() => el.remove(), 1800); }
+async function copyText(text) {
+  try { await navigator.clipboard.writeText(text); toast(T("Copied", "복사했어요")); }
+  catch { toast(T(`Copy this: ${text}`, `직접 복사해 주세요: ${text}`)); }
+}
+$("bk-copy").addEventListener("click", () => copyText($("bk-msg").textContent));
+document.addEventListener("click", e => { const b = e.target.closest("[data-copytext]"); if (b) copyText(b.dataset.copytext); });
+
+// 채팅 상담: 자주 묻는 질문은 바로 답하고, 1:1 상담은 카톡·메신저·문자로 연결
+const FAQ = [
+  ["Prices", "가격", () => T("Cut ₱700 (men) / ₱800 (women). Design cut ₱1,000 / ₱1,200. Color from ₱2,200, bleach from ₱3,000 depending on length. See the full price list above.", "커트 남 ₱700 / 여 ₱800, 디자인 커트 ₱1,000 / ₱1,200입니다. 염색은 ₱2,200부터, 탈색은 ₱3,000부터이고 기장에 따라 달라요. 위 가격표에서 전체를 보실 수 있어요.")],
+  ["Hours", "영업시간", () => T("We're open every day, 9AM to 7PM. Booked clients are served first.", "매일 오전 9시부터 오후 7시까지 영업합니다. 예약 고객을 먼저 모셔요.")],
+  ["Location", "위치", () => T("2nd floor, Lot 2, Blk 66, Fil-Am Friendship Hwy, Angeles City. Across from JMI, near Coffee Bay and Kings Meat.", "앤젤레스 시티 필암 프렌드십 하이웨이 Lot 2, Blk 66 2층입니다. JMI 맞은편, 커피베이와 킹스미트 근처예요.")],
+  ["Payment", "결제", () => T("Cash, GCash, PayMaya and bank transfer. Credit cards are not accepted.", "현금, GCash, PayMaya, 계좌이체 가능합니다. 카드 결제는 안 돼요.")],
+  ["Book", "예약", () => T("You can book with the form on this page, or call/text 0947 784 1312. KakaoTalk ID: ConyK.", "이 페이지의 예약 신청서를 쓰시거나 0947 784 1312로 전화·문자 주세요. 카톡 ID는 ConyK입니다.")],
+  ["Korean stylist?", "한국 원장님?", () => T("Yes. The owner is Korean and does consultations in Korean or English.", "네, 한국인 원장님이 한국어·영어로 상담해 드려요.")]
+];
+const log = $("chat-log");
+function say(text, who) { const m = document.createElement("div"); m.className = "msg " + who; m.textContent = text; log.append(m); log.scrollTop = log.scrollHeight; }
+function renderChat() {
+  log.innerHTML = "";
+  say(T("Hi! Welcome to 오월에 (In the month of May). Tap a question below, or talk to the owner directly.", "안녕하세요, 오월에 미용실입니다. 아래 질문을 누르시거나 원장님과 바로 상담하세요."), "bot");
+  $("chat-chips").innerHTML = FAQ.map((f, i) => `<button type="button" data-faq="${i}">${T(f[0], f[1])}</button>`).join("");
+}
+$("chat-chips").addEventListener("click", e => {
+  const b = e.target.closest("[data-faq]"); if (!b) return;
+  const f = FAQ[+b.dataset.faq]; say(T(f[0], f[1]), "me"); setTimeout(() => say(f[2](), "bot"), 350);
+});
+function setChat(open) { $("chat").hidden = !open; $("chat-fab").setAttribute("aria-expanded", open); if (open) $("chat-close").focus(); }
+$("chat-fab").addEventListener("click", () => setChat($("chat").hidden));
+$("chat-close").addEventListener("click", () => { setChat(false); $("chat-fab").focus(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape" && !$("chat").hidden) setChat(false); });
+
+langHooks.push(renderBooking, renderChat, liveStatus);
+renderBooking(); renderChat(); liveStatus(); setInterval(() => { liveStatus(); }, 60000);
 </script>

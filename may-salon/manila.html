@@ -447,6 +447,20 @@ const MENU = {
     ["Nail Art", "네일 아트", "1,000+", "Korean-style designs", "한국식 디자인"]
   ]
 };
+// 구글 리뷰: 실제 사이트에서는 서버가 Google Places API로 하루 몇 번 받아와 이 배열을 채웁니다.
+// 시안에는 구글 지도에 올라온 실제 리뷰를 넣어 두었습니다 (이름은 가림 처리).
+const REVIEWS = [
+  { name: "김*현", when: "8개월 전", rating: 5, tag: "볼륨펌", text: "볼륨펌 완전 만족! 처음 방문했는데 친절하게 상담해주시고, 머리 손질도 깔끔하게 해주셨어요. 무엇보다 가격이 정말 착해서 부담 없이 받을 수 있었습니다." },
+  { name: "김*연", when: "8개월 전", rating: 5, tag: "숏단발 커트", text: "처음으로 숏단발에 도전했는데, 기대 이상으로 너무 잘 어울리게 잘라주셨어요. 손질 방법도 알려주셔서 유지하기 쉬웠어요." },
+  { name: "seo j.", when: "8개월 전", rating: 5, tag: "셋팅펌", text: "첫 방문때, 남편 커트 잘하시는거 보고, 오늘 전 셋팅펌하러 방문했네요. 아주 만족스럽게 잘 나왔어요!" },
+  { name: "윤*희", when: "8개월 전", rating: 5, tag: "단발 커트", text: "처음 방문했는데, 왜 이제야 알았는지 후회될 정도로 완벽하게 만족한 곳입니다. 단발을 이렇게 섬세하고 깔끔하게 해주셨어요." },
+  { name: "최*원", when: "8개월 전", rating: 5, tag: "재방문", text: "매번 시술받을때마다 한국원장님의 꼼꼼함과 세심함에 정말 마음에 드는 샵이예요^^~" }
+];
+document.getElementById("rv-track").innerHTML = REVIEWS.map(r => `<article class="review">
+  <header><span class="avatar" aria-hidden="true">${r.name.slice(0, 1)}</span><div><b>${r.name}</b><small>${r.when}</small></div></header>
+  <div class="stars" aria-label="${r.rating} / 5">${"★".repeat(r.rating)}</div>
+  <p lang="ko">${r.text}</p><span class="tag">${r.tag}</span></article>`).join("");
+
 let lang = "en", cat = "cut";
 const list = document.getElementById("price-list");
 function render() {
@@ -462,20 +476,6 @@ function setLang(l) {
   document.documentElement.lang = l;
   document.querySelectorAll("[data-en]").forEach(el => { el.innerHTML = el.dataset[l]; });
   document.querySelectorAll(".lang button").forEach(b => b.setAttribute("aria-pressed", b.dataset.lang === l));
-  // 구글 리뷰: 실제 사이트에서는 서버가 Google Places API로 하루 몇 번 받아와 이 배열을 채웁니다.
-// 시안에는 구글 지도에 올라온 실제 리뷰를 넣어 두었습니다 (이름은 가림 처리).
-const REVIEWS = [
-  { name: "김*현", when: "8개월 전", rating: 5, tag: "볼륨펌", text: "볼륨펌 완전 만족! 처음 방문했는데 친절하게 상담해주시고, 머리 손질도 깔끔하게 해주셨어요. 무엇보다 가격이 정말 착해서 부담 없이 받을 수 있었습니다." },
-  { name: "김*연", when: "8개월 전", rating: 5, tag: "숏단발 커트", text: "처음으로 숏단발에 도전했는데, 기대 이상으로 너무 잘 어울리게 잘라주셨어요. 손질 방법도 알려주셔서 유지하기 쉬웠어요." },
-  { name: "seo j.", when: "8개월 전", rating: 5, tag: "셋팅펌", text: "첫 방문때, 남편 커트 잘하시는거 보고, 오늘 전 셋팅펌하러 방문했네요. 아주 만족스럽게 잘 나왔어요!" },
-  { name: "윤*희", when: "8개월 전", rating: 5, tag: "단발 커트", text: "처음 방문했는데, 왜 이제야 알았는지 후회될 정도로 완벽하게 만족한 곳입니다. 단발을 이렇게 섬세하고 깔끔하게 해주셨어요." },
-  { name: "최*원", when: "8개월 전", rating: 5, tag: "재방문", text: "매번 시술받을때마다 한국원장님의 꼼꼼함과 세심함에 정말 마음에 드는 샵이예요^^~" }
-];
-document.getElementById("rv-track").innerHTML = REVIEWS.map(r => `<article class="review">
-  <header><span class="avatar" aria-hidden="true">${r.name.slice(0, 1)}</span><div><b>${r.name}</b><small>${r.when}</small></div></header>
-  <div class="stars" aria-label="${r.rating} / 5">${"★".repeat(r.rating)}</div>
-  <p lang="ko">${r.text}</p><span class="tag">${r.tag}</span></article>`).join("");
-
 document.querySelectorAll(".copy").forEach(b => b.textContent = l === "ko" ? "복사" : "Copy");
   try { localStorage.setItem("may-lang", l); } catch {}
   render();

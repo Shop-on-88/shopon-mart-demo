@@ -338,14 +338,19 @@ section.chat { padding: 0; }
 @media (max-width: 640px) { .bk-now .now-list { grid-template-columns: 1fr; } }
 
 /* 갤러리 더보기 · 매장 둘러보기 */
-.gallery-grid .photo[data-more] { display: none; }
-.gallery-grid.open .photo[data-more] { display: block; }
 .more-wrap { display: flex; justify-content: center; margin-top: 24px; }
 .salon-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 32px; }
 .salon-grid .photo { margin: 0; aspect-ratio: 4 / 5; }
 .salon-grid .photo:first-child { grid-column: span 2; grid-row: span 2; aspect-ratio: auto; }
 .salon-grid .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
 @media (max-width: 760px) { .salon-grid { grid-template-columns: 1fr 1fr; } }
+
+/* 카테고리별 사진첩 */
+.gtabs { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 24px; }
+.gtab { border: 1px solid var(--line); background: transparent; color: var(--muted); border-radius: 999px; padding: 7px 14px; font: 500 13.5px var(--body); cursor: pointer; }
+.gtab[aria-selected="true"] { background: var(--rose); color: var(--rose-ink); border-color: var(--rose); }
+.gtab span { opacity: .7; margin-left: 4px; font-variant-numeric: tabular-nums; }
+#gallery-grid { margin-top: 20px; }
 </style>
 
 <header>
@@ -433,29 +438,18 @@ section.chat { padding: 0; }
     <div class="wrap">
       <div class="eyebrow" data-en="Looks · from Instagram @eunju3108" data-ko="스타일 · 인스타그램 @eunju3108">Looks · from Instagram @eunju3108</div>
       <h2 data-en="Recent looks" data-ko="최근 스타일">Recent looks</h2>
-      <div class="gallery-grid">
-        <figure class="photo" data-label="C-curl perm" data-label-en="C-curl perm" data-label-ko="C컬펌"><img src="img/n01.jpg" alt="C-curl perm at 오월에 salon" loading="lazy"></figure>
-        <figure class="photo" data-label="Long wave perm" data-label-en="Long wave perm" data-label-ko="롱 웨이브펌"><img src="img/n02.jpg" alt="Long wave perm at 오월에 salon" loading="lazy"></figure>
-        <figure class="photo" data-label="Bob cut & color" data-label-en="Bob cut & color" data-label-ko="단발 컷 & 염색"><img src="img/n03.jpg" alt="Bob cut & color at 오월에 salon" loading="lazy"></figure>
-        <figure class="photo" data-label="Men's twist perm" data-label-en="Men's twist perm" data-label-ko="남성 트위스트펌"><img src="img/n04.jpg" alt="Men's twist perm at 오월에 salon" loading="lazy"></figure>
-        <figure class="photo" data-label="Layered wave" data-label-en="Layered wave" data-label-ko="레이어드 웨이브"><img src="img/n05.jpg" alt="Layered wave at 오월에 salon" loading="lazy"></figure>
-        <figure class="photo" data-label="Highlights" data-label-en="Highlights" data-label-ko="하이라이트"><img src="img/n06.jpg" alt="Highlights at 오월에 salon" loading="lazy"></figure>
-        <figure class="photo" data-label="Hush cut & color" data-label-en="Hush cut & color" data-label-ko="허쉬컷 & 염색"><img src="img/n07.jpg" alt="Hush cut & color at 오월에 salon" loading="lazy"></figure>
-        <figure class="photo" data-label="Wave perm" data-label-en="Wave perm" data-label-ko="웨이브펌"><img src="img/n08.jpg" alt="Wave perm at 오월에 salon" loading="lazy"></figure>
-        <figure class="photo" data-label="Bleach" data-label-en="Bleach" data-label-ko="탈색" data-more><img src="img/n09.jpg" alt="Bleach at 오월에 salon" loading="lazy"></figure>
-        <figure class="photo" data-label="Lash extension" data-label-en="Lash extension" data-label-ko="속눈썹 연장" data-more><img src="img/n10.jpg" alt="Lash extension at 오월에 salon" loading="lazy"></figure>
-        <figure class="photo" data-label="Bob color" data-label-en="Bob color" data-label-ko="단발 염색" data-more><img src="img/n11.jpg" alt="Bob color at 오월에 salon" loading="lazy"></figure>
-        <figure class="photo" data-label="Men's curl perm" data-label-en="Men's curl perm" data-label-ko="남성 컬펌" data-more><img src="img/n12.jpg" alt="Men's curl perm at 오월에 salon" loading="lazy"></figure>
-        <figure class="photo" data-label="Body wave perm" data-label-en="Body wave perm" data-label-ko="바디 웨이브펌" data-more><img src="img/n13.jpg" alt="Body wave perm at 오월에 salon" loading="lazy"></figure>
-        <figure class="photo" data-label="Digital perm" data-label-en="Digital perm" data-label-ko="디지털펌" data-more><img src="img/n14.jpg" alt="Digital perm at 오월에 salon" loading="lazy"></figure>
-        <figure class="photo" data-label="Wave perm" data-label-en="Wave perm" data-label-ko="웨이브펌" data-more><img src="img/n15.jpg" alt="Wave perm at 오월에 salon" loading="lazy"></figure>
-        <figure class="photo" data-label="Balayage" data-label-en="Balayage" data-label-ko="발레아쥬" data-more><img src="img/n16.jpg" alt="Balayage at 오월에 salon" loading="lazy"></figure>
-        <figure class="photo" data-label="Short highlights" data-label-en="Short highlights" data-label-ko="숏컷 하이라이트" data-more><img src="img/n17.jpg" alt="Short highlights at 오월에 salon" loading="lazy"></figure>
-        <figure class="photo" data-label="Men's cut" data-label-en="Men's cut" data-label-ko="남성 커트" data-more><img src="img/n18.jpg" alt="Men's cut at 오월에 salon" loading="lazy"></figure>
-        <figure class="photo" data-label="Straight & color" data-label-en="Straight & color" data-label-ko="매직 & 염색" data-more><img src="img/n19.jpg" alt="Straight & color at 오월에 salon" loading="lazy"></figure>
-        <figure class="photo" data-label="Kids perm" data-label-en="Kids perm" data-label-ko="키즈 펌" data-more><img src="img/g3.jpg" alt="Kids perm at 오월에 salon" loading="lazy"></figure>
+      <div class="gtabs" role="tablist" aria-label="Style categories">
+        <button class="gtab" type="button" role="tab" id="g-all" data-g="all" aria-selected="true" data-en="All" data-ko="전체">All</button>
+        <button class="gtab" type="button" role="tab" id="g-wperm" data-g="wperm" aria-selected="false" data-en="Women's perm" data-ko="여성 펌">Women's perm</button>
+        <button class="gtab" type="button" role="tab" id="g-cut" data-g="cut" aria-selected="false" data-en="Cut" data-ko="커트">Cut</button>
+        <button class="gtab" type="button" role="tab" id="g-color" data-g="color" aria-selected="false" data-en="Color & bleach" data-ko="컬러·탈색">Color & bleach</button>
+        <button class="gtab" type="button" role="tab" id="g-men" data-g="men" aria-selected="false" data-en="Men" data-ko="남성">Men</button>
+        <button class="gtab" type="button" role="tab" id="g-kids" data-g="kids" aria-selected="false" data-en="Kids" data-ko="키즈">Kids</button>
+        <button class="gtab" type="button" role="tab" id="g-lash" data-g="lash" aria-selected="false" data-en="Eyelashes" data-ko="속눈썹">Eyelashes</button>
+        <button class="gtab" type="button" role="tab" id="g-care" data-g="care" aria-selected="false" data-en="Hair & scalp care" data-ko="클리닉">Hair & scalp care</button>
       </div>
-      <div class="more-wrap"><button class="btn btn-line" type="button" id="more-btn" aria-expanded="false">See more styles</button></div>
+      <div class="gallery-grid" id="gallery-grid"></div>
+      <div class="more-wrap"><button class="btn btn-line" type="button" id="more-btn" aria-expanded="false" hidden>See more styles</button></div>
     </div>
   </section>
 
@@ -835,16 +829,30 @@ document.addEventListener("click", e => {
 $("ks-close").addEventListener("click", () => $("kakaosheet").hidden = true);
 $("kakaosheet").addEventListener("click", e => { if (e.target.id === "kakaosheet") $("kakaosheet").hidden = true; });
 
-// 갤러리 더보기, 사진 이름 언어 전환
-document.getElementById("more-btn").addEventListener("click", e => {
-  const g = document.querySelector(".gallery-grid"), open = g.classList.toggle("open");
-  e.currentTarget.textContent = open ? T("Show less", "접기") : T("See more styles", "스타일 더 보기");
-  e.currentTarget.setAttribute("aria-expanded", open);
-});
+// 카테고리별 사진첩: 여성 펌 / 커트 / 컬러·탈색 / 남성 / 키즈 / 속눈썹 / 클리닉
+const PHOTOS = [["img/p01.jpg", "C-curl perm", "C컬펌", "wperm"], ["img/p02.jpg", "Long wave perm", "롱 웨이브펌", "wperm"], ["img/p03.jpg", "Layered wave", "레이어드 웨이브", "wperm"], ["img/p04.jpg", "Black wave perm", "블랙 웨이브펌", "wperm"], ["img/p05.jpg", "Wave perm", "웨이브펌", "wperm"], ["img/p06.jpg", "Body wave perm", "바디 웨이브펌", "wperm"], ["img/p07.jpg", "Digital perm before & after", "디지털펌 전후", "wperm"], ["img/p08.jpg", "Soft wave perm", "소프트 웨이브펌", "wperm"], ["img/p09.jpg", "Long wave perm", "롱 웨이브펌", "wperm"], ["img/p10.jpg", "Digital perm", "디지털펌", "wperm"], ["img/p11.jpg", "C-curl perm before & after", "C컬펌 전후", "wperm"], ["img/p12.jpg", "Digital perm process", "디지털펌 과정", "wperm"], ["img/p13.jpg", "Basic (cold) perm", "기본(콜드)펌", "wperm"], ["img/p14.jpg", "Bob cut", "단발 보브컷", "cut"], ["img/p15.jpg", "Bob cut & color", "단발 컷 & 염색", "cut color"], ["img/p16.jpg", "Bob color", "단발 염색", "cut color"], ["img/p17.jpg", "Hush cut & color", "허쉬컷 & 염색", "cut color"], ["img/p18.jpg", "Layered cut before & after", "레이어드컷 전후", "cut"], ["img/p19.jpg", "Men's cut", "남성 커트", "men cut"], ["img/p20.jpg", "Highlights", "하이라이트", "color"], ["img/p21.jpg", "Layered highlights", "레이어드 하이라이트", "color"], ["img/p22.jpg", "Balayage", "발레아쥬", "color"], ["img/p23.jpg", "Short highlights", "숏컷 하이라이트", "color cut"], ["img/p24.jpg", "Straight & color", "매직 & 염색", "color"], ["img/p25.jpg", "Men's twist perm", "남성 트위스트펌", "men"], ["img/p26.jpg", "Men's curl perm", "남성 컬펌", "men"], ["img/p27.jpg", "Men's curl perm", "남성 컬펌", "men"], ["img/p28.jpg", "Men's curl perm", "남성 컬펌", "men"], ["img/p29.jpg", "Men's down perm before & after", "남성 다운펌 전후", "men"], ["img/p30.jpg", "Men's perm process", "남성 펌 과정", "men"], ["img/p31.jpg", "Men's bleach", "남성 탈색", "men color"], ["img/p32.jpg", "Men's bleach", "남성 탈색", "men color"], ["img/p33.jpg", "Bleach before & after", "탈색 전후", "men color"], ["img/p34.jpg", "Blonde cut", "금발 컷", "men color"], ["img/p35.jpg", "Kids perm", "키즈 펌", "kids"], ["img/p36.jpg", "Kids perm", "키즈 펌", "kids"], ["img/p37.jpg", "Kids perm process", "키즈 펌 과정", "kids"], ["img/p38.jpg", "Lash extension", "속눈썹 연장", "lash"], ["img/p39.jpg", "Lash extension", "속눈썹 연장", "lash"], ["img/p40.jpg", "Hair treatment", "헤어 클리닉", "care"], ["img/p41.jpg", "Scalp care & shampoo", "두피 케어 & 샴푸", "care"]];
+let gcat = "all", gopen = false;
+const GPAGE = 12;
+function renderGallery() {
+  const list = PHOTOS.filter(p => gcat === "all" || p[3].split(" ").includes(gcat));
+  const shown = gcat === "all" && !gopen ? list.slice(0, GPAGE) : list;
+  $("gallery-grid").innerHTML = shown.map(([src, en, ko]) =>
+    `<figure class="photo" data-label="${T(en, ko)}"><img src="${src}" alt="${en} at 오월에 salon" loading="lazy"></figure>`).join("");
+  const more = $("more-btn");
+  more.hidden = !(gcat === "all" && list.length > GPAGE);
+  more.textContent = gopen ? T("Show less", "접기") : T(`See all ${list.length} photos`, `사진 ${list.length}장 모두 보기`);
+  more.setAttribute("aria-expanded", gopen);
+  document.querySelectorAll(".gtab").forEach(b => {
+    const k = b.dataset.g, n = k === "all" ? PHOTOS.length : PHOTOS.filter(p => p[3].split(" ").includes(k)).length;
+    b.setAttribute("aria-selected", k === gcat);
+    b.innerHTML = `${T(b.dataset.en, b.dataset.ko)}<span>${n}</span>`;
+  });
+}
+document.querySelectorAll(".gtab").forEach(b => b.addEventListener("click", () => { gcat = b.dataset.g; gopen = false; renderGallery(); }));
+$("more-btn").addEventListener("click", () => { gopen = !gopen; renderGallery(); if (!gopen) $("gallery").scrollIntoView({ behavior: "smooth" }); });
 function photoLabels() {
   document.querySelectorAll("[data-label-en]").forEach(f => f.dataset.label = lang === "ko" ? f.dataset.labelKo : f.dataset.labelEn);
-  const b = document.getElementById("more-btn"), open = document.querySelector(".gallery-grid").classList.contains("open");
-  b.textContent = open ? T("Show less", "접기") : T("See more styles", "스타일 더 보기");
+  renderGallery();
 }
 langHooks.push(photoLabels); photoLabels();
 </script>

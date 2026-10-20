@@ -331,6 +331,11 @@ section.chat { padding: 0; }
 .hero-model { margin: 0; justify-self: center; width: min(100%, 420px); aspect-ratio: 3 / 4; border-radius: 210px 210px 6px 6px; overflow: hidden; box-shadow: 0 0 0 6px var(--bg), 0 0 0 7px var(--rose), 0 0 60px 6px color-mix(in srgb, var(--rose) 22%, transparent); }
 .hero-model img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; display: block; }
 @media (max-width: 760px) { .hero-model { width: min(100%, 320px); } }
+
+/* 예약: 전화·메시지 예약만 사용 */
+.bk-grid { grid-template-columns: 1fr; }
+.bk-now .now-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 640px) { .bk-now .now-list { grid-template-columns: 1fr; } }
 </style>
 
 <header>
@@ -348,7 +353,7 @@ section.chat { padding: 0; }
         <button type="button" id="lang-en" aria-pressed="true" data-lang="en">EN</button>
         <button type="button" id="lang-ko" aria-pressed="false" data-lang="ko">한국어</button>
       </div>
-      <a class="btn btn-rose" data-booking href="https://calendar.google.com/calendar/u/0/appointments" data-en="Book" data-ko="예약">Book</a>
+      <a class="btn btn-rose" href="#booking" data-en="Book" data-ko="예약">Book</a>
     </div>
   </div>
 </header>
@@ -472,18 +477,6 @@ section.chat { padding: 0; }
             <button class="now-item" type="button" data-kakao><b>KakaoTalk</b><span data-en="Open chat" data-ko="오픈채팅 바로가기">Open chat</span></button>
           </div>
         </div>
-        <div class="bk-form gbook">
-          <div class="eyebrow" data-en="Online booking · Google Calendar" data-ko="온라인 예약 · 구글 캘린더">Online booking · Google Calendar</div>
-          <h3 data-en="See open times and book in a minute" data-ko="빈 시간 확인하고 바로 예약">See open times and book in a minute</h3>
-          <ol class="fr-steps">
-            <li data-en="Pick an open time" data-ko="빈 시간 선택">Pick an open time</li>
-            <li data-en="Enter your name, email and mobile" data-ko="이름·이메일·연락처 입력">Enter your name, email and mobile</li>
-            <li data-en="Get a confirmation email and calendar invite" data-ko="확인 메일 · 내 캘린더에 자동 등록">Get a confirmation email and calendar invite</li>
-          </ol>
-          <ul class="fr-list" id="fr-list"></ul>
-          <a class="btn btn-rose fr-main" data-booking href="https://calendar.google.com/calendar/u/0/appointments" target="_blank" rel="noopener" data-en="Book on Google Calendar" data-ko="구글 캘린더로 예약하기">Book on Google Calendar</a>
-          <p class="bk-small" data-en="Opens the salon’s Google booking page. Only free times are shown, and no account is needed. The owner does every appointment personally, so times fill up fast." data-ko="매장의 구글 예약 페이지로 연결됩니다. 비어 있는 시간만 보이고, 구글 계정이 없어도 예약할 수 있어요. 원장님이 모든 시술을 직접 하셔서 시간이 빨리 찹니다.">Opens the salon’s Google booking page. Only free times are shown, and no account is needed. The owner does every appointment personally, so times fill up fast.</p>
-        </div>
       </div>
     </div>
   </section>
@@ -581,7 +574,7 @@ section.chat { padding: 0; }
 
 <div class="mbar">
   <a class="btn btn-line" href="tel:+639477841312" data-en="Call" data-ko="전화">Call</a>
-  <a class="btn btn-rose" data-booking href="https://calendar.google.com/calendar/u/0/appointments" data-en="Book now" data-ko="예약하기">Book now</a>
+  <a class="btn btn-rose" href="#booking" data-en="Book now" data-ko="예약하기">Book now</a>
 </div>
 
 <script>
@@ -704,16 +697,7 @@ function liveStatus() {
   const cs = document.getElementById("chat-status");
   if (cs) cs.textContent = open ? T("Online · replies in a few minutes", "상담 가능 · 보통 몇 분 안에 답장") : T("Away · replies from 9AM", "부재 중 · 오전 9시부터 답장");
 }
-// 구글 캘린더 예약 페이지: 원장님 구글 캘린더에서 "예약 일정"을 만든 뒤 공유 링크(calendar.app.google/...)로 바꾸면 모든 예약 버튼이 연결됩니다.
-// 실제 사이트에서는 구글이 주는 삽입 코드로 예약 달력을 이 카드 안에 바로 띄울 수도 있습니다.
-const BOOKING_URL = "https://calendar.google.com/calendar/u/0/appointments";
-document.querySelectorAll("[data-booking]").forEach(a => { a.href = BOOKING_URL; a.target = "_blank"; a.rel = "noopener"; });
 const $ = id => document.getElementById(id);
-const POPULAR = [["cut", 1], ["perm", 5], ["perm", 7], ["color", 1], ["care", 1]];
-function renderBooking() {
-  $("fr-list").innerHTML = POPULAR.map(([c, i]) => { const [en, ko, p] = MENU[c][i];
-    return `<li><span>${T(en, ko)}</span><b>₱${p}</b><a data-booking href="${BOOKING_URL}" target="_blank" rel="noopener">${T("Book", "예약")}</a></li>`; }).join("");
-}
 function toast(t) { const el = document.createElement("div"); el.className = "toast"; el.textContent = t; document.body.append(el); setTimeout(() => el.remove(), 1800); }
 async function copyText(text) {
   try { await navigator.clipboard.writeText(text); toast(T("Copied", "복사했어요")); }
@@ -727,7 +711,7 @@ const FAQ = [
   ["Hours", "영업시간", () => T("We're open every day, 9AM to 7PM. Booked clients are served first.", "매일 오전 9시부터 오후 7시까지 영업합니다. 예약 고객을 먼저 모셔요.")],
   ["Location", "위치", () => T("2nd floor, Lot 2, Blk 66, Fil-Am Friendship Hwy, Angeles City. Across from JMI, near Coffee Bay and Kings Meat.", "앤젤레스 시티 필암 프렌드십 하이웨이 Lot 2, Blk 66 2층입니다. JMI 맞은편, 커피베이와 킹스미트 근처예요.")],
   ["Payment", "결제", () => T("Cash, GCash, PayMaya and bank transfer. Credit cards are not accepted.", "현금, GCash, PayMaya, 계좌이체 가능합니다. 카드 결제는 안 돼요.")],
-  ["Book", "예약", () => T("Book online through our Google Calendar booking page. You see open times and get a confirmation email. You can also call or text 0947 784 1312, or KakaoTalk ConyK.", "구글 캘린더 예약 페이지에서 빈 시간을 보고 바로 예약하실 수 있어요. 확인 메일도 받으세요. 전화·문자 0947 784 1312, 카톡 ConyK로도 예약 가능합니다.")],
+  ["Book", "예약", () => T("Call or text 0947 784 1312, or message us on KakaoTalk open chat or Messenger. Tell us the service and time you want, and the owner confirms right away.", "전화·문자 0947 784 1312, 카톡 오픈채팅이나 메신저로 원하시는 시술과 시간을 알려주세요. 원장님이 바로 확정해 드려요.")],
   ["Korean stylist?", "한국 원장님?", () => T("Yes. The owner is Korean and does consultations in Korean or English.", "네, 한국인 원장님이 한국어·영어로 상담해 드려요.")]
 ];
 const log = $("chat-log");
@@ -746,8 +730,8 @@ $("chat-fab").addEventListener("click", () => setChat($("chat").hidden));
 $("chat-close").addEventListener("click", () => { setChat(false); $("chat-fab").focus(); });
 document.addEventListener("keydown", e => { if (e.key === "Escape" && !$("chat").hidden) setChat(false); });
 
-langHooks.push(renderBooking, renderChat, liveStatus);
-renderBooking(); renderChat(); liveStatus(); setInterval(() => { liveStatus(); }, 60000);
+langHooks.push(renderChat, liveStatus);
+renderChat(); liveStatus(); setInterval(() => { liveStatus(); }, 60000);
 
 // 전화·문자 버튼: 휴대폰에서는 바로 전화/문자 앱이 열립니다.
 // 앱이 열리지 않는 환경(PC, 미리보기 화면 등)에서는 번호를 크게 보여주고 복사할 수 있게 합니다.

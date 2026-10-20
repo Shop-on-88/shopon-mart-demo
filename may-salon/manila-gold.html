@@ -276,7 +276,7 @@ section.chat { padding: 0; }
   .chat { bottom: calc(136px + env(safe-area-inset-bottom, 0px)); max-height: calc(100vh - 170px); }
 }
 
-.fresha { display: grid; gap: 14px; }
+.gbook { display: grid; gap: 14px; }
 .fr-steps { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; counter-reset: st; }
 .fr-steps li { counter-increment: st; font-size: 13px; color: var(--muted); border-top: 1px solid var(--rose); padding-top: 8px; }
 .fr-steps li::before { content: counter(st); display: block; font-family: var(--display-en); font-size: 22px; color: var(--plum); line-height: 1.1; }
@@ -305,7 +305,7 @@ section.chat { padding: 0; }
         <button type="button" id="lang-en" aria-pressed="true" data-lang="en">EN</button>
         <button type="button" id="lang-ko" aria-pressed="false" data-lang="ko">한국어</button>
       </div>
-      <a class="btn btn-rose" data-fresha href="https://www.fresha.com/" data-en="Book" data-ko="예약">Book</a>
+      <a class="btn btn-rose" data-booking href="https://calendar.google.com/calendar/u/0/appointments" data-en="Book" data-ko="예약">Book</a>
     </div>
   </div>
 </header>
@@ -438,17 +438,17 @@ section.chat { padding: 0; }
             <button class="now-item" type="button" data-copytext="ConyK"><b>KakaoTalk</b><span data-en="ID: ConyK · tap to copy" data-ko="ID: ConyK · 눌러서 복사">ID: ConyK · tap to copy</span></button>
           </div>
         </div>
-        <div class="bk-form fresha">
-          <div class="eyebrow" data-en="Online booking · Fresha" data-ko="온라인 예약 · Fresha">Online booking · Fresha</div>
+        <div class="bk-form gbook">
+          <div class="eyebrow" data-en="Online booking · Google Calendar" data-ko="온라인 예약 · 구글 캘린더">Online booking · Google Calendar</div>
           <h3 data-en="See open times and book in a minute" data-ko="빈 시간 확인하고 바로 예약">See open times and book in a minute</h3>
           <ol class="fr-steps">
-            <li data-en="Choose a service" data-ko="시술 선택">Choose a service</li>
             <li data-en="Pick an open time" data-ko="빈 시간 선택">Pick an open time</li>
-            <li data-en="Get instant confirmation and a reminder" data-ko="바로 확정 · 알림 문자 발송">Get instant confirmation and a reminder</li>
+            <li data-en="Enter your name, email and mobile" data-ko="이름·이메일·연락처 입력">Enter your name, email and mobile</li>
+            <li data-en="Get a confirmation email and calendar invite" data-ko="확인 메일 · 내 캘린더에 자동 등록">Get a confirmation email and calendar invite</li>
           </ol>
           <ul class="fr-list" id="fr-list"></ul>
-          <a class="btn btn-rose fr-main" data-fresha href="https://www.fresha.com/" target="_blank" rel="noopener" data-en="Book on Fresha" data-ko="Fresha로 예약하기">Book on Fresha</a>
-          <p class="bk-small" data-en="Booking opens on Fresha (free, no app needed). The owner does every appointment personally, so times fill up fast." data-ko="Fresha 예약 페이지로 연결됩니다 (무료, 앱 설치 필요 없음). 원장님이 모든 시술을 직접 하셔서 시간이 빨리 찹니다.">Booking opens on Fresha (free, no app needed). The owner does every appointment personally, so times fill up fast.</p>
+          <a class="btn btn-rose fr-main" data-booking href="https://calendar.google.com/calendar/u/0/appointments" target="_blank" rel="noopener" data-en="Book on Google Calendar" data-ko="구글 캘린더로 예약하기">Book on Google Calendar</a>
+          <p class="bk-small" data-en="Opens the salon’s Google booking page. Only free times are shown, and no account is needed. The owner does every appointment personally, so times fill up fast." data-ko="매장의 구글 예약 페이지로 연결됩니다. 비어 있는 시간만 보이고, 구글 계정이 없어도 예약할 수 있어요. 원장님이 모든 시술을 직접 하셔서 시간이 빨리 찹니다.">Opens the salon’s Google booking page. Only free times are shown, and no account is needed. The owner does every appointment personally, so times fill up fast.</p>
         </div>
       </div>
     </div>
@@ -523,7 +523,7 @@ section.chat { padding: 0; }
 
 <div class="mbar">
   <a class="btn btn-line" href="tel:+639477841312" data-en="Call" data-ko="전화">Call</a>
-  <a class="btn btn-rose" data-fresha href="https://www.fresha.com/" data-en="Book now" data-ko="예약하기">Book now</a>
+  <a class="btn btn-rose" data-booking href="https://calendar.google.com/calendar/u/0/appointments" data-en="Book now" data-ko="예약하기">Book now</a>
 </div>
 
 <script>
@@ -640,14 +640,15 @@ function liveStatus() {
   const cs = document.getElementById("chat-status");
   if (cs) cs.textContent = open ? T("Online · replies in a few minutes", "상담 가능 · 보통 몇 분 안에 답장") : T("Away · replies from 9AM", "부재 중 · 오전 9시부터 답장");
 }
-// Fresha 예약: 업체가 Fresha에 가입하면 아래 주소만 실제 예약 페이지로 바꾸면 모든 예약 버튼이 연결됩니다.
-const FRESHA_URL = "https://www.fresha.com/";
-document.querySelectorAll("[data-fresha]").forEach(a => { a.href = FRESHA_URL; a.target = "_blank"; a.rel = "noopener"; });
+// 구글 캘린더 예약 페이지: 원장님 구글 캘린더에서 "예약 일정"을 만든 뒤 공유 링크(calendar.app.google/...)로 바꾸면 모든 예약 버튼이 연결됩니다.
+// 실제 사이트에서는 구글이 주는 삽입 코드로 예약 달력을 이 카드 안에 바로 띄울 수도 있습니다.
+const BOOKING_URL = "https://calendar.google.com/calendar/u/0/appointments";
+document.querySelectorAll("[data-booking]").forEach(a => { a.href = BOOKING_URL; a.target = "_blank"; a.rel = "noopener"; });
 const $ = id => document.getElementById(id);
 const POPULAR = [["cut", 1], ["perm", 1], ["perm", 2], ["color", 1], ["care", 1]];
 function renderBooking() {
   $("fr-list").innerHTML = POPULAR.map(([c, i]) => { const [en, ko, p] = MENU[c][i];
-    return `<li><span>${T(en, ko)}</span><b>₱${p}</b><a data-fresha href="${FRESHA_URL}" target="_blank" rel="noopener">${T("Book", "예약")}</a></li>`; }).join("");
+    return `<li><span>${T(en, ko)}</span><b>₱${p}</b><a data-booking href="${BOOKING_URL}" target="_blank" rel="noopener">${T("Book", "예약")}</a></li>`; }).join("");
 }
 function toast(t) { const el = document.createElement("div"); el.className = "toast"; el.textContent = t; document.body.append(el); setTimeout(() => el.remove(), 1800); }
 async function copyText(text) {
@@ -662,7 +663,7 @@ const FAQ = [
   ["Hours", "영업시간", () => T("We're open every day, 9AM to 7PM. Booked clients are served first.", "매일 오전 9시부터 오후 7시까지 영업합니다. 예약 고객을 먼저 모셔요.")],
   ["Location", "위치", () => T("2nd floor, Lot 2, Blk 66, Fil-Am Friendship Hwy, Angeles City. Across from JMI, near Coffee Bay and Kings Meat.", "앤젤레스 시티 필암 프렌드십 하이웨이 Lot 2, Blk 66 2층입니다. JMI 맞은편, 커피베이와 킹스미트 근처예요.")],
   ["Payment", "결제", () => T("Cash, GCash, PayMaya and bank transfer. Credit cards are not accepted.", "현금, GCash, PayMaya, 계좌이체 가능합니다. 카드 결제는 안 돼요.")],
-  ["Book", "예약", () => T("Book online on Fresha to see open times and get instant confirmation. You can also call or text 0947 784 1312, or KakaoTalk ConyK.", "Fresha에서 빈 시간을 보고 바로 예약하실 수 있어요. 전화·문자 0947 784 1312, 카톡 ConyK로도 예약 가능합니다.")],
+  ["Book", "예약", () => T("Book online through our Google Calendar booking page. You see open times and get a confirmation email. You can also call or text 0947 784 1312, or KakaoTalk ConyK.", "구글 캘린더 예약 페이지에서 빈 시간을 보고 바로 예약하실 수 있어요. 확인 메일도 받으세요. 전화·문자 0947 784 1312, 카톡 ConyK로도 예약 가능합니다.")],
   ["Korean stylist?", "한국 원장님?", () => T("Yes. The owner is Korean and does consultations in Korean or English.", "네, 한국인 원장님이 한국어·영어로 상담해 드려요.")]
 ];
 const log = $("chat-log");

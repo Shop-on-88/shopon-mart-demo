@@ -153,6 +153,20 @@ nav a:hover { color: var(--ink); }
   position: relative; display: grid; place-items: center; }
 .pin { width: 18px; height: 18px; border-radius: 50% 50% 50% 0; background: var(--rose); transform: rotate(-45deg); box-shadow: 0 0 0 6px color-mix(in srgb, var(--rose) 20%, transparent); }
 .map span { position: absolute; bottom: 12px; left: 12px; font-size: 12px; color: var(--muted); }
+.lm { background: var(--surface); display: block; }
+.visit .wrap > * { min-width: 0; }
+.pay .chip { white-space: nowrap; flex: 0 0 auto; }
+.lm svg { width: 100%; height: 100%; display: block; }
+.lm .road { fill: var(--line); }
+.lm .lane { stroke: var(--surface); stroke-width: 2; stroke-dasharray: 8 8; }
+.lm .bldg { fill: var(--leaf); stroke: var(--line); }
+.lm .here { fill: var(--rose); }
+.lm text { font-family: var(--body); }
+.lm .lbl { fill: var(--muted); font-size: 13px; }
+.lm .rd { fill: var(--muted); font-size: 11px; letter-spacing: .06em; }
+.lm .hl { fill: var(--rose-ink); font-size: 15px; font-weight: 600; }
+.lm .hs { fill: var(--rose-ink); font-size: 11px; opacity: .85; }
+
 .info { display: grid; gap: 18px; margin: 24px 0 28px; }
 .info div { display: grid; grid-template-columns: 72px 1fr; gap: 12px; }
 .info dt { font-size: 13px; color: var(--muted); }
@@ -242,7 +256,7 @@ footer.site .wrap { display: flex; justify-content: space-between; gap: 12px; fl
     <div class="wrap">
       <dl><div><dt data-en="Open" data-ko="영업시간">Open</dt><dd data-en="Daily 9AM – 7PM" data-ko="매일 09:00 – 19:00">Daily 9AM – 7PM</dd></div></dl>
       <dl><div><dt data-en="Google rating" data-ko="구글 평점">Google rating</dt><dd data-en="★ 5.0 (18 reviews)" data-ko="★ 5.0 (리뷰 18개)">★ 5.0 (18 reviews)</dd></div></dl>
-      <dl><div><dt data-en="Booking" data-ko="예약">Booking</dt><dd data-en="Call · Text · KakaoTalk" data-ko="전화 · 문자 · 카카오톡">Call · Text · KakaoTalk</dd></div></dl>
+      <dl><div><dt data-en="Booking" data-ko="예약">Booking</dt><dd data-en="Call · KakaoTalk · Instagram · Facebook" data-ko="전화 · 카톡 · 인스타 · 페이스북">Call · KakaoTalk · Instagram · Facebook</dd></div></dl>
       <dl><div><dt data-en="Payment" data-ko="결제">Payment</dt><dd data-en="Cash only" data-ko="현금만 가능">Cash only</dd></div></dl>
     </div>
   </section>
@@ -318,7 +332,7 @@ footer.site .wrap { display: flex; justify-content: space-between; gap: 12px; fl
 
   <section id="gallery" style="padding-top:0">
     <div class="wrap">
-      <div class="eyebrow" data-en="Looks · photos from Google &amp; Naver Blog" data-ko="스타일 · 구글·네이버 블로그 사진">Looks · photos from Google &amp; Naver Blog</div>
+      <div class="eyebrow" data-en="Looks · from Instagram @eunju3108" data-ko="스타일 · 인스타그램 @eunju3108">Looks · from Instagram @eunju3108</div>
       <h2 data-en="Recent looks" data-ko="최근 스타일">Recent looks</h2>
       <div class="gallery-grid">
         <div class="photo g1" data-label="Hush cut"></div>
@@ -361,9 +375,11 @@ footer.site .wrap { display: flex; justify-content: space-between; gap: 12px; fl
         <div class="eyebrow">Visit &amp; Booking</div>
         <h2 data-en="Find us &amp; book" data-ko="오시는 길 · 예약">Find us &amp; book</h2>
         <dl class="info">
-          <div><dt data-en="Address" data-ko="주소">Address</dt><dd><span id="addr">Lot 22, Block 66 Fil-Am Friendship Hwy, Cutcut, Angeles City, 2009 Pampanga</span><button class="copy" data-copy="addr" type="button">Copy</button></dd></div>
+          <div><dt data-en="Address" data-ko="주소">Address</dt><dd><span id="addr">2nd floor, Lot 2, Blk 66, Fil-Am Friendship Hwy, Angeles City, 2009 Pampanga</span><button class="copy" data-copy="addr" type="button">Copy</button></dd></div>
           <div><dt data-en="Call / Text" data-ko="전화·문자">Call / Text</dt><dd><span id="tel">0947 784 1312</span><button class="copy" data-copy="tel" type="button">Copy</button></dd></div>
-          <div><dt>KakaoTalk</dt><dd><span id="kakao">Cony K</span><button class="copy" data-copy="kakao" type="button">Copy</button></dd></div>
+          <div><dt>KakaoTalk</dt><dd><span id="kakao">ConyK</span><button class="copy" data-copy="kakao" type="button">Copy</button></dd></div>
+          <div><dt>Instagram</dt><dd><a href="https://www.instagram.com/eunju3108/">@eunju3108</a></dd></div>
+          <div><dt>Facebook</dt><dd><a href="https://www.facebook.com/maysalonkim">maysalonkim</a></dd></div>
           <div><dt data-en="Hours" data-ko="영업">Hours</dt><dd data-en="Open daily 9AM – 7PM<br>Bookings are served first" data-ko="매일 오전 9시 – 오후 7시<br>예약 고객 우선">Open daily 9AM – 7PM<br>Bookings are served first</dd></div>
           <div><dt data-en="Payment" data-ko="결제">Payment</dt><dd><div class="pay"><span class="chip" data-en="Cash only" data-ko="현금만 가능">Cash only</span><span class="chip" data-en="No cards or e-wallets" data-ko="카드·GCash 불가">No cards or e-wallets</span></div></dd></div>
         </dl>
@@ -371,10 +387,22 @@ footer.site .wrap { display: flex; justify-content: space-between; gap: 12px; fl
           <a class="btn btn-rose" href="tel:+639477841312" data-en="Call" data-ko="전화">Call</a>
           <a class="btn btn-line" href="sms:+639477841312" data-en="Text" data-ko="문자">Text</a>
           <a class="btn btn-line" href="https://www.google.com/maps/search/?api=1&amp;query=In+the+month+of+may+hair+salon+%EC%98%A4%EC%9B%94%EC%97%90+%EB%AF%B8%EC%9A%A9%EC%8B%A4+Angeles">Google Maps</a>
-          <a class="btn btn-line" href="https://blog.naver.com">Naver Blog</a>
+          <a class="btn btn-line" href="https://www.instagram.com/eunju3108/">Instagram</a>
+          <a class="btn btn-line" href="https://www.facebook.com/maysalonkim">Facebook</a>
         </div>
       </div>
-      <div class="map" role="img" aria-label="Map placeholder"><div class="pin"></div><span data-en="Fil-Am Friendship Hwy, Angeles" data-ko="필암 프렌드십 하이웨이, 앤젤레스">Fil-Am Friendship Hwy, Angeles</span></div>
+      <div class="map lm" role="img" aria-label="Landmark map: salon is on the 2nd floor, across from JMI, between Kings Meat and Coffee Bay on Fil-Am Friendship Highway">
+        <svg viewBox="0 0 400 300" aria-hidden="true">
+          <rect x="188" y="16" width="24" height="268" rx="3" class="road"/>
+          <line x1="200" y1="24" x2="200" y2="276" class="lane"/>
+          <text x="200" y="12" class="rd" text-anchor="middle">Fil-Am Friendship Hwy</text>
+          <rect x="70" y="58" width="104" height="44" rx="3" class="bldg"/><text x="122" y="85" text-anchor="middle" class="lbl">Kings Meat</text>
+          <rect x="70" y="128" width="104" height="44" rx="3" class="bldg"/><text x="122" y="155" text-anchor="middle" class="lbl">JMI</text>
+          <rect x="226" y="122" width="132" height="56" rx="3" class="here"/><text x="292" y="146" text-anchor="middle" class="hl">오월에 · 2F</text><text x="292" y="164" text-anchor="middle" class="hs">in the month of May</text>
+          <rect x="226" y="208" width="132" height="44" rx="3" class="bldg"/><text x="292" y="235" text-anchor="middle" class="lbl">Coffee Bay</text>
+        </svg>
+        <span data-en="Not to scale · 2nd floor, across from JMI" data-ko="약도 · JMI 맞은편 건물 2층">Not to scale · 2nd floor, across from JMI</span>
+      </div>
     </div>
   </section>
 </main>

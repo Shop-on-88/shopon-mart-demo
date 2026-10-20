@@ -388,7 +388,7 @@ section.chat { padding: 0; }
         </div>
       </div>
       <ul class="price-list" id="price-list" role="tabpanel"></ul>
-      <p class="price-note" data-en="* Cut, blow-dry and color prices are from the salon’s price board. Perm, extension, clinic and nail prices are samples to be confirmed." data-ko="* 커트·드라이·염색 가격은 매장 가격표 기준입니다. 펌·붙임머리·클리닉·네일 가격은 확인 전 예시입니다.">* Cut, blow-dry and color prices are from the salon’s price board. Perm, extension, clinic and nail prices are samples to be confirmed.</p>
+      <p class="price-note" data-en="* Cut, blow-dry, perm and color prices are from the salon’s price board. Length surcharges apply to all services. Extension, clinic and nail prices are samples to be confirmed." data-ko="* 커트·드라이·펌·염색 가격은 매장 가격표 기준이며, 모든 시술에 기장 추가가 있습니다. 붙임머리·클리닉·네일 가격은 확인 전 예시입니다.">* Cut, blow-dry, perm and color prices are from the salon’s price board. Length surcharges apply to all services. Extension, clinic and nail prices are samples to be confirmed.</p>
     </div>
   </section>
 
@@ -572,14 +572,20 @@ const MENU = {
     ["Design Cut", "디자인 커트", "1,000 / 1,200", "Men / Women", "남 / 여"],
     ["Bangs Cut", "앞머리 커트", "200", "Quick trim", "앞머리 정리"],
     ["Shampoo", "샴푸", "300 / 400", "Men / Women", "남 / 여"],
-    ["Basic Blow-dry", "베이직 드라이", "500 / 600", "Men / Women", "남 / 여"]
+    ["Basic Blow-dry", "베이직 드라이", "500 / 600", "Men / Women", "남 / 여"],
+    ["Iron Blow-dry", "아이롱 드라이", "500 / 700", "Men / Women", "남 / 여"]
   ],
   perm: [
-    ["Digital Perm", "디지털펌", "5,000+", "Soft, defined curls that last", "오래가는 자연스러운 컬"],
-    ["Setting Perm", "셋팅펌", "5,000+", "C-curl or S-curl volume", "C컬·S컬 볼륨"],
-    ["Magic Straight", "매직스트레이트", "4,500+", "Sleek straight hair", "차분한 스트레이트"],
-    ["Iron Perm", "아이롱펌", "2,500+", "Root volume for short hair", "짧은 머리 뿌리 볼륨"],
-    ["Down Perm", "다운펌", "1,200", "Flattens the sides and back", "옆·뒷머리 정리"]
+    ["Basic Perm", "베이직펌", "2,500+", "Classic perm", "기본 펌"],
+    ["Design Perm", "디자인펌", "3,000+", "Styled curl or wave", "원하는 컬·웨이브 디자인"],
+    ["Root Volume Perm", "뿌리볼륨펌", "2,000+", "Lifts flat roots", "납작한 뿌리에 볼륨"],
+    ["Down Perm", "다운펌", "1,700 – 3,000", "Flattens the sides, by length", "옆머리 정리 · 기장별"],
+    ["Kids Side Down Perm", "아이 사이드 다운펌", "1,000", "For kids", "어린이"],
+    ["Magic Straight", "매직스트레이트", "4,000 – 7,000", "Men from ₱4,000 · Women from ₱5,000, by length", "남 4,000~ · 여 5,000~ · 기장별"],
+    ["Volume Magic", "볼륨매직", "6,000 – 8,000", "Straight with soft volume, by length", "자연스러운 볼륨 매직 · 기장별"],
+    ["Digital Setting Perm", "디지털 셋팅펌", "4,000 – 6,000", "C-curl or S-curl, by length", "C컬·S컬 · 기장별"],
+    ["Magic + Digital Setting", "매직 디지털 셋팅", "7,000 – 9,000", "Straight roots, curled ends, by length", "뿌리는 매직, 끝은 컬 · 기장별"],
+    ["Iron Perm", "아이롱펌", "5,000 – 7,000", "By length", "기장별"]
   ],
   color: [
     ["Gray Coverage", "새치 염색", "2,200 – 5,500", "Root 2,200 · Short 2,500 · Medium 3,500 · Long 4,500 · Max 5,500", "뿌리 2,200 · 숏 2,500 · 미디엄 3,500 · 롱 4,500 · 맥스 5,500"],
@@ -684,7 +690,7 @@ function liveStatus() {
 const BOOKING_URL = "https://calendar.google.com/calendar/u/0/appointments";
 document.querySelectorAll("[data-booking]").forEach(a => { a.href = BOOKING_URL; a.target = "_blank"; a.rel = "noopener"; });
 const $ = id => document.getElementById(id);
-const POPULAR = [["cut", 1], ["perm", 1], ["perm", 2], ["color", 1], ["care", 1]];
+const POPULAR = [["cut", 1], ["perm", 5], ["perm", 7], ["color", 1], ["care", 1]];
 function renderBooking() {
   $("fr-list").innerHTML = POPULAR.map(([c, i]) => { const [en, ko, p] = MENU[c][i];
     return `<li><span>${T(en, ko)}</span><b>₱${p}</b><a data-booking href="${BOOKING_URL}" target="_blank" rel="noopener">${T("Book", "예약")}</a></li>`; }).join("");

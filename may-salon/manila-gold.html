@@ -130,7 +130,7 @@ nav a:hover { color: var(--ink); }
 .rv-track:focus-visible { outline: 2px solid var(--rose); outline-offset: 4px; }
 .review { scroll-snap-align: start; background: var(--surface); padding: 22px; border-radius: 4px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
 .review header { display: flex; align-items: center; gap: 10px; position: static; background: none; border: 0; backdrop-filter: none; }
-.avatar { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: var(--ink); color: var(--bg); font-size: 13px; font-weight: 600; flex: none; }
+.avatar { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; display: grid; place-items: center; background: var(--ink); color: var(--bg); font-size: 13px; font-weight: 600; flex: none; }
 .review header b { display: block; font-size: 14px; }
 .review header small { font-size: 12px; color: var(--muted); }
 .review p { margin: 0; flex: 1; }
@@ -675,6 +675,18 @@ document.getElementById("rv-track").innerHTML = REVIEWS.map(r => `<article class
   <header><span class="avatar" aria-hidden="true">${r.name.slice(0, 1)}</span><div><b>${r.name}</b><small>${r.when}</small></div></header>
   <div class="stars" aria-label="${r.rating} / 5">${"★".repeat(r.rating)}</div>
   <p lang="ko">${r.text}</p><span class="tag">${r.tag}</span></article>`).join("");
+// 실제 사이트에서는 /api/reviews 가 구글 지도 최신 리뷰(최대 5개)와 평점을 받아옵니다. 실패하면 위 리뷰를 그대로 보여줍니다.
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+fetch("/api/reviews").then(r => r.ok ? r.json() : null).then(d => {
+  if (!d || !d.reviews || !d.reviews.length) return;
+  document.getElementById("rv-track").innerHTML = d.reviews.map(r => `<article class="review">
+  <header>${r.photo ? `<img class="avatar" src="${esc(r.photo)}" alt="" referrerpolicy="no-referrer">` : `<span class="avatar" aria-hidden="true">${esc(r.name.slice(0, 1))}</span>`}<div><b>${esc(r.name)}</b><small>${esc(r.when)}</small></div></header>
+  <div class="stars" aria-label="${r.rating} / 5">${"★".repeat(Math.round(r.rating))}</div>
+  <p>${esc(r.text)}</p><span class="tag">Google</span></article>`).join("");
+  if (d.rating) document.getElementById("rv-rating").textContent = d.rating.toFixed(1);
+  if (d.count) { const c = document.getElementById("rv-count"); c.dataset.en = `${d.count} reviews on Google`; c.dataset.ko = `구글 리뷰 ${d.count}개`; c.textContent = lang === "ko" ? c.dataset.ko : c.dataset.en; }
+  if (d.mapsUrl) document.querySelectorAll('.rv-foot a').forEach(a => a.href = d.mapsUrl);
+}).catch(() => {});
 
 const langHooks = [];
 let lang = "en", cat = "cut";

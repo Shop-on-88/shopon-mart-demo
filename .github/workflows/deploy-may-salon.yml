@@ -7,6 +7,7 @@ on:
     branches: [ccr-ac9a9d0a-nbadyh]
     paths:
       - "may-salon/site/**"
+      - "may-salon/functions/**"
       - ".github/workflows/deploy-may-salon.yml"
   workflow_dispatch:
 
@@ -28,4 +29,5 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           wranglerVersion: "4"
-          command: pages deploy may-salon/site --project-name=hairsalon --branch=main --commit-dirty=true
+          workingDirectory: may-salon
+          command: pages deploy site --project-name=hairsalon --branch=main --commit-dirty=true

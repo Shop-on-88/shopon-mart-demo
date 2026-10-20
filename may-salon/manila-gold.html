@@ -332,10 +332,10 @@ section.chat { padding: 0; }
   <section class="hero"><canvas class="sparkle" id="sparkle" aria-hidden="true"></canvas>
     <div class="wrap">
       <div>
-        <div class="eyebrow" data-en="Korean Hair &amp; Nail Salon · Angeles City" data-ko="한국 헤어 &amp; 네일 · 앤젤레스 시티">Korean Hair &amp; Nail Salon · Angeles City</div>
+        <div class="eyebrow" data-en="Korean Hair, Nail &amp; Lash Salon · Angeles City" data-ko="한국 헤어 · 네일 · 속눈썹 · 앤젤레스 시티">Korean Hair, Nail &amp; Lash Salon · Angeles City</div>
         <h1>In the month<br>of <span>May</span></h1>
         <div class="ko" data-en="From your hair to your heart, a new you today." data-ko="머리부터 마음까지,<br>오늘의 나를 새롭게.">From your hair to your heart, a new you today.</div>
-        <p class="lead" data-en="Korean salon on Fil-Am Friendship Highway for cuts, perms, color, extensions, hair clinic and nails. Open every day 9AM to 7PM. Booked clients are served first." data-ko="커트, 펌, 컬러, 붙임머리, 헤어 클리닉, 네일까지. 매일 오전 9시부터 오후 7시까지, 예약 고객 우선입니다.">Cuts, Korean perms, color, extensions, clinic care and nails. Open every day 9AM to 7PM. Booked clients are served first.</p>
+        <p class="lead" data-en="Korean salon on Fil-Am Friendship Highway for cuts, perms, color, extensions, hair clinic, nails and eyelash extensions. Open every day 9AM to 7PM. Booked clients are served first." data-ko="커트, 펌, 컬러, 붙임머리, 헤어 클리닉, 네일, 속눈썹까지. 매일 오전 9시부터 오후 7시까지, 예약 고객 우선입니다.">Cuts, Korean perms, color, extensions, clinic care and nails. Open every day 9AM to 7PM. Booked clients are served first.</p>
         <div class="ctas">
           <a class="btn btn-rose" href="tel:+639477841312" data-en="Call 0947 784 1312" data-ko="전화 예약 0947 784 1312">Call 0947 784 1312</a>
           <a class="btn btn-line" href="#menu" data-en="See prices" data-ko="가격 보기">See prices</a>
@@ -390,10 +390,12 @@ section.chat { padding: 0; }
           <button class="tab" role="tab" id="tab-color" aria-selected="false" data-cat="color" data-en="Color" data-ko="컬러">Color</button>
           <button class="tab" role="tab" id="tab-care" aria-selected="false" data-cat="care" data-en="Extensions &amp; Clinic" data-ko="붙임머리·클리닉">Extensions &amp; Clinic</button>
           <button class="tab" role="tab" id="tab-nail" aria-selected="false" data-cat="nail" data-en="Nail" data-ko="네일">Nail</button>
+          <button class="tab" role="tab" id="tab-lash" aria-selected="false" data-cat="lash" data-en="Eyelashes" data-ko="속눈썹">Eyelashes</button>
+          <button class="tab" role="tab" id="tab-fil" aria-selected="false" data-cat="fil" data-en="Filipino price list" data-ko="필리핀 가격표">Filipino price list</button>
         </div>
       </div>
       <ul class="price-list" id="price-list" role="tabpanel"></ul>
-      <p class="price-note" data-en="* Cut, blow-dry, perm and color prices are from the salon’s price board. Length surcharges apply to all services. Extension, clinic and nail prices are samples to be confirmed." data-ko="* 커트·드라이·펌·염색 가격은 매장 가격표 기준이며, 모든 시술에 기장 추가가 있습니다. 붙임머리·클리닉·네일 가격은 확인 전 예시입니다.">* Cut, blow-dry, perm and color prices are from the salon’s price board. Length surcharges apply to all services. Extension, clinic and nail prices are samples to be confirmed.</p>
+      <p class="price-note" data-en="* Korean menu: cut, blow-dry, perm and color prices are from the salon’s price board, and length surcharges apply. Filipino price list, nail and eyelash prices are from the salon’s price list; hair prices there are for minimum length. Extension and clinic prices are samples to be confirmed." data-ko="* 커트·드라이·펌·염색은 매장 가격표 기준이며 기장 추가가 있습니다. 필리핀 가격표·네일·속눈썹은 매장 가격표 기준이며, 필리핀 헤어 가격은 최소 기장 기준입니다. 붙임머리·클리닉 가격은 확인 전 예시입니다.">* Korean menu: cut, blow-dry, perm and color prices are from the salon’s price board, and length surcharges apply. Filipino price list, nail and eyelash prices are from the salon’s price list; hair prices there are for minimum length. Extension and clinic prices are samples to be confirmed.</p>
     </div>
   </section>
 
@@ -592,10 +594,36 @@ const MENU = {
     ["Add-on Treatment", "시술 추가 클리닉", "900", "With perm or color", "펌·염색과 함께"]
   ],
   nail: [
-    ["Manicure", "매니큐어", "500+", "Gel or regular", "젤·일반"],
-    ["Pedicure", "페디큐어", "600+", "Gel or regular", "젤·일반"],
-    ["Foot Scrub", "풋 스크럽", "800", "Callus care and scrub", "각질 정리·스크럽"],
-    ["Nail Art", "네일 아트", "1,000+", "Korean-style designs", "한국식 디자인"]
+    ["Mani Gel", "젤 매니큐어", "500", "Gel polish, hands", "손 젤"],
+    ["Pedi Gel", "젤 페디큐어", "600", "Gel polish, feet", "발 젤"],
+    ["Soft Gel", "소프트젤", "700", "Soft gel extensions", "소프트젤 연장"],
+    ["Nail Repair", "네일 보수", "700", "Fix broken or lifted nails", "깨지거나 들뜬 네일 보수"],
+    ["Cleaning: Manicure", "손 케어", "200", "Nail cleaning", "손톱 정리"],
+    ["Cleaning: Pedicure", "발 케어", "250", "Nail cleaning", "발톱 정리"],
+    ["Removal: Mani Gel", "손 젤 제거", "150", "", ""],
+    ["Removal: Pedi Gel", "발 젤 제거", "180", "", ""],
+    ["Removal: Soft Gel", "소프트젤 제거", "250", "", ""]
+  ],
+  lash: [
+    ["Classic", "클래식", "500", "One extension per natural lash", "자연스러운 1:1 연장"],
+    ["Korean Y Set", "코리안 Y 세트", "600", "Y-shaped fans for fuller lashes", "Y자 모로 풍성하게"],
+    ["Cat Eye", "캣아이", "550", "Longer at the outer corners", "눈꼬리 쪽을 길게"],
+    ["Volume", "볼륨", "600", "", ""],
+    ["Volume Cat Eye", "볼륨 캣아이", "900", "", ""],
+    ["Mega Volume", "메가 볼륨", "950", "", ""],
+    ["Wet Look", "웻룩", "600", "", ""],
+    ["Retouch", "리터치", "400", "Refill", "보충"],
+    ["Removal", "제거", "250", "", ""]
+  ],
+  fil: [
+    ["Rebond", "리본드", "1,000", "Minimum length price", "최소 기장 기준"],
+    ["Brazilian", "브라질리언", "1,000", "Minimum length price", "최소 기장 기준"],
+    ["Basic Color", "기본 염색", "1,000", "Minimum length price", "최소 기장 기준"],
+    ["Two Tone", "투톤 컬러", "2,500", "Minimum length price", "최소 기장 기준"],
+    ["Balayage", "발레아쥬", "3,000", "Minimum length price", "최소 기장 기준"],
+    ["Wyres Straightening", "와이어스 스트레이트닝", "2,500", "Minimum length price", "최소 기장 기준"],
+    ["Rebond + Color + Brazilian", "리본드 + 염색 + 브라질리언", "2,500", "Minimum length price", "최소 기장 기준"],
+    ["Color + Brazilian", "염색 + 브라질리언", "2,000", "Minimum length price", "최소 기장 기준"]
   ]
 };
 // 구글 리뷰: 실제 사이트에서는 서버가 Google Places API로 하루 몇 번 받아와 이 배열을 채웁니다.

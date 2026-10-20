@@ -469,7 +469,7 @@ section.chat { padding: 0; }
             <a class="now-item" href="tel:+639477841312"><b data-en="Call" data-ko="전화">Call</b><span>0947 784 1312</span></a>
             <a class="now-item" href="sms:+639477841312"><b data-en="Text message" data-ko="문자">Text message</b><span>0947 784 1312</span></a>
             <a class="now-item" href="https://m.me/maysalonkim"><b>Messenger</b><span>maysalonkim</span></a>
-            <button class="now-item" type="button" data-kakao><b>KakaoTalk</b><span data-en="ID: ConyK · open chat" data-ko="ID: ConyK · 카톡 열기">ID: ConyK · open chat</span></button>
+            <button class="now-item" type="button" data-kakao><b>KakaoTalk</b><span data-en="Open chat" data-ko="오픈채팅 바로가기">Open chat</span></button>
           </div>
         </div>
         <div class="bk-form gbook">
@@ -496,7 +496,7 @@ section.chat { padding: 0; }
         <dl class="info">
           <div><dt data-en="Address" data-ko="주소">Address</dt><dd><span id="addr">2nd floor, Lot 2, Blk 66, Fil-Am Friendship Hwy, Angeles City, 2009 Pampanga</span><button class="copy" data-copy="addr" type="button">Copy</button></dd></div>
           <div><dt data-en="Call / Text" data-ko="전화·문자">Call / Text</dt><dd><span id="tel">0947 784 1312</span><button class="copy" data-copy="tel" type="button">Copy</button></dd></div>
-          <div><dt>KakaoTalk</dt><dd><span id="kakao">ConyK</span><button class="copy" data-copy="kakao" type="button">Copy</button></dd></div>
+          <div><dt>KakaoTalk</dt><dd><a href="https://open.kakao.com/o/smmCSkTi" target="_blank" rel="noopener" data-en="Open chat" data-ko="오픈채팅 바로가기">Open chat</a> · ID <span id="kakao">ConyK</span></dd></div>
           <div><dt>Instagram</dt><dd><a href="https://www.instagram.com/eunju3108/">@eunju3108</a></dd></div>
           <div><dt>Facebook</dt><dd><a href="https://www.facebook.com/share/1KfbtTkiqp/">maysalonkim</a></dd></div>
           <div><dt data-en="Hours" data-ko="영업">Hours</dt><dd data-en="Open daily 9AM – 7PM<br>Bookings are served first" data-ko="매일 오전 9시 – 오후 7시<br>예약 고객 우선">Open daily 9AM – 7PM<br>Bookings are served first</dd></div>
@@ -765,10 +765,10 @@ document.addEventListener("keydown", e => { if (e.key === "Escape") $("callsheet
 
 // 카카오톡: 원장님이 1:1 오픈채팅이나 카카오톡 채널을 만들면 그 링크를 KAKAO_URL에 넣으세요. 버튼을 누르면 대화창이 바로 열립니다.
 // 링크가 없으면 ID를 복사하고 카카오톡 앱을 여는 안내를 보여줍니다.
-const KAKAO_URL = "";
+const KAKAO_URL = "https://open.kakao.com/o/smmCSkTi";
 document.addEventListener("click", e => {
   const b = e.target.closest("[data-kakao]"); if (!b) return;
-  if (KAKAO_URL) { location.href = KAKAO_URL; return; }
+  if (KAKAO_URL) { const l = document.createElement("a"); l.href = KAKAO_URL; l.target = "_blank"; l.rel = "noopener"; l.click(); return; }
   navigator.clipboard?.writeText("ConyK").catch(() => {});
   $("kakaosheet").hidden = false;
 });

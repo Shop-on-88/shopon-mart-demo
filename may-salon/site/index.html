@@ -313,6 +313,18 @@ section.chat { padding: 0; }
 .cs-num { font-family: var(--display-en); font-size: 38px; color: var(--plum); text-decoration: none; font-variant-numeric: tabular-nums; user-select: all; }
 .cs-box p { margin: 0; font-size: 13.5px; color: var(--muted); }
 .cs-btns { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+
+/* Netlify 배지(오른쪽 아래)와 겹치지 않도록 하단 요소를 위로 올림 */
+@media (max-width: 760px) {
+  .mbar { padding-bottom: calc(68px + env(safe-area-inset-bottom, 0px)); }
+  .chat-fab { bottom: calc(140px + env(safe-area-inset-bottom, 0px)); }
+  .chat { bottom: calc(200px + env(safe-area-inset-bottom, 0px)); max-height: calc(100vh - 240px); }
+  footer.site { padding-bottom: 170px; }
+}
+@media (min-width: 761px) {
+  .chat-fab { bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
+  .chat { bottom: calc(148px + env(safe-area-inset-bottom, 0px)); max-height: min(560px, calc(100vh - 190px)); }
+}
 </style>
 
 <header>

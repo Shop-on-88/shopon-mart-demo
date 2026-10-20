@@ -1,0 +1,30 @@
+# 오월에 미용실 사이트(may-salon/site)를 Cloudflare Pages "hairsalon" 프로젝트에 자동 배포합니다.
+# 필요한 GitHub 저장소 Secrets: CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID
+name: Deploy May salon site
+
+on:
+  push:
+    branches: [ccr-ac9a9d0a-nbadyh]
+    paths:
+      - "may-salon/site/**"
+      - ".github/workflows/deploy-may-salon.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-may-salon
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy may-salon/site --project-name=hairsalon --branch=main --commit-dirty=true

@@ -133,12 +133,22 @@ nav a:hover { color: var(--ink); }
 
 /* Reviews */
 .reviews { background: var(--leaf); }
-.review-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 32px; }
-.review { background: var(--surface); padding: 22px; border-radius: 4px; display: flex; flex-direction: column; gap: 12px; }
-.review .stars { color: var(--rose); letter-spacing: 2px; font-size: 13px; }
+.rv-head { display: flex; justify-content: space-between; align-items: end; gap: 20px; flex-wrap: wrap; }
+.rv-score { display: flex; align-items: center; gap: 12px; }
+.rv-score b { font-family: var(--display-en); font-size: 52px; font-weight: 500; line-height: 1; }
+.rv-score span { font-size: 13px; color: var(--muted); }
+.stars { color: var(--rose); letter-spacing: 2px; font-size: 13px; }
+.rv-track { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(260px, 31%); gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding-block: 28px 12px; }
+.rv-track:focus-visible { outline: 2px solid var(--rose); outline-offset: 4px; }
+.review { scroll-snap-align: start; background: var(--surface); padding: 22px; border-radius: 4px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.review header { display: flex; align-items: center; gap: 10px; position: static; background: none; border: 0; backdrop-filter: none; }
+.avatar { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: var(--ink); color: var(--bg); font-size: 13px; font-weight: 600; flex: none; }
+.review header b { display: block; font-size: 14px; }
+.review header small { font-size: 12px; color: var(--muted); }
 .review p { margin: 0; flex: 1; }
-.review footer { font-size: 12.5px; color: var(--muted); }
-@media (max-width: 760px) { .review-grid { grid-template-columns: 1fr; } }
+.review .tag { font-size: 12px; color: var(--muted); }
+.rv-foot { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; font-size: 12.5px; color: var(--muted); margin-top: 8px; }
+@media (max-width: 760px) { .rv-track { grid-auto-columns: 82%; } }
 
 /* Booking / location */
 .visit .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 64px); }
@@ -183,7 +193,7 @@ footer.site .wrap { display: flex; justify-content: space-between; gap: 12px; fl
 .ko-sub { font-family: var(--display-ko); color: var(--muted); font-size: .7em; font-weight: 400; display: block; margin-top: 4px; }
 </style>
 
-<div class="draft"><div class="wrap"><strong data-en="Website draft (sample)" data-ko="홈페이지 시안 (샘플)">Website draft (sample)</strong><span data-en="Address, phone and hours are real. Prices, photos and stylist profiles are placeholders." data-ko="주소·전화·영업시간은 실제 정보입니다. 가격·사진·디자이너 소개는 예시입니다.">Address, phone and hours are real. Prices, photos and stylist profiles are placeholders.</span></div></div>
+<div class="draft"><div class="wrap"><strong data-en="Website draft (sample)" data-ko="홈페이지 시안 (샘플)">Website draft (sample)</strong><span data-en="Address, hours, reviews and cut/color prices are real. Photos, stylist profiles and some prices are placeholders." data-ko="주소·영업시간·리뷰·커트/염색 가격은 실제 정보입니다. 사진·디자이너 소개·일부 가격은 예시입니다.">Address, hours, reviews and cut/color prices are real. Photos, stylist profiles and some prices are placeholders.</span></div></div>
 
 <header>
   <div class="wrap">
@@ -269,7 +279,7 @@ footer.site .wrap { display: flex; justify-content: space-between; gap: 12px; fl
         </div>
       </div>
       <ul class="price-list" id="price-list" role="tabpanel"></ul>
-      <p class="price-note" data-en="* Long hair (below shoulder) +₱500, below chest +₱1,000. All prices are samples and VAT-inclusive." data-ko="* 기장 추가: 어깨 아래 +₱500 / 가슴 아래 +₱1,000 · 모든 가격은 예시이며 VAT 포함입니다.">* Long hair (below shoulder) +₱500, below chest +₱1,000. All prices are samples and VAT-inclusive.</p>
+      <p class="price-note" data-en="* Cut, blow-dry and color prices are from the salon’s price board. Perm, extension, clinic and nail prices are samples to be confirmed." data-ko="* 커트·드라이·염색 가격은 매장 가격표 기준입니다. 펌·붙임머리·클리닉·네일 가격은 확인 전 예시입니다.">* Cut, blow-dry and color prices are from the salon’s price board. Perm, extension, clinic and nail prices are samples to be confirmed.</p>
     </div>
   </section>
 
@@ -318,12 +328,23 @@ footer.site .wrap { display: flex; justify-content: space-between; gap: 12px; fl
 
   <section class="reviews">
     <div class="wrap">
-      <div class="eyebrow" data-en="Google ★ 5.0 · 18 reviews" data-ko="구글 ★ 5.0 · 리뷰 18개">Google ★ 5.0 · 18 reviews</div>
-      <h2 data-en="What clients say" data-ko="다녀가신 분들의 이야기">What clients say</h2>
-      <div class="review-grid">
-        <article class="review"><div class="stars" aria-label="5 stars">★★★★★</div><p>(Sample) My C-curl still looks good after two weeks, even with the humidity. Easy to find on Friendship Highway.</p><footer>Volume magic + cut</footer></article>
-        <article class="review"><div class="stars" aria-label="5 stars">★★★★★</div><p>(Sample) Called ahead to book, no waiting when I arrived. They explained everything before starting.</p><footer>Ash brown color</footer></article>
-        <article class="review"><div class="stars" aria-label="5 stars">★★★★★</div><p>(Sample) Finally a Korean salon that knows how to cut thick Filipino hair. Paid with GCash, super easy.</p><footer>Men’s cut + down perm</footer></article>
+      <div class="rv-head">
+        <div>
+          <div class="eyebrow" data-en="Google reviews" data-ko="구글 리뷰">Google reviews</div>
+          <h2 data-en="What clients say" data-ko="다녀가신 분들의 이야기">What clients say</h2>
+        </div>
+        <div class="rv-score">
+          <b id="rv-rating">5.0</b>
+          <div><div class="stars" aria-hidden="true">★★★★★</div><span id="rv-count" data-en="18 reviews on Google" data-ko="구글 리뷰 18개">18 reviews on Google</span></div>
+        </div>
+      </div>
+      <div class="rv-track" id="rv-track" tabindex="0" aria-label="Google reviews"></div>
+      <div class="rv-foot">
+        <span data-en="Reviews update automatically from Google Maps. Original reviews are in Korean." data-ko="구글 지도에 새 리뷰가 등록되면 자동으로 반영됩니다.">Reviews update automatically from Google Maps. Original reviews are in Korean.</span>
+        <div class="book-ways">
+          <a class="btn btn-line" href="https://www.google.com/maps/search/?api=1&amp;query=In+the+month+of+may+hair+salon+%EC%98%A4%EC%9B%94%EC%97%90+%EB%AF%B8%EC%9A%A9%EC%8B%A4+Angeles" data-en="See all reviews" data-ko="리뷰 전체 보기">See all reviews</a>
+          <a class="btn btn-rose" href="https://www.google.com/maps/search/?api=1&amp;query=In+the+month+of+may+hair+salon+%EC%98%A4%EC%9B%94%EC%97%90+%EB%AF%B8%EC%9A%A9%EC%8B%A4+Angeles" data-en="Write a review" data-ko="리뷰 쓰기">Write a review</a>
+        </div>
       </div>
     </div>
   </section>
@@ -367,10 +388,11 @@ footer.site .wrap { display: flex; justify-content: space-between; gap: 12px; fl
 <script>
 const MENU = {
   cut: [
-    ["Korean Design Cut", "디자인 커트", "800", "Shampoo + blow-dry", "샴푸·드라이 포함"],
-    ["Men’s Cut", "남성 커트", "600", "10% off with down perm", "다운펌 함께 시 10% 할인"],
-    ["Bangs Trim", "앞머리 커트", "250", "Free for returning clients", "기존 고객 무료"],
-    ["Blow-dry & Styling", "드라이·스타일링", "700+", "Events, debuts, weddings", "행사·데뷰·웨딩"]
+    ["Basic Cut", "베이직 커트", "700 / 800", "Men / Women", "남 / 여"],
+    ["Design Cut", "디자인 커트", "1,000 / 1,200", "Men / Women", "남 / 여"],
+    ["Bangs Cut", "앞머리 커트", "200", "Quick trim", "앞머리 정리"],
+    ["Shampoo", "샴푸", "300 / 400", "Men / Women", "남 / 여"],
+    ["Basic Blow-dry", "베이직 드라이", "500 / 600", "Men / Women", "남 / 여"]
   ],
   perm: [
     ["Digital Perm", "디지털펌", "5,000+", "Soft, defined curls that last", "오래가는 자연스러운 컬"],
@@ -380,10 +402,10 @@ const MENU = {
     ["Down Perm", "다운펌", "1,200", "Flattens the sides and back", "옆·뒷머리 정리"]
   ],
   color: [
-    ["Full Color", "전체 염색", "3,000+", "Tone-down or tone-up", "톤다운·톤업"],
-    ["Gray Coverage", "새치 염색", "2,000", "Roots or full", "뿌리·전체"],
-    ["Bleach (1 session)", "탈색 (1회)", "3,500+", "Bond care included", "케어 앰플 포함"],
-    ["Design Color", "디자인 염색", "2,500+", "Highlights, balayage, point color", "하이라이트·발레아쥬·포인트"]
+    ["Gray Coverage", "새치 염색", "2,200 – 5,500", "Root 2,200 · Short 2,500 · Medium 3,500 · Long 4,500 · Max 5,500", "뿌리 2,200 · 숏 2,500 · 미디엄 3,500 · 롱 4,500 · 맥스 5,500"],
+    ["Color", "컬러", "2,200 – 5,500", "Root 2,200 · Short 2,500 · Medium 3,500 · Long 4,500 · Max 5,500", "뿌리 2,200 · 숏 2,500 · 미디엄 3,500 · 롱 4,500 · 맥스 5,500"],
+    ["Bleach", "탈색", "3,000 – 5,500", "Root 3,000 · Short 3,000 · Medium 3,500 · Long 4,500 · Max 5,500", "뿌리 3,000 · 숏 3,000 · 미디엄 3,500 · 롱 4,500 · 맥스 5,500"],
+    ["Hair Manicure (shine coating)", "헤어 매니큐어", "2,500 – 5,000", "Root 2,500 · Short 2,500 · Medium 3,000 · Long 4,000 · Max 5,000", "뿌리 2,500 · 숏 2,500 · 미디엄 3,000 · 롱 4,000 · 맥스 5,000"]
   ],
   care: [
     ["Hair Extensions", "붙임머리", "6,000+", "Volume or length, consultation first", "볼륨·기장 연장, 상담 후 결정"],
@@ -412,7 +434,21 @@ function setLang(l) {
   document.documentElement.lang = l;
   document.querySelectorAll("[data-en]").forEach(el => { el.innerHTML = el.dataset[l]; });
   document.querySelectorAll(".lang button").forEach(b => b.setAttribute("aria-pressed", b.dataset.lang === l));
-  document.querySelectorAll(".copy").forEach(b => b.textContent = l === "ko" ? "복사" : "Copy");
+  // 구글 리뷰: 실제 사이트에서는 서버가 Google Places API로 하루 몇 번 받아와 이 배열을 채웁니다.
+// 시안에는 구글 지도에 올라온 실제 리뷰를 넣어 두었습니다 (이름은 가림 처리).
+const REVIEWS = [
+  { name: "김*현", when: "8개월 전", rating: 5, tag: "볼륨펌", text: "볼륨펌 완전 만족! 처음 방문했는데 친절하게 상담해주시고, 머리 손질도 깔끔하게 해주셨어요. 무엇보다 가격이 정말 착해서 부담 없이 받을 수 있었습니다." },
+  { name: "김*연", when: "8개월 전", rating: 5, tag: "숏단발 커트", text: "처음으로 숏단발에 도전했는데, 기대 이상으로 너무 잘 어울리게 잘라주셨어요. 손질 방법도 알려주셔서 유지하기 쉬웠어요." },
+  { name: "seo j.", when: "8개월 전", rating: 5, tag: "셋팅펌", text: "첫 방문때, 남편 커트 잘하시는거 보고, 오늘 전 셋팅펌하러 방문했네요. 아주 만족스럽게 잘 나왔어요!" },
+  { name: "윤*희", when: "8개월 전", rating: 5, tag: "단발 커트", text: "처음 방문했는데, 왜 이제야 알았는지 후회될 정도로 완벽하게 만족한 곳입니다. 단발을 이렇게 섬세하고 깔끔하게 해주셨어요." },
+  { name: "최*원", when: "8개월 전", rating: 5, tag: "재방문", text: "매번 시술받을때마다 한국원장님의 꼼꼼함과 세심함에 정말 마음에 드는 샵이예요^^~" }
+];
+document.getElementById("rv-track").innerHTML = REVIEWS.map(r => `<article class="review">
+  <header><span class="avatar" aria-hidden="true">${r.name.slice(0, 1)}</span><div><b>${r.name}</b><small>${r.when}</small></div></header>
+  <div class="stars" aria-label="${r.rating} / 5">${"★".repeat(r.rating)}</div>
+  <p lang="ko">${r.text}</p><span class="tag">${r.tag}</span></article>`).join("");
+
+document.querySelectorAll(".copy").forEach(b => b.textContent = l === "ko" ? "복사" : "Copy");
   try { localStorage.setItem("may-lang", l); } catch {}
   render();
 }

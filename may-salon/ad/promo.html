@@ -14,9 +14,9 @@ html,body{margin:0;background:transparent}
 .eyebrow{font:700 28px "IBM Plex Sans KR";letter-spacing:.22em;text-transform:uppercase;color:#e3c88d;text-shadow:0 2px 10px rgba(0,0,0,.9)}
 h1{text-shadow:0 2px 16px rgba(0,0,0,.6);margin:14px 0 0;font:500 112px/0.98 "Cormorant Garamond",serif;font-style:italic;color:#e9cf93}
 .wide h1{font-size:104px}
-.ko{font:700 40px "Gowun Batang",serif;margin-top:18px;text-shadow:0 2px 10px rgba(0,0,0,.8)}
+.ko{font:500 38px "IBM Plex Sans KR",sans-serif;margin-top:18px;text-shadow:0 2px 10px rgba(0,0,0,.8)}
 .price{display:inline-block;margin-top:28px;padding:14px 30px;border-radius:999px;background:#c9a45c;color:#15100a;font:700 40px "IBM Plex Sans KR"}
-.quote{font:700 46px/1.5 "Gowun Batang",serif;margin-top:22px}
+.quote{font:500 52px/1.35 "Cormorant Garamond",serif;font-style:italic;margin-top:22px}
 .stars{color:#c9a45c;font-size:52px;letter-spacing:6px}
 .end{position:absolute;inset:0;background:#0e0c0a;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:22px;padding:0 60px}
 .end img{width:300px;height:300px;border-radius:50%;box-shadow:0 0 0 8px #0e0c0a,0 0 0 10px #c9a45c,0 0 80px 10px rgba(201,164,92,.3)}
@@ -34,24 +34,24 @@ const P=new URLSearchParams(location.search), W=+P.get('w'), H=+P.get('h'), i=+P
 document.documentElement.style.setProperty('--w',W+'px');document.documentElement.style.setProperty('--h',H+'px');
 const LOGO='../site/logo.jpg';
 const S=[
- {e:'Korean Hair Salon · Angeles City',h:'In the month<br>of May',k:'머리부터 마음까지,<br>오늘의 나를 새롭게.'},
- {e:'Welcome',h:'Bright, calm<br>and spacious',k:'필암 프렌드십 하이웨이 2층'},
- {e:'Korean owner',h:'Consultation<br>comes first',k:'한국인 원장님이 직접 상담해 드려요'},
- {e:'Korean equipment',h:'Real Korean<br>perm machines',k:'한국 디지털펌 · 셋팅펌 장비'},
- {e:'Korean Perm',h:'Soft waves<br>that last',k:'디지털 · 셋팅 · C컬펌',p:'from ₱2,500'},
- {e:'Before & After',h:'See the<br>difference',k:'C컬펌 시술 전후'},
- {e:'Color & Balayage',h:'Glow in<br>every light',k:'하이라이트 · 발레아쥬 · 새치커버',p:'from ₱2,200'},
- {e:"Men's Cut & Perm",h:'Korean style<br>for him',k:'남성 커트 · 다운펌 · 컬펌',p:'Cut from ₱700'},
- {e:'Kids welcome',h:'Little curls,<br>big smiles',k:'아이들 펌·커트도 OK',p:'Kids perm'},
- {e:'Nails',h:'Gel nails in<br>every color',k:'젤 네일 · 소프트젤 · 네일 케어',p:'Gel from ₱500'},
- {e:'Eyelashes',h:'Lashes that<br>open your eyes',k:'클래식 · 볼륨 · 코리안 Y 세트',p:'from ₱500'},
- {e:'Korean hair care',h:'Products we<br>trust',k:'한국 정품 헤어 케어 제품'},
+ {e:'Korean Hair Salon · Angeles City',h:'In the month<br>of May',k:'From your hair to your heart,<br>a new you today.'},
+ {e:'Welcome',h:'Bright, calm<br>and spacious',k:'2F, Fil-Am Friendship Highway'},
+ {e:'Korean owner',h:'Consultation<br>comes first',k:'Your Korean stylist listens first'},
+ {e:'Korean equipment',h:'Real Korean<br>perm machines',k:'Digital perm · Setting perm'},
+ {e:'Korean Perm',h:'Soft waves<br>that last',k:'Digital · Setting · C-curl',p:'from ₱2,500'},
+ {e:'Before & After',h:'See the<br>difference',k:'C-curl perm, before & after'},
+ {e:'Color & Balayage',h:'Glow in<br>every light',k:'Highlights · Balayage · Gray coverage',p:'from ₱2,200'},
+ {e:"Men's Cut & Perm",h:'Korean style<br>for him',k:'Cut · Down perm · Curl perm',p:'Cut from ₱700'},
+ {e:'Kids welcome',h:'Little curls,<br>big smiles',k:'Perms and cuts for kids too',p:'Kids perm'},
+ {e:'Nails',h:'Gel nails in<br>every color',k:'Gel · Soft gel · Nail care',p:'Gel from ₱500'},
+ {e:'Eyelashes',h:'Lashes that<br>open your eyes',k:'Classic · Volume · Korean Y set',p:'from ₱500'},
+ {e:'Korean hair care',h:'Products we<br>trust',k:'Authentic Korean hair care'},
  {e:'Google reviews',q:true},
 ];
 const r=document.getElementById('root'), cls=wide?'s wide':'s';
-const topBar=`<div class="top"><img src="${LOGO}"><span>오월에 · In the month of May</span></div>`;
+const topBar=`<div class="top"><img src="${LOGO}"><span>In the month of May Hair Salon</span></div>`;
 if(i<S.length){const s=S[i];
- r.innerHTML= s.q ? `<div class="${cls}"><div class="shade" style="background:rgba(10,8,6,.72)"></div>${topBar}<div class="bot"><div class="eyebrow">${s.e}</div><div class="stars">★★★★★ <span style="font:500 64px 'Cormorant Garamond'">5.0</span></div><div class="quote">“처음 방문했는데, 왜 이제야 알았는지 후회될 정도로 완벽하게 만족한 곳입니다.”</div><div class="ko" style="font-size:32px;color:#b0a089">— Google review</div></div></div>`
+ r.innerHTML= s.q ? `<div class="${cls}"><div class="shade" style="background:rgba(10,8,6,.72)"></div>${topBar}<div class="bot"><div class="eyebrow">${s.e}</div><div class="stars">★★★★★ <span style="font:500 64px 'Cormorant Garamond'">5.0</span></div><div class="quote">“My first visit, and I wish I had found this place sooner. Completely satisfied.”</div><div class="ko" style="font-size:32px;color:#b0a089">— Google review (translated)</div></div></div>`
  : `<div class="${cls}"><div class="shade"></div>${topBar}<div class="bot"><div class="eyebrow">${s.e}</div><h1>${s.h}</h1><div class="ko">${s.k}</div>${s.p?`<div class="price">${s.p}</div>`:''}</div></div>`}
-else r.innerHTML=`<div class="${cls}"><div class="end"><img src="${LOGO}"><div class="col"><h1>In the month<br>of May</h1><div class="ko">한국 헤어 · 네일 · 속눈썹</div><div class="cta">Book · 0947 784 1312</div><div class="line">KakaoTalk · Messenger · Walk-in</div><div class="small">2F, Fil-Am Friendship Hwy, Angeles City<br>Open daily 9AM – 7PM</div></div></div></div>`;
+else r.innerHTML=`<div class="${cls}"><div class="end"><img src="${LOGO}"><div class="col"><h1>In the month<br>of May</h1><div class="ko">Korean Hair · Nails · Lashes</div><div class="cta">Book · 0947 784 1312</div><div class="line">KakaoTalk · Messenger · Walk-in</div><div class="small">2F, Fil-Am Friendship Hwy, Angeles City<br>Open daily 9AM – 7PM</div></div></div></div>`;
 </script></body></html>

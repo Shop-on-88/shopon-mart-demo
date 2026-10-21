@@ -10,7 +10,7 @@ html,body{margin:0;background:transparent}
 .bot{position:absolute;left:64px;right:64px;bottom:calc(var(--h)*.09)}
 .eyebrow{font:700 28px "IBM Plex Sans KR";letter-spacing:.22em;text-transform:uppercase;color:#e3c88d;text-shadow:0 2px 10px rgba(0,0,0,.9)}
 h1{text-shadow:0 2px 16px rgba(0,0,0,.6);margin:14px 0 0;font:500 112px/0.98 "Cormorant Garamond",serif;font-style:italic;color:#e9cf93}
-.ko{font:700 40px "Gowun Batang",serif;margin-top:18px}
+.ko{font:500 38px "IBM Plex Sans KR",sans-serif;margin-top:18px}
 .price{display:inline-block;margin-top:28px;padding:14px 30px;border-radius:999px;background:#c9a45c;color:#15100a;font:700 40px "IBM Plex Sans KR"}
 .end{position:absolute;inset:0;background:#0e0c0a;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:22px;padding:0 60px}
 .end img{width:300px;height:300px;border-radius:50%;box-shadow:0 0 0 8px #0e0c0a,0 0 0 10px #c9a45c,0 0 80px 10px rgba(201,164,92,.3)}
@@ -24,14 +24,14 @@ const P=new URLSearchParams(location.search), W=+P.get('w'), H=+P.get('h'), i=+P
 document.documentElement.style.setProperty('--w',W+'px');document.documentElement.style.setProperty('--h',H+'px');
 const LOGO='../site/logo.jpg';
 const S=[
- {e:'Korean Hair Salon · Angeles',h:'In the month<br>of May',k:'머리부터 마음까지, 오늘의 나를 새롭게.'},
- {e:'Korean Perm',h:'Soft waves<br>that last',k:'디지털 · 셋팅 · C컬펌',p:'from ₱2,500'},
- {e:'Color & Balayage',h:'Glow in<br>every light',k:'하이라이트 · 발레아쥬 · 새치커버',p:'from ₱2,200'},
- {e:"Men's Cut & Perm",h:'Korean style<br>for him',k:'남성 커트 · 다운펌 · 컬펌',p:'Cut from ₱700'},
- {e:'Nails & Lashes',h:'Finish<br>the look',k:'젤 네일 · 속눈썹 연장',p:'from ₱500'},
- {e:'Open daily 9AM – 7PM',h:'Korean owner,<br>Korean style',k:'한국인 원장님이 직접 상담해 드려요'},
+ {e:'Korean Hair Salon · Angeles',h:'In the month<br>of May',k:'From your hair to your heart, a new you today.'},
+ {e:'Korean Perm',h:'Soft waves<br>that last',k:'Digital · Setting · C-curl',p:'from ₱2,500'},
+ {e:'Color & Balayage',h:'Glow in<br>every light',k:'Highlights · Balayage · Gray coverage',p:'from ₱2,200'},
+ {e:"Men's Cut & Perm",h:'Korean style<br>for him',k:'Cut · Down perm · Curl perm',p:'Cut from ₱700'},
+ {e:'Nails & Lashes',h:'Finish<br>the look',k:'Gel nails · Lash extensions',p:'from ₱500'},
+ {e:'Open daily 9AM – 7PM',h:'Korean owner,<br>Korean style',k:'Your Korean stylist listens first'},
 ];
 const r=document.getElementById('root');
-if(i<S.length){const s=S[i];r.innerHTML=`<div class="s"><div class="shade"></div><div class="top"><img src="${LOGO}"><span>오월에 · In the month of May</span></div><div class="bot"><div class="eyebrow">${s.e}</div><h1>${s.h}</h1><div class="ko">${s.k}</div>${s.p?`<div class="price">${s.p}</div>`:''}</div></div>`}
-else r.innerHTML=`<div class="s"><div class="end"><img src="${LOGO}"><h1>In the month<br>of May</h1><div class="ko">한국 헤어 · 네일 · 속눈썹</div><div class="cta">Book now · 0947 784 1312</div><div class="line">KakaoTalk · Messenger · Walk-in</div><div class="small">2F, Fil-Am Friendship Hwy, Angeles City<br>Cash · GCash · PayMaya · Bank transfer</div></div></div>`;
+if(i<S.length){const s=S[i];r.innerHTML=`<div class="s"><div class="shade"></div><div class="top"><img src="${LOGO}"><span>In the month of May Hair Salon</span></div><div class="bot"><div class="eyebrow">${s.e}</div><h1>${s.h}</h1><div class="ko">${s.k}</div>${s.p?`<div class="price">${s.p}</div>`:''}</div></div>`}
+else r.innerHTML=`<div class="s"><div class="end"><img src="${LOGO}"><h1>In the month<br>of May</h1><div class="ko">Korean Hair · Nails · Lashes</div><div class="cta">Book now · 0947 784 1312</div><div class="line">KakaoTalk · Messenger · Walk-in</div><div class="small">2F, Fil-Am Friendship Hwy, Angeles City<br>Cash · GCash · PayMaya · Bank transfer</div></div></div>`;
 </script></body></html>

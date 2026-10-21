@@ -4,9 +4,10 @@
 html,body{margin:0}
 .c{position:relative;width:1640px;height:924px;background:#0e0c0a;overflow:hidden;font-family:"IBM Plex Sans KR",sans-serif;color:#f4ead6}
 .glow{position:absolute;inset:0;background:radial-gradient(50% 70% at 25% 50%,rgba(201,164,92,.16),transparent 70%)}
-.tiles{position:absolute;right:0;top:0;bottom:0;width:860px;display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:10px}
+.tiles{position:absolute;right:0;top:0;bottom:0;width:880px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:520px 1fr;gap:10px}
+.tiles .sign{grid-column:1 / -1}
 .tiles div{background-size:cover;background-position:center}
-.tiles::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#0e0c0a 0%,rgba(14,12,10,.6) 18%,rgba(14,12,10,0) 40%);z-index:1}
+.tiles::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#0e0c0a 0%,rgba(14,12,10,.4) 5%,rgba(14,12,10,0) 12%);z-index:1}
 .txt{position:absolute;left:110px;top:150px;height:624px;width:720px;display:flex;flex-direction:column;justify-content:center;z-index:2}
 .eb{font:700 22px "IBM Plex Sans KR";letter-spacing:.28em;color:#c9a45c;text-transform:uppercase}
 h1{margin:14px 0 0;font:500 118px/0.95 "Cormorant Garamond",serif;font-style:italic;color:#e9cf93}
@@ -17,7 +18,7 @@ h1{margin:14px 0 0;font:500 118px/0.95 "Cormorant Garamond",serif;font-style:ita
 .info .gold{background:#c9a45c;color:#15100a;border-color:#c9a45c;font-weight:700}
 </style></head><body>
 <div class="c"><div class="glow"></div>
-<div class="tiles"><div style="background-image:url(../site/img/s1.jpg);background-position:40% 60%"></div><div style="background-image:url(../site/img/p02.jpg)"></div><div style="background-image:url(../site/img/p23.jpg)"></div></div>
+<div class="tiles"><div class="sign" style="background-image:url(../site/img/sign.jpg);background-size:100% auto;background-position:50% 60%"></div><div style="background-image:url(../site/img/p01.jpg)"></div><div style="background-image:url(../site/img/p23.jpg)"></div></div>
 <div class="txt">
  <div class="eb">Korean Hair Salon · Angeles City</div>
  <h1>In the month<br>of May</h1>

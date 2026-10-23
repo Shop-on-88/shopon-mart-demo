@@ -6,20 +6,11 @@ API = "https://commons.wikimedia.org/w/api.php"
 OUT = "tools/photo-candidates"
 
 PLACES = {
-    "cheongnyangsan": ["청량산 하늘다리", "Cheongnyangsan", "청량산"],
-    "cheongnyangsa": ["청량사 봉화", "Cheongnyangsa"],
-    "chukseosa": ["축서사", "Chukseosa"],
-    "cheongoksan": ["청옥산자연휴양림", "Cheongoksan"],
-    "ojeon": ["오전약수", "Ojeon mineral spring"],
-    "seokcheon": ["석천정사", "석천계곡 봉화"],
-    "arboretum": ["국립백두대간수목원", "Baekdudaegan National Arboretum"],
-    "buncheon": ["분천역", "Buncheon Station", "분천 산타마을"],
-    "vtrain": ["백두대간협곡열차", "V-train Korea", "Baekdudaegan Canyon Train"],
-    "seungbu": ["승부역", "Seungbu Station"],
-    "daksil": ["청암정", "닭실마을", "Cheongamjeong"],
-    "mansan": ["만산고택", "Mansan Gotaek"],
-    "songi": ["Tricholoma matsutake", "송이버섯"],
-    "eoun": ["Plecoglossus altivelis", "은어"],
+    "fest-eoun": ["봉화은어축제", "Bonghwa Sweetfish Festival", "Bonghwa Eunuh festival", "은어축제"],
+    "fest-songi": ["봉화송이축제", "Bonghwa Pine Mushroom Festival", "Bonghwa Songi festival", "송이축제"],
+    "naeseongcheon": ["내성천 봉화", "Naeseongcheon"],
+    "chukseosa": ["Chukseosa Temple Bonghwa", "축서사 봉화"],
+    "daksil": ["Dalsil Village", "Cheongamjeong Pavilion", "청암정 정자"],
 }
 
 def get(url):

@@ -37,3 +37,14 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           wranglerVersion: "4"
           command: pages deploy jagalmadang --project-name=jagalmadang --branch=main --commit-dirty=true
+      - name: Check live site images
+        run: |
+          sleep 10
+          fail=0
+          for src in $(grep -o 'src="images/[^"]*"' jagalmadang/index.html | sed 's/src="//; s/"$//' | sort -u); do
+            code=$(curl -s -o /dev/null -w "%{http_code} %{content_type} %{size_download}" "https://jagalmadang.pages.dev/$src")
+            echo "$code $src"
+            case "$code" in 200\ image/*) ;; *) fail=1;; esac
+          done
+          curl -s https://jagalmadang.pages.dev/ | grep -c 'images/places/' || true
+          exit $fail

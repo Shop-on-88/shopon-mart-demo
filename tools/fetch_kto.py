@@ -4,10 +4,11 @@ survey: 검색어별 후보를 작게 줄여 tools/kto-candidates/에 저장
 pick:   tools/kto-pick.json에 고른 사진을 1200px로 jagalmadang/images/places/에 저장하고 출처를 kto-credits.json에 기록
 인증키는 환경변수 TOUR_API_KEY(일반 인증키 Decoding)로 받는다. 로그에 키가 찍히지 않게 URL은 출력하지 않는다.
 """
-import io, json, os, sys, time, urllib.parse, urllib.request
+import io, json, os, sys, time, urllib.error, urllib.parse, urllib.request
 from PIL import Image
 
 KEY = os.environ["TOUR_API_KEY"].strip()
+print("key length", len(KEY), "has %", "%" in KEY)
 API = "https://apis.data.go.kr/B551011/PhotoGalleryService1/gallerySearchList1"
 UA = "jagalmadang-site/1.0"
 KEYWORDS = {
@@ -50,6 +51,8 @@ def survey():
         seen, picks = set(), []
         for kw in kws:
             try: items = search(kw)
+            except urllib.error.HTTPError as e:
+                print("search fail", slug, kw, e.code, e.read()[:300].decode("utf-8", "replace").replace(KEY, "***")); continue
             except Exception as e: print("search fail", slug, kw, type(e).__name__); continue
             for it in items:
                 if it["galContentId"] in seen: continue

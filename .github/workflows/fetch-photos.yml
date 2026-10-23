@@ -6,6 +6,7 @@ on:
     branches: [ccr-2fa5efbb-1tt6pg]
     paths:
       - "tools/fetch_commons.py"
+      - "tools/survey_commons.py"
       - ".github/workflows/fetch-photos.yml"
   workflow_dispatch:
 
@@ -17,11 +18,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: python3 tools/fetch_commons.py
+      - run: python3 tools/survey_commons.py
       - name: Commit candidates
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add tools/photo-candidates
+          git add tools/photo-candidates tools/photo-survey
           git commit -m "봉화 관광지 사진 후보 받기" || exit 0
           git push

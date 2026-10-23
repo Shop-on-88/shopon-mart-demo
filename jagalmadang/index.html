@@ -189,6 +189,19 @@ dialog.lightbox .close { position: absolute; top: 8px; right: 8px; border: 0; bo
 .fest-note p { margin: 0; color: #d5d9ee; }
 .fest-note a { color: #fff; font-family: var(--font-display); font-size: 22px; text-decoration: none; letter-spacing: .03em; }
 .fest-link { font-size: 15px; color: var(--muted); margin: 14px 0 0; }
+.spots { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 760px) { .spots { grid-template-columns: repeat(3, minmax(0, 1fr)); } .spot.wide { grid-column: span 2; } .spots.foods { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-bottom: 8px; } }
+.spot { background: var(--surface); border-radius: 22px; overflow: hidden; display: flex; flex-direction: column; }
+.spot img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.spot.wide img { aspect-ratio: auto; height: 100%; max-height: 420px; min-height: 0; flex: 1; }
+@media (max-width: 759px) { .spot.wide img { aspect-ratio: 4 / 3; height: auto; } }
+.spot-body { padding: 16px 20px 18px; display: grid; gap: 6px; }
+.spot h4 { margin: 0; font-family: var(--font-serif); font-size: 21px; }
+.spot .where { font-family: var(--font-body); font-size: 13px; color: var(--sign); margin-left: 8px; font-weight: 400; }
+.spot p { margin: 0; color: var(--muted); font-size: 16px; }
+.credit { font-size: 12px; color: var(--muted); }
+.credit a { color: inherit; }
+.near-group .spots.foods { margin-top: 14px; }
 .near-group { margin-top: 40px; }
 .near-group h3.group { font-family: var(--font-serif); font-size: 20px; padding-bottom: 8px; border-bottom: 2px solid var(--ink); margin-bottom: 4px; }
 .near { list-style: none; margin: 0; padding: 0; display: grid; gap: 0 40px; }
@@ -467,25 +480,56 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         <p>산 좋고 물 맑은 봉화에는 오를 산도, 걸을 숲도, 맛볼 것도 많습니다.</p>
       </div>
 
+      <div class="spots">
+          <article class="spot wide">
+            <img src="images/places/cheongnyangsan.jpg" alt="청량산 하늘다리" loading="lazy">
+            <div class="spot-body">
+              <h4>청량산 하늘다리<span class="where">명호면 · 청량산 도립공원</span></h4>
+              <p>기암절벽 봉우리가 이어진 봉화 대표 산입니다. 봉우리 사이를 잇는 하늘다리에 서면 발아래로 골짜기가 펼쳐집니다.</p>
+              <small class="credit">사진 <a href="https://commons.wikimedia.org/wiki/File:%EC%B2%AD%EB%9F%89%EC%82%B0_(_8_).jpg" target="_blank" rel="noopener">최옥석</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0" target="_blank" rel="noopener">CC BY-SA 4.0</a></small>
+            </div>
+          </article>
+          <article class="spot">
+            <img src="images/places/cheongnyangsa.jpg" alt="청량사" loading="lazy">
+            <div class="spot-body">
+              <h4>청량사<span class="where">명호면 · 청량산</span></h4>
+              <p>청량산 절벽 아래 자리한 절입니다. 봉화를 찾는 여행객이 가장 많이 들르는 곳입니다.</p>
+              <small class="credit">사진 <a href="https://commons.wikimedia.org/wiki/File:%EC%B2%AD%EB%9F%89%EC%82%AC_%EA%B2%BD%EB%82%B4_Korea_-_panoramio.jpg" target="_blank" rel="noopener">Chanilim714</a> · <a href="https://creativecommons.org/licenses/by-sa/3.0" target="_blank" rel="noopener">CC BY-SA 3.0</a></small>
+            </div>
+          </article>
+          <article class="spot">
+            <img src="images/places/arboretum.jpg" alt="국립백두대간수목원" loading="lazy">
+            <div class="spot-body">
+              <h4>국립백두대간수목원<span class="where">춘양면</span></h4>
+              <p>백두대간 자락의 넓은 수목원입니다. 호랑이숲에서 백두산호랑이를 볼 수 있습니다. 월요일은 쉽니다.</p>
+              <small class="credit">사진 <a href="https://commons.wikimedia.org/wiki/File:%EA%B5%AD%EB%A6%BD%EB%B0%B1%EB%91%90%EB%8C%80%EA%B0%84%EC%88%98%EB%AA%A9%EC%9B%90_%EC%97%AC%ED%96%89%EC%9E%90%EC%84%BC%ED%84%B0.jpg" target="_blank" rel="noopener">메라크</a> · <a href="https://creativecommons.org/licenses/by/2.0/kr/deed.en" target="_blank" rel="noopener">CC BY 2.0 kr</a></small>
+            </div>
+          </article>
+          <article class="spot">
+            <img src="images/places/buncheon.jpg" alt="분천 산타마을" loading="lazy">
+            <div class="spot-body">
+              <h4>분천 산타마을<span class="where">소천면 · 분천역</span></h4>
+              <p>일 년 내내 크리스마스 분위기가 나는 간이역 마을입니다. 협곡 사이를 달리는 백두대간 협곡열차가 여기서 출발합니다.</p>
+              <small class="credit">사진 <a href="https://commons.wikimedia.org/wiki/File:Buncheon_Station_Platform_santa-town_20230501.jpg" target="_blank" rel="noopener">Rsa</a> · <a href="http://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a></small>
+            </div>
+          </article>
+          <article class="spot">
+            <img src="images/places/seungbu.jpg" alt="승부역" loading="lazy">
+            <div class="spot-body">
+              <h4>승부역<span class="where">석포면</span></h4>
+              <p>"하늘도 세 평, 꽃밭도 세 평"으로 알려진 산골 간이역입니다. 협곡열차를 타고 들를 수 있습니다.</p>
+              <small class="credit">사진 <a href="https://commons.wikimedia.org/wiki/File:Korail_Yeongdong_Line_Seungbu_Station.jpg" target="_blank" rel="noopener">G43</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0" target="_blank" rel="noopener">CC BY-SA 4.0</a></small>
+            </div>
+          </article>
+      </div>
+
       <div class="near-group">
-        <h3 class="group">산 · 절 · 계곡</h3>
+        <h3 class="group">이 밖에도 가 볼 만한 곳</h3>
         <ul class="near">
-          <li><b>청량산 도립공원<span class="where">명호면</span></b><span class="desc">기암절벽 봉우리가 이어진 봉화 대표 산입니다. 봉우리 사이를 잇는 하늘다리가 유명합니다.</span></li>
-          <li><b>청량사<span class="where">명호면 · 청량산</span></b><span class="desc">청량산 절벽 아래 자리한 절입니다. 봉화를 찾는 여행객이 가장 많이 들르는 곳입니다.</span></li>
           <li><b>문수산 축서사<span class="where">물야면</span></b><span class="desc">문수산 중턱의 오래된 절입니다. 절 마당에서 내려다보는 산 능선이 좋습니다.</span></li>
           <li><b>청옥산 자연휴양림<span class="where">석포면</span></b><span class="desc">울창한 숲 속 산책길과 야영장이 있어 여름에 특히 시원합니다.</span></li>
           <li><b>오전약수<span class="where">물야면</span></b><span class="desc">톡 쏘는 탄산 약수터입니다. 근처 산길을 걷고 약수 한 모금 하기 좋습니다.</span></li>
           <li><b>석천계곡 석천정사<span class="where">봉화읍 유곡리</span></b><span class="desc">닭실마을 옆 맑은 계곡과 그 위의 오래된 정자입니다. 가볍게 걷기 좋습니다.</span></li>
-        </ul>
-      </div>
-
-      <div class="near-group">
-        <h3 class="group">숲 · 기차 · 마을</h3>
-        <ul class="near">
-          <li><b>국립백두대간수목원<span class="where">춘양면</span></b><span class="desc">백두대간 자락의 넓은 수목원입니다. 호랑이숲에서 백두산호랑이를 볼 수 있습니다. 월요일은 쉽니다.</span></li>
-          <li><b>분천 산타마을<span class="where">소천면</span></b><span class="desc">일 년 내내 크리스마스 분위기가 나는 간이역 마을입니다. 아이들과 사진 찍기 좋습니다.</span></li>
-          <li><b>백두대간 협곡열차<span class="where">분천역 출발</span></b><span class="desc">분천에서 철암까지 협곡 사이를 천천히 달리는 관광열차입니다. 승부역 구간 풍경이 유명합니다.</span></li>
-          <li><b>승부역<span class="where">석포면</span></b><span class="desc">"하늘도 세 평, 꽃밭도 세 평"으로 알려진 산골 간이역입니다. 협곡열차가 지나갑니다.</span></li>
           <li><b>닭실마을 청암정<span class="where">봉화읍 유곡리</span></b><span class="desc">충재 권벌이 지은 정자가 있는 안동 권씨 집성촌입니다. 봉화읍에서 가깝습니다.</span></li>
           <li><b>만산고택<span class="where">춘양면</span></b><span class="desc">조선 말 지어진 큰 한옥 고택입니다. 한옥 숙박 체험도 할 수 있습니다.</span></li>
         </ul>
@@ -493,9 +537,25 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
 
       <div class="near-group">
         <h3 class="group">봉화 먹거리</h3>
+        <div class="spots foods">
+          <article class="spot">
+            <img src="images/places/songi.jpg" alt="봉화 송이" loading="lazy">
+            <div class="spot-body">
+              <h4>봉화 송이<span class="where">가을</span></h4>
+              <p>소나무 숲에서 자라 향이 진한 봉화 송이. 자갈마당의 송이 돌솥밥, 송이만두로도 맛보실 수 있습니다.</p>
+              <small class="credit">사진 <a href="https://commons.wikimedia.org/wiki/File:Matsutake.jpg" target="_blank" rel="noopener">Tomomarusan</a> · <a href="https://creativecommons.org/licenses/by/2.5" target="_blank" rel="noopener">CC BY 2.5</a></small>
+            </div>
+          </article>
+          <article class="spot">
+            <img src="images/places/eoun.jpg" alt="은어" loading="lazy">
+            <div class="spot-body">
+              <h4>은어<span class="where">여름</span></h4>
+              <p>내성천 맑은 물에서 나는 은어. 자갈마당의 은어조림은 봉화 토속음식입니다.</p>
+              <small class="credit">사진 <a href="https://commons.wikimedia.org/wiki/File:Plecoglossus_altivelis_altivelis_ayu.jpg" target="_blank" rel="noopener">Apple2000</a> · <a href="https://creativecommons.org/licenses/by/3.0" target="_blank" rel="noopener">CC BY 3.0</a></small>
+            </div>
+          </article>
+        </div>
         <ul class="near">
-          <li><b>봉화 송이<span class="where">가을</span></b><span class="desc">소나무 숲에서 자라 향이 진한 봉화 송이. 자갈마당의 송이 돌솥밥, 송이만두로도 맛보실 수 있습니다.</span></li>
-          <li><b>은어<span class="where">여름</span></b><span class="desc">내성천 맑은 물에서 나는 은어. 자갈마당의 은어조림은 봉화 토속음식입니다.</span></li>
           <li><b>봉화 한약우<span class="where">사철</span></b><span class="desc">한약재를 먹여 키운 봉화 한우입니다.</span></li>
           <li><b>봉성 돼지숯불구이<span class="where">봉성면</span></b><span class="desc">솔잎을 깔고 숯불에 구워 먹는 봉성면의 이름난 돼지고기 구이입니다.</span></li>
         </ul>

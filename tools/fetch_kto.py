@@ -86,6 +86,20 @@ def catalog():
     json.dump(out, open("tools/kto-catalog.json", "w"), ensure_ascii=False, indent=1)
     print("catalog", len(out))
 
+def thumbs():
+    """kto-catalog.json에서 고를 제목들의 사진을 작게 받아 tools/kto-candidates/에 저장."""
+    want = ["아름다운 축서사", "오전약수탕", "석천정사", "닭실마을", "청암정", "봉화 청량사", "가을빛 따스한 청량사탑", "바래미 전통마을", "도암정"]
+    out = "tools/kto-candidates"; os.makedirs(out, exist_ok=True)
+    cat = json.load(open("tools/kto-catalog.json")); index = []
+    for it in cat:
+        if it["galTitle"] not in want: continue
+        try:
+            im = Image.open(io.BytesIO(get(it["galWebImageUrl"]))).convert("RGB"); im.thumbnail((300, 300))
+            it["file"] = f"{out}/{it['galContentId']}.jpg"; im.save(it["file"], quality=78); index.append(it)
+        except Exception as e: print("dl fail", type(e).__name__)
+    json.dump(index, open(f"{out}/index.json", "w"), ensure_ascii=False, indent=1)
+    print("thumbs", len(index))
+
 def pick():
     sel = json.load(open("tools/kto-pick.json"))
     out = "jagalmadang/images/places"; os.makedirs(out, exist_ok=True)
@@ -98,4 +112,4 @@ def pick():
         print(slug, im.size)
     json.dump(credits, open(f"{out}/kto-credits.json", "w"), ensure_ascii=False, indent=1)
 
-{"survey": survey, "pick": pick, "catalog": catalog}[sys.argv[1]]()
+{"survey": survey, "pick": pick, "catalog": catalog, "thumbs": thumbs}[sys.argv[1]]()

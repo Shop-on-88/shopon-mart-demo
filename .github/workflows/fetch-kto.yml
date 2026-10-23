@@ -24,7 +24,7 @@ jobs:
         env:
           TOUR_API_KEY: ${{ secrets.TOUR_API_KEY }}
         run: |
-          if [ -f tools/kto-pick.json ]; then python3 tools/fetch_kto.py pick; else python3 tools/fetch_kto.py catalog; fi
+          if [ -f tools/kto-pick.json ]; then python3 tools/fetch_kto.py pick; else python3 tools/fetch_kto.py thumbs; fi
       - name: Commit
         run: |
           git config user.name "github-actions[bot]"

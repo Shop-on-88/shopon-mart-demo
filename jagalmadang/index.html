@@ -174,6 +174,30 @@ dialog.lightbox .close { position: absolute; top: 8px; right: 8px; border: 0; bo
 .badge-list b { display: block; font-size: 18px; }
 .badge-list span { color: var(--muted); font-size: 15px; }
 
+/* 봉화 축제·여행 */
+.fest { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.fest article { background: var(--surface); border-radius: 22px; padding: 22px 24px; display: grid; gap: 6px; align-content: start; }
+.fest .season { font-size: 14px; color: var(--sign); font-weight: 700; letter-spacing: .06em; }
+.fest h3 { font-family: var(--font-serif); font-size: 24px; }
+.fest p { margin: 0; color: var(--muted); font-size: 16px; }
+.fest .when { color: var(--ink); font-weight: 700; }
+.fest-note { margin-top: 16px; background: var(--navy); color: var(--navy-ink); border-radius: 22px; padding: clamp(20px, 4vw, 32px); display: grid; gap: 10px; }
+.fest-note h3 { font-family: var(--font-display); font-weight: 400; font-size: clamp(24px, 4.6vw, 32px); color: var(--sign); }
+.fest-note ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.fest-note li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px; }
+.fest-note li b { color: var(--sign); }
+.fest-note p { margin: 0; color: #d5d9ee; }
+.fest-note a { color: #fff; font-family: var(--font-display); font-size: 22px; text-decoration: none; letter-spacing: .03em; }
+.fest-link { font-size: 15px; color: var(--muted); margin: 14px 0 0; }
+.near-group { margin-top: 40px; }
+.near-group h3.group { font-family: var(--font-serif); font-size: 20px; padding-bottom: 8px; border-bottom: 2px solid var(--ink); margin-bottom: 4px; }
+.near { list-style: none; margin: 0; padding: 0; display: grid; gap: 0 40px; }
+@media (min-width: 760px) { .near { grid-template-columns: 1fr 1fr; } }
+.near li { padding: 14px 0; border-bottom: 1px dashed var(--line); display: grid; gap: 2px; }
+.near b { font-size: 18px; }
+.near .where { font-size: 13px; color: var(--sign); margin-left: 6px; font-weight: 400; }
+.near span.desc { color: var(--muted); font-size: 15px; }
+
 /* 오시는 길 */
 .visit { background: var(--navy); color: var(--navy-ink); }
 .visit .sec-head h2 { color: #fff; }
@@ -217,6 +241,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     <nav class="nav" aria-label="바로가기">
       <a href="#menu">메뉴</a>
       <a href="#look" class="hide-s">둘러보기</a>
+      <a href="#bonghwa">봉화 여행</a>
       <a href="#visit">오시는 길</a>
     </nav>
   </div>
@@ -399,6 +424,76 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
           <li><span class="seal">착</span><div><b>나눔으로 함께 하는 착한가게</b><span>봉화군 · 경북사회복지공동모금회</span></div></li>
           <li><span class="seal">회</span><div><b>경북향토음식연구회 회원업소</b><span>경북 향토음식을 연구하고 지키는 모임의 회원</span></div></li>
           <li><span class="seal">경</span><div><b>2019 경상북도 관광서비스환경개선 지원 음식점</b><span>봉화퍼스트</span></div></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="bonghwa">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">봉화 축제</div>
+        <h2>여름엔 은어축제, 가을엔 송이축제</h2>
+        <p>해마다 봉화읍 내성천에서 큰 축제가 열립니다. 자갈마당도 봉화읍 안에 있어 축제장과 가깝습니다.</p>
+      </div>
+      <div class="fest">
+        <article>
+          <div class="season">여름</div>
+          <h3>봉화은어축제</h3>
+          <p class="when">매년 7월 말 ~ 8월 초 · 봉화읍 내성천</p>
+          <p>맑은 내성천에서 맨손으로 은어를 잡는 여름 축제입니다. 은어잡이 체험과 물놀이로 가족 손님이 많이 찾습니다.</p>
+        </article>
+        <article>
+          <div class="season">가을</div>
+          <h3>봉화송이축제</h3>
+          <p class="when">매년 가을 송이철 · 봉화읍 내성천 일원</p>
+          <p>봉화 송이를 맛보고 사 갈 수 있는 축제입니다. 송이 채취 체험과 봉화 한약우 행사도 함께 열립니다.</p>
+        </article>
+      </div>
+      <div class="fest-note">
+        <h3>축제 때 자갈마당 음식 드시려면</h3>
+        <ul>
+          <li><b>축제장</b><p>자갈마당이 축제에 나가는 해에는 축제 행사장으로 오셔서 드시면 됩니다.</p></li>
+          <li><b>식당</b><p>축제에 나가지 않는 해에는 식당에서 그대로 손님을 맞습니다.</p></li>
+          <li><b>예약</b><p>축제 기간에는 봉화를 찾는 손님이 많아 자리가 금방 찹니다. 미리 전화로 예약하고 오세요. 올해는 어디서 드실 수 있는지도 전화로 알려 드립니다.</p></li>
+        </ul>
+        <a href="tel:0546725505">054-672-5505</a>
+      </div>
+      <p class="fest-link">축제 날짜는 해마다 조금씩 달라집니다. 올해 날짜는 <a href="https://www.bhftf.or.kr" target="_blank" rel="noopener">봉화군축제관광재단</a>에서 확인하세요.</p>
+
+      <div class="sec-head" style="margin-top:64px">
+        <div class="eyebrow">봉화 여행</div>
+        <h2>식사 전후로 들르기 좋은 곳</h2>
+        <p>산 좋고 물 맑은 봉화에는 오를 산도, 걸을 숲도, 맛볼 것도 많습니다.</p>
+      </div>
+
+      <div class="near-group">
+        <h3 class="group">산 · 등산</h3>
+        <ul class="near">
+          <li><b>청량산 도립공원<span class="where">명호면</span></b><span class="desc">기암절벽 봉우리와 하늘다리, 절벽 아래 청량사로 이름난 봉화 대표 산입니다.</span></li>
+          <li><b>문수산 축서사<span class="where">물야면</span></b><span class="desc">문수산 중턱의 오래된 절입니다. 절 마당에서 내려다보는 산 능선이 좋습니다.</span></li>
+          <li><b>청옥산 자연휴양림<span class="where">석포면</span></b><span class="desc">울창한 숲 속 산책길과 야영장이 있어 여름에 특히 시원합니다.</span></li>
+          <li><b>오전약수<span class="where">물야면</span></b><span class="desc">톡 쏘는 탄산 약수터입니다. 근처 산길을 걷고 약수 한 모금 하기 좋습니다.</span></li>
+        </ul>
+      </div>
+
+      <div class="near-group">
+        <h3 class="group">숲 · 기차 · 마을</h3>
+        <ul class="near">
+          <li><b>국립백두대간수목원<span class="where">춘양면</span></b><span class="desc">백두대간 자락의 넓은 수목원입니다. 호랑이숲에서 백두산호랑이를 볼 수 있습니다. 월요일은 쉽니다.</span></li>
+          <li><b>분천 산타마을<span class="where">소천면</span></b><span class="desc">일 년 내내 크리스마스 분위기가 나는 간이역 마을입니다. 아이들과 사진 찍기 좋습니다.</span></li>
+          <li><b>백두대간 협곡열차<span class="where">분천역 출발</span></b><span class="desc">분천에서 철암까지 협곡 사이를 천천히 달리는 관광열차입니다. 승부역 구간 풍경이 유명합니다.</span></li>
+          <li><b>닭실마을 청암정<span class="where">봉화읍 유곡리</span></b><span class="desc">충재 권벌이 지은 정자가 있는 안동 권씨 집성촌입니다. 봉화읍에서 가깝습니다.</span></li>
+        </ul>
+      </div>
+
+      <div class="near-group">
+        <h3 class="group">봉화 먹거리</h3>
+        <ul class="near">
+          <li><b>봉화 송이<span class="where">가을</span></b><span class="desc">소나무 숲에서 자라 향이 진한 봉화 송이. 자갈마당의 송이 돌솥밥, 송이만두로도 맛보실 수 있습니다.</span></li>
+          <li><b>은어<span class="where">여름</span></b><span class="desc">내성천 맑은 물에서 나는 은어. 자갈마당의 은어조림은 봉화 토속음식입니다.</span></li>
+          <li><b>봉화 한약우<span class="where">사철</span></b><span class="desc">한약재를 먹여 키운 봉화 한우입니다.</span></li>
+          <li><b>봉성 돼지숯불구이<span class="where">봉성면</span></b><span class="desc">솔잎을 깔고 숯불에 구워 먹는 봉성면의 이름난 돼지고기 구이입니다.</span></li>
         </ul>
       </div>
     </div>

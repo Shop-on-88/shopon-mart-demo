@@ -1,0 +1,32 @@
+{
+ "chukseosa": {
+  "title": "아름다운 축서사",
+  "photographer": "김승진",
+  "location": "경상북도 봉화군",
+  "month": "202001"
+ },
+ "ojeon": {
+  "title": "오전약수탕",
+  "photographer": "한국관광공사 김지호",
+  "location": "경상북도 봉화군 물야면",
+  "month": "201911"
+ },
+ "seokcheon": {
+  "title": "석천정사",
+  "photographer": "한국관광공사 김지호",
+  "location": "경상북도 봉화군",
+  "month": "201409"
+ },
+ "daksil": {
+  "title": "청암정",
+  "photographer": "한국관광공사 김지호",
+  "location": "경상북도 봉화군",
+  "month": "201409"
+ },
+ "cheongnyangsa": {
+  "title": "가을빛 따스한 청량사탑",
+  "photographer": "김혜경",
+  "location": "경상북도 봉화군",
+  "month": "201400"
+ }
+}

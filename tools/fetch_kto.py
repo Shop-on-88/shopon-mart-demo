@@ -7,7 +7,7 @@ pick:   tools/kto-pick.json에 고른 사진을 1200px로 jagalmadang/images/pla
 import io, json, os, sys, time, urllib.error, urllib.parse, urllib.request
 from PIL import Image
 
-KEY = os.environ["TOUR_API_KEY"].strip().strip("'\"").strip()
+KEY = "".join(os.environ["TOUR_API_KEY"].split()).strip("'\"")
 print("key length", len(KEY), "hex only", all(c in "0123456789abcdefABCDEF" for c in KEY), "has %", "%" in KEY)
 API = "https://apis.data.go.kr/B551011/PhotoGalleryService1/gallerySearchList1"
 UA = "jagalmadang-site/1.0"

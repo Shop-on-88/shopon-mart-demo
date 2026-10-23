@@ -31,8 +31,8 @@ def get(url):
     with urllib.request.urlopen(req, timeout=60) as r:
         return r.read()
 
-def search(kw):
-    q = urllib.parse.urlencode({"serviceKey": KEY, "numOfRows": 20, "pageNo": 1, "MobileOS": "ETC",
+def search(kw, rows=20, page=1):
+    q = urllib.parse.urlencode({"serviceKey": KEY, "numOfRows": rows, "pageNo": page, "MobileOS": "ETC",
                                 "MobileApp": "jagalmadang", "arrange": "A", "keyword": kw, "_type": "json"})
     raw = get(API + "?" + q)
     try:
@@ -69,6 +69,23 @@ def survey():
         print(slug, len(picks))
     json.dump(index, open(f"{out}/index.json", "w"), ensure_ascii=False, indent=1)
 
+def catalog():
+    """'봉화'가 들어간 사진 전체 목록(이미지는 받지 않음)을 tools/kto-catalog.json에 저장."""
+    rows = []
+    for kw in ["봉화", "은어", "송이", "수목원", "만산", "청옥산", "한우", "숯불"]:
+        for page in range(1, 11):
+            try: items = search(kw, rows=100, page=page)
+            except Exception as e: print("fail", kw, page, type(e).__name__); break
+            if not items: break
+            rows += [it for it in items if "봉화" in (it.get("galPhotographyLocation") or "") + (it.get("galTitle") or "")]
+            time.sleep(0.3)
+    seen, out = set(), []
+    for it in rows:
+        if it["galContentId"] in seen: continue
+        seen.add(it["galContentId"]); out.append(it)
+    json.dump(out, open("tools/kto-catalog.json", "w"), ensure_ascii=False, indent=1)
+    print("catalog", len(out))
+
 def pick():
     sel = json.load(open("tools/kto-pick.json"))
     out = "jagalmadang/images/places"; os.makedirs(out, exist_ok=True)
@@ -81,4 +98,4 @@ def pick():
         print(slug, im.size)
     json.dump(credits, open(f"{out}/kto-credits.json", "w"), ensure_ascii=False, indent=1)
 
-{"survey": survey, "pick": pick}[sys.argv[1]]()
+{"survey": survey, "pick": pick, "catalog": catalog}[sys.argv[1]]()

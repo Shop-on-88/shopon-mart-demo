@@ -1,0 +1,39 @@
+# 자갈마당 사이트(jagalmadang/)를 Cloudflare Pages "jagalmadang" 프로젝트에 자동 배포합니다.
+# 필요한 GitHub 저장소 Secrets: CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID
+name: Deploy Jagalmadang site
+
+on:
+  push:
+    branches: [ccr-2fa5efbb-1tt6pg]
+    paths:
+      - "jagalmadang/**"
+      - ".github/workflows/deploy-jagalmadang.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-jagalmadang
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create Cloudflare Pages project if missing
+        uses: cloudflare/wrangler-action@v3
+        continue-on-error: true
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          wranglerVersion: "4"
+          command: pages project create jagalmadang --production-branch=main
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          wranglerVersion: "4"
+          command: pages deploy jagalmadang --project-name=jagalmadang --branch=main --commit-dirty=true

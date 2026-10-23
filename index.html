@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>봉화 자갈마당</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="경북 봉화 토속음식점 자갈마당. 메기매운탕, 잡고기 어탕국수, 능이백숙, 송이돌솥밥. 쌀·고춧가루·배추·김치 모두 국내산. 착한가격업소. 054-672-5505">
+<meta property="og:title" content="봉화 토속음식점 자갈마당">
+<meta property="og:description" content="메기매운탕 · 잡고기 어탕국수 · 능이백숙 · 송이돌솥밥 | 봉화읍 내성로4길 12-25 | 054-672-5505">
+<meta property="og:image" content="images/front.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&display=swap">
+<style>
+/* Layout: 간판(남색+주황) 색을 그대로 가져온 한 줄 세로 흐름. 자갈처럼 둥근 사진 틀, 메뉴판은 가격표 그대로. */
+:root {
+  --bg: #f3f2ee;          /* 자갈 마당의 밝은 돌색 */
+  --surface: #ffffff;
+  --ink: #1d2236;
+  --muted: #5d6275;
+  --line: #d9d7cf;
+  --navy: #213067;        /* 간판 남색 */
+  --navy-ink: #ffffff;
+  --sign: #e2622a;        /* 간판 주황 글씨 */
+  --sign-soft: #fbe6da;
+  --pebble: #e6e4dc;
+  --font-display: "Black Han Sans", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --font-body: "Gowun Dodum", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --font-serif: "Gowun Batang", "Nanum Myeongjo", serif;
+  --gutter-l: max(16px, env(safe-area-inset-left, 0px));
+  --gutter-r: max(16px, env(safe-area-inset-right, 0px));
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12162a; --surface: #1b2038; --ink: #eceaf2; --muted: #a6a9bb; --line: #2e3452;
+    --navy: #2b3b7d; --navy-ink: #ffffff; --sign: #f07a43; --sign-soft: #3a2721; --pebble: #232842;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #12162a; --surface: #1b2038; --ink: #eceaf2; --muted: #a6a9bb; --line: #2e3452;
+  --navy: #2b3b7d; --navy-ink: #ffffff; --sign: #f07a43; --sign-soft: #3a2721; --pebble: #232842;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: var(--font-body); font-size: 17px; line-height: 1.7;
+  word-break: keep-all; overflow-wrap: anywhere;
+  padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+}
+@media (min-width: 760px) { body { padding-bottom: 0; } }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--navy); }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--sign); outline-offset: 3px; }
+h1, h2, h3 { text-wrap: balance; margin: 0; }
+.wrap { max-width: 1080px; margin: 0 auto; padding-left: var(--gutter-l); padding-right: var(--gutter-r); }
+
+/* 헤더 = 간판 */
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--navy); color: var(--navy-ink); }
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-block: 10px; }
+.brand { font-family: var(--font-display); font-size: 26px; letter-spacing: .08em; color: var(--sign); text-decoration: none; line-height: 1; }
+.brand small { display: block; font-family: var(--font-body); font-size: 11px; letter-spacing: .14em; color: #c9cee6; margin-top: 4px; }
+.nav { display: flex; gap: 18px; font-size: 15px; }
+.nav a { text-decoration: none; color: #e4e7f5; }
+.nav a:hover { color: #fff; text-decoration: underline; text-underline-offset: 4px; }
+@media (max-width: 560px) { .nav { gap: 12px; font-size: 14px; } .nav .hide-s { display: none; } }
+
+/* 첫 화면 */
+.hero { padding-block: 28px 8px; }
+.hero-grid { display: grid; gap: 24px; align-items: center; }
+@media (min-width: 860px) { .hero-grid { grid-template-columns: 1.05fr 1fr; gap: 48px; } }
+.eyebrow { font-size: 14px; letter-spacing: .16em; color: var(--sign); font-weight: 700; }
+.hero h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(54px, 13vw, 104px); line-height: 1; color: var(--navy); letter-spacing: .02em; margin-top: 8px; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .hero h1 { color: var(--sign); } }
+:root[data-theme="dark"] .hero h1 { color: var(--sign); }
+.hero .lead { font-family: var(--font-serif); font-size: clamp(18px, 2.4vw, 21px); margin: 16px 0 0; max-width: 30em; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; padding: 0; list-style: none; }
+.chips li { font-size: 14px; padding: 4px 12px; border-radius: 999px; background: var(--sign-soft); color: var(--ink); }
+.cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 20px; border-radius: 12px; font-size: 17px; font-weight: 700; text-decoration: none; border: 2px solid var(--navy); }
+.btn-primary { background: var(--navy); color: var(--navy-ink); }
+.btn-ghost { color: var(--ink); background: transparent; }
+.btn-primary:hover { filter: brightness(1.15); }
+.btn-ghost:hover { background: var(--pebble); }
+.hero-photo { position: relative; }
+.hero-photo img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 46% 54% 42% 58% / 52% 44% 56% 48%; }
+.hero-photo .tag { position: absolute; left: 6%; bottom: 4%; background: var(--surface); color: var(--ink); border-radius: 14px; padding: 8px 14px; font-size: 14px; box-shadow: 0 6px 20px rgb(0 0 0 / .15); }
+.hero-photo .tag b { color: var(--sign); font-size: 18px; }
+
+/* 공통 섹션 */
+section { padding-block: 56px; }
+.sec-head { display: grid; gap: 6px; margin-bottom: 26px; }
+.sec-head h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(32px, 6vw, 44px); line-height: 1.15; color: var(--ink); }
+.sec-head p { margin: 0; color: var(--muted); max-width: 36em; }
+
+/* 대표 메뉴 */
+.signature { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.dish { background: var(--surface); border-radius: 22px; overflow: hidden; display: flex; flex-direction: column; }
+.dish img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.dish-body { padding: 18px 20px 22px; display: grid; gap: 6px; }
+.dish h3 { font-size: 22px; font-family: var(--font-serif); font-weight: 700; }
+.dish .price { font-variant-numeric: tabular-nums; color: var(--sign); font-weight: 700; font-size: 18px; }
+.dish p { margin: 0; color: var(--muted); font-size: 16px; }
+.dish.text-only { background: var(--navy); color: var(--navy-ink); justify-content: center; }
+.dish.text-only .dish-body { padding: 30px 26px; gap: 10px; }
+.dish.text-only p { color: #d5d9ee; }
+.dish.text-only .big { font-family: var(--font-display); font-size: 64px; line-height: 1; color: var(--sign); font-variant-numeric: tabular-nums; }
+.dish.text-only .big small { font-size: 28px; }
+
+/* 메뉴판 */
+.board { background: var(--surface); border-radius: 22px; padding: 26px clamp(18px, 4vw, 40px); display: grid; gap: 34px; }
+@media (min-width: 820px) { .board { grid-template-columns: 1fr 1fr; column-gap: 56px; } }
+.board h3 { font-family: var(--font-serif); font-size: 19px; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; padding-bottom: 8px; border-bottom: 2px solid var(--ink); margin-bottom: 4px; }
+.board h3 span { font-family: var(--font-body); font-size: 14px; color: var(--sign); font-weight: 400; }
+.menu-list { list-style: none; margin: 0; padding: 0; }
+.menu-list li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 12px; padding: 11px 0; border-bottom: 1px dashed var(--line); }
+.menu-list .name { font-size: 18px; font-weight: 700; }
+.menu-list .unit { grid-column: 1; font-size: 14px; color: var(--muted); }
+.menu-list .won { grid-row: 1 / span 2; grid-column: 2; align-self: center; font-variant-numeric: tabular-nums; font-size: 19px; font-weight: 700; text-align: right; }
+.menu-list .won small { display: block; font-size: 13px; font-weight: 400; color: var(--muted); }
+.origin { grid-column: 1 / -1; margin: 0; padding: 16px 18px; border-radius: 14px; background: var(--pebble); font-size: 15px; }
+.origin b { color: var(--sign); }
+.fineprint { font-size: 14px; color: var(--muted); margin: 14px 0 0; }
+
+/* 버섯 */
+.mushroom { display: grid; gap: 24px; align-items: center; background: var(--sign-soft); border-radius: 28px; padding: clamp(20px, 4vw, 44px); }
+@media (min-width: 760px) { .mushroom { grid-template-columns: 1fr 1.1fr; gap: 44px; } }
+.mushroom img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 50% 50% 46% 54% / 56% 50% 50% 44%; }
+.mushroom h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(30px, 5.4vw, 42px); line-height: 1.2; }
+.mushroom .price-tag { display: inline-block; margin-top: 14px; font-family: var(--font-serif); font-size: 22px; font-weight: 700; }
+.mushroom .price-tag b { color: var(--sign); font-size: 30px; font-variant-numeric: tabular-nums; }
+.mushroom p { margin: 12px 0 0; }
+
+/* 둘러보기 */
+.quote { font-family: var(--font-serif); font-size: clamp(20px, 3.2vw, 26px); color: var(--muted); margin: 0 0 26px; }
+.quote::before { content: "마당 돌판에 적힌 글 · "; font-family: var(--font-body); font-size: 14px; color: var(--sign); display: block; letter-spacing: .06em; }
+.gallery { display: grid; gap: 10px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (min-width: 760px) { .gallery { grid-template-columns: repeat(4, minmax(0, 1fr)); } .gallery .wide { grid-column: span 2; grid-row: span 2; } }
+.gallery button { all: unset; cursor: zoom-in; border-radius: 16px; overflow: hidden; position: relative; display: block; }
+.gallery button:focus-visible { outline: 3px solid var(--sign); outline-offset: 3px; }
+.gallery img { width: 100%; height: 100%; aspect-ratio: 4 / 3; object-fit: cover; transition: transform .4s ease; }
+.gallery button:hover img { transform: scale(1.04); }
+.gallery figcaption { position: absolute; left: 8px; bottom: 8px; font-size: 13px; padding: 2px 10px; border-radius: 999px; background: rgb(0 0 0 / .55); color: #fff; }
+dialog.lightbox { border: 0; padding: 0; background: transparent; max-width: min(96vw, 1000px); }
+dialog.lightbox::backdrop { background: rgb(10 12 24 / .86); }
+dialog.lightbox img { border-radius: 12px; max-height: 82vh; width: auto; margin: 0 auto; }
+dialog.lightbox p { color: #fff; text-align: center; margin: 10px 0 0; }
+dialog.lightbox .close { position: absolute; top: 8px; right: 8px; border: 0; border-radius: 999px; width: 40px; height: 40px; font-size: 22px; background: rgb(0 0 0 / .6); color: #fff; cursor: pointer; }
+
+/* 인증 */
+.badges { display: grid; gap: 18px; align-items: center; }
+@media (min-width: 760px) { .badges { grid-template-columns: 1fr 1.2fr; gap: 40px; } }
+.badges img { border-radius: 22px; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.badge-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.badge-list li { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 14px; align-items: start; }
+.badge-list .seal { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--navy); color: var(--sign); font-family: var(--font-display); font-size: 18px; }
+.badge-list b { display: block; font-size: 18px; }
+.badge-list span { color: var(--muted); font-size: 15px; }
+
+/* 오시는 길 */
+.visit { background: var(--navy); color: var(--navy-ink); }
+.visit .sec-head h2 { color: #fff; }
+.visit .sec-head p { color: #c9cee6; }
+.visit-grid { display: grid; gap: 28px; }
+@media (min-width: 820px) { .visit-grid { grid-template-columns: 1fr 1fr; gap: 48px; } }
+.info { margin: 0; display: grid; gap: 18px; }
+.info div { display: grid; gap: 2px; }
+.info dt { font-size: 13px; letter-spacing: .14em; color: var(--sign); }
+.info dd { margin: 0; font-size: 19px; }
+.info dd small { display: block; font-size: 15px; color: #c9cee6; }
+.phone-row { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
+.phone-row a { font-family: var(--font-display); font-size: 34px; letter-spacing: .03em; text-decoration: none; color: #fff; font-variant-numeric: tabular-nums; }
+.copy { border: 1px solid rgb(255 255 255 / .4); background: transparent; color: #fff; border-radius: 999px; padding: 5px 12px; font: inherit; font-size: 14px; cursor: pointer; }
+.copy:hover { background: rgb(255 255 255 / .12); }
+.maps { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.maps a { text-decoration: none; padding: 9px 16px; border-radius: 10px; background: rgb(255 255 255 / .12); font-size: 15px; }
+.maps a:hover { background: rgb(255 255 255 / .22); }
+.visit img { border-radius: 22px; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.notes { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 6px; font-size: 15px; color: #d5d9ee; }
+.notes li::before { content: "· "; color: var(--sign); }
+
+footer { padding-block: 26px; font-size: 14px; color: var(--muted); }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
+
+/* 휴대폰 하단 전화 바 */
+.callbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 25; display: grid; grid-template-columns: 1.4fr 1fr; gap: 8px;
+  padding: 10px var(--gutter-r) calc(10px + env(safe-area-inset-bottom, 0px)) var(--gutter-l);
+  background: var(--surface); border-top: 1px solid var(--line); }
+.callbar a { text-align: center; padding: 12px 8px; border-radius: 12px; font-weight: 700; text-decoration: none; font-size: 17px; }
+.callbar .call { background: var(--sign); color: #fff; }
+.callbar .route { background: var(--navy); color: var(--navy-ink); }
+@media (min-width: 760px) { .callbar { display: none; } }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top">자갈마당<small>봉화 토속음식점</small></a>
+    <nav class="nav" aria-label="바로가기">
+      <a href="#menu">메뉴</a>
+      <a href="#look" class="hide-s">둘러보기</a>
+      <a href="#visit">오시는 길</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">경북 봉화 · 봉화읍 내성리</div>
+        <h1>자갈마당</h1>
+        <p class="lead">메기매운탕, 잡고기 어탕국수, 능이백숙.<br>쌀부터 고춧가루, 배추, 김치까지 국내산으로 차리는 봉화 밥상입니다.</p>
+        <ul class="chips">
+          <li>착한가격업소</li>
+          <li>모범음식점</li>
+          <li>봉화 토속음식점</li>
+          <li>단체 예약 가능</li>
+        </ul>
+        <div class="cta">
+          <a class="btn btn-primary" href="tel:0546725505">전화 054-672-5505</a>
+          <a class="btn btn-ghost" href="#visit">오시는 길</a>
+        </div>
+      </div>
+      <div class="hero-photo">
+        <img src="images/exterior.jpg" alt="자갈마당 건물 외관과 소나무가 있는 앞마당" width="966" height="725">
+        <div class="tag">백반 <b>7,000원</b></div>
+      </div>
+    </div>
+  </div>
+
+  <section id="signature">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">대표 메뉴</div>
+        <h2>자갈마당에서 많이 찾는 음식</h2>
+      </div>
+      <div class="signature">
+        <article class="dish">
+          <img src="images/baeksuk.jpg" alt="능이버섯과 부추를 올린 능이백숙" loading="lazy" width="966" height="725">
+          <div class="dish-body">
+            <h3>능이백숙</h3>
+            <div class="price">1마리 60,000원 · 예약</div>
+            <p>닭 한 마리에 능이버섯을 넣고 푹 끓였습니다. 미리 전화로 예약해 주세요.</p>
+          </div>
+        </article>
+        <article class="dish">
+          <img src="images/maeuntang.jpg" alt="팽이버섯과 부추를 올린 뚝배기 매운탕" loading="lazy" width="966" height="725">
+          <div class="dish-body">
+            <h3>메기매운탕 · 잡고기 어탕국수</h3>
+            <div class="price">1인 11,000원 · 2인 이상</div>
+            <p>국내산 메기와 민물 잡고기로 얼큰하게 끓여 냅니다.</p>
+          </div>
+        </article>
+        <article class="dish text-only">
+          <div class="dish-body">
+            <div class="eyebrow">행정안전부 착한가격업소</div>
+            <div class="big">7,000<small>원</small></div>
+            <h3>백반</h3>
+            <p>매일 먹어도 부담 없는 집밥 한 상. 혼자 오셔도 편하게 드실 수 있어요.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="menu">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">메뉴판</div>
+        <h2>차림표</h2>
+        <p>가게 벽에 걸린 메뉴판 그대로 옮겼습니다.</p>
+      </div>
+      <div class="board">
+        <div>
+          <h3>식사 · 요리</h3>
+          <ul class="menu-list">
+            <li><span class="name">메기매운탕</span><span class="unit">2인 이상, 1인당</span><span class="won">11,000</span></li>
+            <li><span class="name">잡고기 어탕국수</span><span class="unit">2인 이상, 1인당</span><span class="won">11,000</span></li>
+            <li><span class="name">닭볶음탕 (대)</span><span class="unit">4~5인분</span><span class="won">30,000</span></li>
+            <li><span class="name">닭볶음탕 (소)</span><span class="unit">2~3인분</span><span class="won">20,000</span></li>
+            <li><span class="name">능이백숙</span><span class="unit">1마리 · 예약 메뉴</span><span class="won">60,000</span></li>
+            <li><span class="name">은어조림</span><span class="unit">1냄비</span><span class="won">35,000</span></li>
+            <li><span class="name">백반</span><span class="unit">착한가격</span><span class="won">7,000</span></li>
+            <li><span class="name">콩국수</span><span class="unit">여름 별미</span><span class="won">7,000</span></li>
+          </ul>
+        </div>
+        <div>
+          <h3>예약 메뉴 <span>10인 이상 예약 시 주문 가능</span></h3>
+          <ul class="menu-list">
+            <li><span class="name">송이 돌솥밥</span><span class="unit">1인분</span><span class="won">15,000</span></li>
+            <li><span class="name">엄나무 밥</span><span class="unit">1인분</span><span class="won">12,000</span></li>
+            <li><span class="name">자갈마당 정식</span><span class="unit">1인분</span><span class="won">11,000</span></li>
+          </ul>
+          <h3 style="margin-top:26px">추가 · 주류</h3>
+          <ul class="menu-list">
+            <li><span class="name">공기밥</span><span class="won">1,000</span></li>
+            <li><span class="name">돌솥밥</span><span class="won">2,000</span></li>
+            <li><span class="name">송이만두</span><span class="won">10,000</span></li>
+            <li><span class="name">복분자</span><span class="won">10,000</span></li>
+            <li><span class="name">소주 · 맥주</span><span class="won">4,000</span></li>
+            <li><span class="name">막걸리</span><span class="won">3,000</span></li>
+            <li><span class="name">음료수</span><span class="won">2,000</span></li>
+          </ul>
+        </div>
+        <p class="origin"><b>원산지</b> 쌀, 고춧가루, 배추, 김치 등 모든 식재료는 국내산입니다. 닭, 메기, 잡고기도 국내산을 씁니다.</p>
+      </div>
+      <p class="fineprint">가격은 원 단위입니다. 가격과 메뉴는 철에 따라 바뀔 수 있으니 자세한 건 전화로 물어봐 주세요.</p>
+    </div>
+  </section>
+
+  <section id="mushroom">
+    <div class="wrap">
+      <div class="mushroom">
+        <img src="images/mushroom-bag.jpg" alt="비닐 봉지에 담긴 말린 왕고버섯" loading="lazy" width="968" height="722">
+        <div>
+          <div class="eyebrow">가게에서 직접 판매</div>
+          <h2>청정 봉화 왕고버섯</h2>
+          <p>주인이 직접 키워 말린 버섯입니다. 국, 찌개, 볶음에 넣으면 향이 깊어집니다. 식사하고 가시는 길에 계산대에서 찾아 주세요.</p>
+          <div class="price-tag">1봉지 <b>10,000</b>원</div>
+          <p class="fineprint">맛있게 드시고 건강하세요.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="look">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">둘러보기</div>
+        <h2>마당이 있는 식당</h2>
+        <p>앞마당에는 소나무와 장독, 작은 연못과 정자가 있습니다. 식사 전후로 천천히 둘러보세요.</p>
+      </div>
+      <p class="quote">“너와 함께 한 모든 날이 좋았다”</p>
+      <div class="gallery">
+        <figure class="wide" style="margin:0"><button type="button" data-full="images/garden.jpg" data-cap="장독과 돌판이 있는 앞마당"><img src="images/garden.jpg" alt="장독과 글귀 돌판, 작은 연못이 있는 앞마당" loading="lazy"><figcaption>앞마당</figcaption></button></figure>
+        <figure style="margin:0"><button type="button" data-full="images/garden-pavilion.jpg" data-cap="마당 옆 정자"><img src="images/garden-pavilion.jpg" alt="기와 지붕 정자와 식당 건물" loading="lazy"><figcaption>정자</figcaption></button></figure>
+        <figure style="margin:0"><button type="button" data-full="images/front.jpg" data-cap="가게 입구"><img src="images/front.jpg" alt="자갈마당 간판과 입구" loading="lazy"><figcaption>입구</figcaption></button></figure>
+        <figure style="margin:0"><button type="button" data-full="images/hall-1.jpg" data-cap="넓은 홀, 칸막이를 열면 단체석"><img src="images/hall-1.jpg" alt="원목 테이블이 놓인 홀" loading="lazy"><figcaption>홀</figcaption></button></figure>
+        <figure style="margin:0"><button type="button" data-full="images/hall-2.jpg" data-cap="안쪽 방"><img src="images/hall-2.jpg" alt="메뉴판이 걸린 안쪽 방" loading="lazy"><figcaption>안쪽 방</figcaption></button></figure>
+        <figure style="margin:0"><button type="button" data-full="images/baeksuk-table.jpg" data-cap="능이백숙 한 상"><img src="images/baeksuk-table.jpg" alt="능이백숙과 반찬이 차려진 상" loading="lazy"><figcaption>능이백숙 한 상</figcaption></button></figure>
+        <figure style="margin:0"><button type="button" data-full="images/maeuntang-spoon.jpg" data-cap="얼큰한 민물 매운탕"><img src="images/maeuntang-spoon.jpg" alt="숟가락으로 뜬 매운탕 생선살" loading="lazy"><figcaption>매운탕</figcaption></button></figure>
+        <figure style="margin:0"><button type="button" data-full="images/hall-3.jpg" data-cap="단체 손님도 앉을 수 있는 자리"><img src="images/hall-3.jpg" alt="길게 붙인 테이블" loading="lazy"><figcaption>단체석</figcaption></button></figure>
+        <figure style="margin:0"><button type="button" data-full="images/eotang-bowl.jpg" data-cap="부추와 팽이버섯을 듬뿍"><img src="images/eotang-bowl.jpg" alt="그릇에 덜어 놓은 매운탕" loading="lazy"><figcaption>한 그릇</figcaption></button></figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="badges">
+    <div class="wrap badges">
+      <img src="images/good-store.jpg" alt="착한가게 현판과 경상북도 관광서비스환경개선지원 음식점 표지" loading="lazy" width="966" height="725">
+      <div>
+        <div class="sec-head">
+          <div class="eyebrow">지정 · 인증</div>
+          <h2>믿고 드셔도 됩니다</h2>
+        </div>
+        <ul class="badge-list">
+          <li><span class="seal">착</span><div><b>착한가격업소</b><span>행정안전부 지정. 좋은 재료로 가격은 낮게.</span></div></li>
+          <li><span class="seal">착</span><div><b>나눔으로 함께 하는 착한가게</b><span>봉화군 · 경북사회복지공동모금회</span></div></li>
+          <li><span class="seal">모</span><div><b>모범음식점</b><span>위생과 서비스가 좋은 음식점으로 지정</span></div></li>
+          <li><span class="seal">봉</span><div><b>봉화 토속음식점 · 봉화퍼스트</b><span>2019 경상북도 관광서비스환경개선 지원 음식점</span></div></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="visit" class="visit">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">오시는 길</div>
+        <h2>봉화읍 내성리, 언덕 위 자갈마당</h2>
+        <p>봉화읍내가 내려다보이는 자리에 있습니다.</p>
+      </div>
+      <div class="visit-grid">
+        <dl class="info">
+          <div>
+            <dt>전화 · 예약</dt>
+            <dd class="phone-row"><a href="tel:0546725505" id="phone">054-672-5505</a><button class="copy" type="button" id="copy-phone">번호 복사</button></dd>
+          </div>
+          <div>
+            <dt>주소</dt>
+            <dd>경상북도 봉화군 봉화읍 내성로4길 12-25<small>지번: 봉화읍 내성리 304-14</small></dd>
+          </div>
+          <div>
+            <dt>영업시간</dt>
+            <dd>오전 10시부터<small>쉬는 날과 마감 시간은 전화로 확인해 주세요.</small></dd>
+          </div>
+          <div>
+            <dt>지도에서 보기</dt>
+            <dd class="maps">
+              <a href="https://map.naver.com/p/search/%EB%B4%89%ED%99%94%20%EC%9E%90%EA%B0%88%EB%A7%88%EB%8B%B9" target="_blank" rel="noopener">네이버 지도</a>
+              <a href="https://map.kakao.com/?q=%EB%B4%89%ED%99%94%20%EC%9E%90%EA%B0%88%EB%A7%88%EB%8B%B9" target="_blank" rel="noopener">카카오맵</a>
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=%EC%9E%90%EA%B0%88%EB%A7%88%EB%8B%B9%20%EB%B4%89%ED%99%94%EA%B5%B0" target="_blank" rel="noopener">구글 지도</a>
+            </dd>
+          </div>
+        </dl>
+        <div>
+          <img src="images/front.jpg" alt="남색 바탕에 주황 글씨 자갈마당 간판" loading="lazy" width="966" height="725">
+          <ul class="notes">
+            <li>능이백숙은 예약 메뉴입니다. 미리 전화 주세요.</li>
+            <li>송이 돌솥밥, 엄나무 밥, 자갈마당 정식은 10인 이상 예약 시 준비합니다.</li>
+            <li>반려동물은 함께 들어오실 수 없습니다.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>자갈마당 · 경북 봉화군 봉화읍 내성로4길 12-25</span>
+    <span>054-672-5505</span>
+  </div>
+</footer>
+
+<nav class="callbar" aria-label="빠른 연락">
+  <a class="call" href="tel:0546725505">전화 걸기</a>
+  <a class="route" href="https://map.naver.com/p/search/%EB%B4%89%ED%99%94%20%EC%9E%90%EA%B0%88%EB%A7%88%EB%8B%B9" target="_blank" rel="noopener">길찾기</a>
+</nav>
+
+<dialog class="lightbox" id="lightbox">
+  <button class="close" type="button" aria-label="닫기">×</button>
+  <img id="lb-img" alt="">
+  <p id="lb-cap"></p>
+</dialog>
+
+<script>
+(function () {
+  var lb = document.getElementById('lightbox');
+  var img = document.getElementById('lb-img');
+  var cap = document.getElementById('lb-cap');
+  document.querySelectorAll('.gallery button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      img.src = b.dataset.full; img.alt = b.dataset.cap; cap.textContent = b.dataset.cap;
+      if (lb.showModal) lb.showModal();
+    });
+  });
+  lb.addEventListener('click', function (e) { if (e.target === lb || e.target.classList.contains('close')) lb.close(); });
+
+  var btn = document.getElementById('copy-phone');
+  btn.addEventListener('click', function () {
+    var done = function () { btn.textContent = '복사됨'; setTimeout(function () { btn.textContent = '번호 복사'; }, 1600); };
+    try {
+      navigator.clipboard.writeText('054-672-5505').then(done, function () { selectPhone(); });
+    } catch (e) { selectPhone(); }
+  });
+  function selectPhone() {
+    var r = document.createRange(); r.selectNodeContents(document.getElementById('phone'));
+    var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+  }
+})();
+</script>
+</body>
+</html>

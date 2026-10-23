@@ -177,6 +177,8 @@ dialog.lightbox .close { position: absolute; top: 8px; right: 8px; border: 0; bo
 /* 봉화 축제·여행 */
 .fest { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
 .fest article { background: var(--surface); border-radius: 22px; padding: 22px 24px; display: grid; gap: 6px; align-content: start; }
+.fest article.has-photo { padding-top: 0; overflow: hidden; }
+.fest article.has-photo img { width: calc(100% + 48px); max-width: none; margin: 0 -24px 10px; aspect-ratio: 16 / 9; object-fit: cover; }
 .fest .season { font-size: 14px; color: var(--sign); font-weight: 700; letter-spacing: .06em; }
 .fest h3 { font-family: var(--font-serif); font-size: 24px; }
 .fest p { margin: 0; color: var(--muted); font-size: 16px; }
@@ -450,17 +452,21 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         <p>해마다 봉화읍 내성천에서 큰 축제가 열립니다. 자갈마당도 봉화읍 안에 있어 축제장과 가깝습니다.</p>
       </div>
       <div class="fest">
-        <article>
+        <article class="has-photo">
+          <img src="images/places/eoun.jpg" alt="내성천의 은어" loading="lazy">
           <div class="season">여름</div>
           <h3>봉화은어축제</h3>
           <p class="when">매년 7월 말 ~ 8월 초 · 봉화읍 내성천</p>
           <p>맑은 내성천에서 맨손으로 은어를 잡는 여름 축제입니다. 은어잡이 체험과 물놀이로 가족 손님이 많이 찾습니다.</p>
+          <small class="credit">사진 <a href="https://commons.wikimedia.org/wiki/File:Plecoglossus_altivelis_altivelis_ayu.jpg" target="_blank" rel="noopener">Apple2000</a> · <a href="https://creativecommons.org/licenses/by/3.0" target="_blank" rel="noopener">CC BY 3.0</a></small>
         </article>
-        <article>
+        <article class="has-photo">
+          <img src="images/places/songi.jpg" alt="바구니에 담긴 송이버섯" loading="lazy">
           <div class="season">가을</div>
           <h3>봉화송이축제</h3>
           <p class="when">매년 가을 송이철 · 봉화읍 내성천 일원</p>
           <p>봉화 송이를 맛보고 사 갈 수 있는 축제입니다. 송이 채취 체험과 봉화 한약우 행사도 함께 열립니다.</p>
+          <small class="credit">사진 <a href="https://commons.wikimedia.org/wiki/File:Matsutake.jpg" target="_blank" rel="noopener">Tomomarusan</a> · <a href="https://creativecommons.org/licenses/by/2.5" target="_blank" rel="noopener">CC BY 2.5</a></small>
         </article>
       </div>
       <div class="fest-note">
@@ -494,7 +500,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
             <div class="spot-body">
               <h4>청량사<span class="where">명호면 · 청량산</span></h4>
               <p>청량산 절벽 아래 자리한 절입니다. 봉화를 찾는 여행객이 가장 많이 들르는 곳입니다.</p>
-              <small class="credit">사진 <a href="https://commons.wikimedia.org/wiki/File:%EC%B2%AD%EB%9F%89%EC%82%AC_%EA%B2%BD%EB%82%B4_Korea_-_panoramio.jpg" target="_blank" rel="noopener">Chanilim714</a> · <a href="https://creativecommons.org/licenses/by-sa/3.0" target="_blank" rel="noopener">CC BY-SA 3.0</a></small>
+              <small class="credit">사진 한국관광공사 · 촬영 김혜경</small>
             </div>
           </article>
           <article class="spot">
@@ -521,41 +527,53 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
               <small class="credit">사진 <a href="https://commons.wikimedia.org/wiki/File:Korail_Yeongdong_Line_Seungbu_Station.jpg" target="_blank" rel="noopener">G43</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0" target="_blank" rel="noopener">CC BY-SA 4.0</a></small>
             </div>
           </article>
+          <article class="spot wide">
+            <img src="images/places/daksil.jpg" alt="닭실마을 청암정" loading="lazy">
+            <div class="spot-body">
+              <h4>닭실마을 청암정<span class="where">봉화읍 유곡리</span></h4>
+              <p>충재 권벌이 지은 정자가 있는 안동 권씨 집성촌입니다. 연못 위 바위에 올린 청암정이 아름답습니다. 봉화읍에서 가깝습니다.</p>
+              <small class="credit">사진 한국관광공사 · 촬영 김지호</small>
+            </div>
+          </article>
+          <article class="spot">
+            <img src="images/places/chukseosa.jpg" alt="문수산 축서사" loading="lazy">
+            <div class="spot-body">
+              <h4>문수산 축서사<span class="where">물야면</span></h4>
+              <p>문수산 중턱의 오래된 절입니다. 절 마당에서 내려다보는 산 능선이 좋습니다.</p>
+              <small class="credit">사진 한국관광공사 · 촬영 김승진</small>
+            </div>
+          </article>
+          <article class="spot wide">
+            <img src="images/places/seokcheon.jpg" alt="석천계곡 석천정사" loading="lazy">
+            <div class="spot-body">
+              <h4>석천계곡 석천정사<span class="where">봉화읍 유곡리</span></h4>
+              <p>닭실마을 옆 맑은 계곡과 그 위의 오래된 정자입니다. 가볍게 걷기 좋습니다.</p>
+              <small class="credit">사진 한국관광공사 · 촬영 김지호</small>
+            </div>
+          </article>
+          <article class="spot">
+            <img src="images/places/ojeon.jpg" alt="오전약수" loading="lazy">
+            <div class="spot-body">
+              <h4>오전약수<span class="where">물야면</span></h4>
+              <p>톡 쏘는 탄산 약수터입니다. 근처 산길을 걷고 약수 한 모금 하기 좋습니다.</p>
+              <small class="credit">사진 한국관광공사 · 촬영 김지호</small>
+            </div>
+          </article>
       </div>
 
       <div class="near-group">
         <h3 class="group">이 밖에도 가 볼 만한 곳</h3>
         <ul class="near">
-          <li><b>문수산 축서사<span class="where">물야면</span></b><span class="desc">문수산 중턱의 오래된 절입니다. 절 마당에서 내려다보는 산 능선이 좋습니다.</span></li>
           <li><b>청옥산 자연휴양림<span class="where">석포면</span></b><span class="desc">울창한 숲 속 산책길과 야영장이 있어 여름에 특히 시원합니다.</span></li>
-          <li><b>오전약수<span class="where">물야면</span></b><span class="desc">톡 쏘는 탄산 약수터입니다. 근처 산길을 걷고 약수 한 모금 하기 좋습니다.</span></li>
-          <li><b>석천계곡 석천정사<span class="where">봉화읍 유곡리</span></b><span class="desc">닭실마을 옆 맑은 계곡과 그 위의 오래된 정자입니다. 가볍게 걷기 좋습니다.</span></li>
-          <li><b>닭실마을 청암정<span class="where">봉화읍 유곡리</span></b><span class="desc">충재 권벌이 지은 정자가 있는 안동 권씨 집성촌입니다. 봉화읍에서 가깝습니다.</span></li>
           <li><b>만산고택<span class="where">춘양면</span></b><span class="desc">조선 말 지어진 큰 한옥 고택입니다. 한옥 숙박 체험도 할 수 있습니다.</span></li>
         </ul>
       </div>
 
       <div class="near-group">
         <h3 class="group">봉화 먹거리</h3>
-        <div class="spots foods">
-          <article class="spot">
-            <img src="images/places/songi.jpg" alt="봉화 송이" loading="lazy">
-            <div class="spot-body">
-              <h4>봉화 송이<span class="where">가을</span></h4>
-              <p>소나무 숲에서 자라 향이 진한 봉화 송이. 자갈마당의 송이 돌솥밥, 송이만두로도 맛보실 수 있습니다.</p>
-              <small class="credit">사진 <a href="https://commons.wikimedia.org/wiki/File:Matsutake.jpg" target="_blank" rel="noopener">Tomomarusan</a> · <a href="https://creativecommons.org/licenses/by/2.5" target="_blank" rel="noopener">CC BY 2.5</a></small>
-            </div>
-          </article>
-          <article class="spot">
-            <img src="images/places/eoun.jpg" alt="은어" loading="lazy">
-            <div class="spot-body">
-              <h4>은어<span class="where">여름</span></h4>
-              <p>내성천 맑은 물에서 나는 은어. 자갈마당의 은어조림은 봉화 토속음식입니다.</p>
-              <small class="credit">사진 <a href="https://commons.wikimedia.org/wiki/File:Plecoglossus_altivelis_altivelis_ayu.jpg" target="_blank" rel="noopener">Apple2000</a> · <a href="https://creativecommons.org/licenses/by/3.0" target="_blank" rel="noopener">CC BY 3.0</a></small>
-            </div>
-          </article>
-        </div>
         <ul class="near">
+          <li><b>봉화 송이<span class="where">가을</span></b><span class="desc">소나무 숲에서 자라 향이 진한 봉화 송이. 자갈마당의 송이 돌솥밥, 송이만두로도 맛보실 수 있습니다.</span></li>
+          <li><b>은어<span class="where">여름</span></b><span class="desc">내성천 맑은 물에서 나는 은어. 자갈마당의 은어조림은 봉화 토속음식입니다.</span></li>
           <li><b>봉화 한약우<span class="where">사철</span></b><span class="desc">한약재를 먹여 키운 봉화 한우입니다.</span></li>
           <li><b>봉성 돼지숯불구이<span class="where">봉성면</span></b><span class="desc">솔잎을 깔고 숯불에 구워 먹는 봉성면의 이름난 돼지고기 구이입니다.</span></li>
         </ul>

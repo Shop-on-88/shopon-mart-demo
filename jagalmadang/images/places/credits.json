@@ -1,0 +1,51 @@
+{
+ "cheongnyangsan": {
+  "title": "File:청량산 ( 8 ).jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:%EC%B2%AD%EB%9F%89%EC%82%B0_(_8_).jpg",
+  "artist": "최옥석",
+  "license": "CC BY-SA 4.0",
+  "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+ },
+ "cheongnyangsa": {
+  "title": "File:청량사 경내 Korea - panoramio.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:%EC%B2%AD%EB%9F%89%EC%82%AC_%EA%B2%BD%EB%82%B4_Korea_-_panoramio.jpg",
+  "artist": "Chanilim714",
+  "license": "CC BY-SA 3.0",
+  "license_url": "https://creativecommons.org/licenses/by-sa/3.0"
+ },
+ "arboretum": {
+  "title": "File:국립백두대간수목원 여행자센터.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:%EA%B5%AD%EB%A6%BD%EB%B0%B1%EB%91%90%EB%8C%80%EA%B0%84%EC%88%98%EB%AA%A9%EC%9B%90_%EC%97%AC%ED%96%89%EC%9E%90%EC%84%BC%ED%84%B0.jpg",
+  "artist": "메라크",
+  "license": "CC BY 2.0 kr",
+  "license_url": "https://creativecommons.org/licenses/by/2.0/kr/deed.en"
+ },
+ "buncheon": {
+  "title": "File:Buncheon Station Platform santa-town 20230501.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Buncheon_Station_Platform_santa-town_20230501.jpg",
+  "artist": "Rsa",
+  "license": "CC BY-SA 3.0",
+  "license_url": "http://creativecommons.org/licenses/by-sa/3.0/"
+ },
+ "seungbu": {
+  "title": "File:Korail Yeongdong Line Seungbu Station.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Korail_Yeongdong_Line_Seungbu_Station.jpg",
+  "artist": "G43",
+  "license": "CC BY-SA 4.0",
+  "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+ },
+ "songi": {
+  "title": "File:Matsutake.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Matsutake.jpg",
+  "artist": "Tomomarusan",
+  "license": "CC BY 2.5",
+  "license_url": "https://creativecommons.org/licenses/by/2.5"
+ },
+ "eoun": {
+  "title": "File:Plecoglossus altivelis altivelis ayu.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Plecoglossus_altivelis_altivelis_ayu.jpg",
+  "artist": "Apple2000",
+  "license": "CC BY 3.0",
+  "license_url": "https://creativecommons.org/licenses/by/3.0"
+ }
+}

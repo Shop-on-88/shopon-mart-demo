@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>박준철 통역·번역</title>
+<meta name="description" content="필리핀 앙헬레스 법원 통역, 비즈니스 통역, 법원서류·계약서 번역, 영어·한국어 강의. 마닐라 일정 협의 가능.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Serif+KR:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#1e3a5f; --navy-dark:#132840; --gold:#c9a24a; --gold-soft:#f5ecd6;
+    --bg:#ffffff; --bg-alt:#f6f7f9; --text:#1c2430; --muted:#5b6575; --line:#e3e6eb;
+    --kakao:#fee500; --kakao-text:#191919;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Noto Sans KR',system-ui,sans-serif;color:var(--text);background:var(--bg);line-height:1.65;word-break:keep-all;padding-bottom:72px}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+
+  /* header */
+  header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.95);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--navy)}
+  .brand svg{width:38px;height:38px;color:#2c4a73}
+  .brand small{display:block;font-size:11px;font-weight:500;color:var(--muted);letter-spacing:.02em}
+  .nav-links{display:flex;gap:24px;font-size:15px;color:var(--muted)}
+  .nav-links a:hover{color:var(--navy)}
+  .lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;font-size:13px}
+  .lang button{border:0;background:none;padding:6px 12px;cursor:pointer;color:var(--muted);font-family:inherit}
+  .lang button.on{background:var(--navy);color:#fff}
+
+  /* hero */
+  .hero{background:linear-gradient(160deg,var(--navy-dark),var(--navy));color:#fff;padding:72px 0 80px;position:relative;overflow:hidden}
+  .hero::after{content:"";position:absolute;right:-120px;top:-120px;width:420px;height:420px;border-radius:50%;border:2px solid rgba(201,162,74,.25)}
+  .hero-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:40px;align-items:center;position:relative;z-index:1}
+  .eyebrow{display:inline-block;color:var(--gold);font-size:14px;font-weight:700;letter-spacing:.06em;margin-bottom:14px}
+  .hero h1{font-family:'Noto Serif KR',serif;font-size:clamp(28px,5vw,46px);line-height:1.3;margin-bottom:18px}
+  .hero h1 em{font-style:normal;color:var(--gold)}
+  .hero p.lead{font-size:17px;color:rgba(255,255,255,.82);margin-bottom:30px}
+  .cta{display:flex;flex-wrap:wrap;gap:12px}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 22px;border-radius:10px;font-weight:700;font-size:16px;cursor:pointer;border:0;font-family:inherit;transition:transform .15s}
+  .btn:hover{transform:translateY(-2px)}
+  .btn-kakao{background:var(--kakao);color:var(--kakao-text)}
+  .btn-call{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.5)}
+  .btn svg{width:20px;height:20px}
+  .hero-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:28px;text-align:center}
+  .hero-card svg.logo{width:150px;height:150px;margin-bottom:12px;color:#e8eef6}
+  .hero-card .name{font-family:'Noto Serif KR',serif;font-size:26px;font-weight:700;letter-spacing:.2em}
+  .hero-card .role{color:rgba(255,255,255,.7);font-size:14px;margin-top:4px}
+  .badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+  .badge{font-size:13px;padding:6px 12px;border-radius:999px;background:rgba(201,162,74,.15);color:var(--gold-soft);border:1px solid rgba(201,162,74,.35)}
+
+  section{padding:80px 0}
+  section.alt{background:var(--bg-alt)}
+  .sec-head{text-align:center;margin-bottom:44px}
+  .sec-head .eyebrow{color:var(--gold);margin-bottom:8px}
+  .sec-head h2{font-family:'Noto Serif KR',serif;font-size:clamp(24px,4vw,34px);color:var(--navy)}
+  .sec-head p{color:var(--muted);margin-top:10px}
+
+  /* services */
+  .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:26px 22px;transition:box-shadow .2s,border-color .2s}
+  .card:hover{box-shadow:0 10px 30px rgba(30,58,95,.08);border-color:var(--gold)}
+  .card .ic{width:48px;height:48px;border-radius:12px;background:var(--gold-soft);display:grid;place-items:center;margin-bottom:16px}
+  .card .ic svg{width:26px;height:26px;stroke:var(--navy);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .card h3{font-size:18px;color:var(--navy);margin-bottom:8px}
+  .card p{font-size:14.5px;color:var(--muted)}
+  .card ul{list-style:none;margin-top:12px;font-size:14px}
+  .card li{padding:3px 0 3px 16px;position:relative}
+  .card li::before{content:"";position:absolute;left:0;top:12px;width:6px;height:6px;border-radius:50%;background:var(--gold)}
+
+  /* area + trust */
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:30px}
+  .panel h3{font-size:19px;color:var(--navy);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+  .panel h3 svg{width:24px;height:24px;stroke:var(--gold);fill:none;stroke-width:2}
+  .area-row{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px dashed var(--line)}
+  .area-row:last-child{border-bottom:0}
+  .area-row b{font-size:17px}
+  .tag{font-size:13px;padding:4px 10px;border-radius:6px;font-weight:700}
+  .tag.main{background:var(--navy);color:#fff}
+  .tag.sub{background:var(--gold-soft);color:#8a6a1f}
+  .secure{background:var(--navy);color:#fff;border:0}
+  .secure h3{color:#fff}
+  .secure p{color:rgba(255,255,255,.82);font-size:15px}
+  .secure ul{list-style:none;margin-top:14px}
+  .secure li{padding:6px 0 6px 28px;position:relative;font-size:15px}
+  .secure li::before{content:"✓";position:absolute;left:0;color:var(--gold);font-weight:900}
+
+  /* process */
+  .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;counter-reset:s}
+  .step{text-align:center;padding:20px 10px}
+  .step .num{width:46px;height:46px;border-radius:50%;margin:0 auto 12px;background:#fff;border:2px solid var(--gold);color:var(--navy);display:grid;place-items:center;font-weight:900;font-size:18px}
+  .step b{display:block;color:var(--navy);margin-bottom:4px}
+  .step span{font-size:13.5px;color:var(--muted)}
+
+  /* faq */
+  .faq{max-width:760px;margin:0 auto}
+  details{background:#fff;border:1px solid var(--line);border-radius:12px;margin-bottom:10px;padding:0 22px}
+  summary{cursor:pointer;padding:18px 0;font-weight:700;color:var(--navy);list-style:none;display:flex;justify-content:space-between;gap:12px}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";color:var(--gold);font-size:22px;line-height:1}
+  details[open] summary::after{content:"−"}
+  details p{padding:0 0 18px;color:var(--muted);font-size:15px}
+
+  /* contact */
+  .contact{background:linear-gradient(160deg,var(--navy-dark),var(--navy));color:#fff;text-align:center}
+  .contact h2{color:#fff}
+  .contact .sec-head p{color:rgba(255,255,255,.75)}
+  .contact-box{display:flex;flex-wrap:wrap;justify-content:center;gap:16px;margin-top:10px}
+  .cinfo{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);border-radius:14px;padding:22px 28px;min-width:240px}
+  .cinfo small{display:block;color:var(--gold);font-weight:700;margin-bottom:6px;font-size:13px;letter-spacing:.04em}
+  .cinfo div{font-size:20px;font-weight:700}
+
+  footer{background:#0d1c2e;color:rgba(255,255,255,.6);font-size:13px;padding:30px 0;text-align:center}
+  footer p+p{margin-top:6px}
+
+  /* sticky mobile bar */
+  .mbar{position:fixed;left:0;right:0;bottom:0;z-index:30;display:none;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:#fff;border-top:1px solid var(--line);box-shadow:0 -4px 20px rgba(0,0,0,.06)}
+  .mbar .btn{flex:1;justify-content:center;padding:13px 10px;font-size:15px}
+  .mbar .btn-call{background:var(--navy);border:0}
+
+  .toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%) translateY(20px);background:#111;color:#fff;padding:12px 18px;border-radius:10px;font-size:14px;opacity:0;pointer-events:none;transition:.25s;z-index:40;max-width:calc(100% - 32px);text-align:center}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  [data-en]{}
+  @media (max-width:900px){
+    .grid4{grid-template-columns:1fr 1fr}
+    .steps{grid-template-columns:1fr 1fr 1fr}
+  }
+  @media (max-width:720px){
+    .nav-links{display:none}
+    .hero{padding:48px 0 56px}
+    .hero-grid,.two{grid-template-columns:1fr}
+    .hero-card{order:-1;padding:20px}
+    .hero-card svg.logo{width:100px;height:100px}
+    .hero .cta{display:none}
+    .grid4{grid-template-columns:1fr}
+    .steps{grid-template-columns:1fr 1fr}
+    section{padding:56px 0}
+    .mbar{display:flex}
+    .wrap{padding:0 16px}
+  }
+  @media (min-width:721px){body{padding-bottom:0}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="logo" viewBox="0 0 200 200">
+      <g fill="none" stroke="#c9a24a" stroke-width="5" stroke-linecap="round">
+        <path d="M60 170 A80 80 0 0 1 60 30" stroke-dasharray="10 7"/>
+        <path d="M140 170 A80 80 0 0 0 140 30" stroke-dasharray="10 7"/>
+      </g>
+      <polygon points="100,158 105,172 120,172 108,181 112,195 100,186 88,195 92,181 80,172 95,172" fill="#c9a24a"/>
+      <g fill="currentColor">
+        <rect x="62" y="48" width="76" height="8" rx="2"/>
+        <circle cx="60" cy="60" r="7"/><circle cx="140" cy="60" r="7"/>
+        <rect x="70" y="62" width="60" height="6"/>
+        <rect x="74" y="72" width="8" height="64"/><rect x="88" y="72" width="8" height="64"/>
+        <rect x="104" y="72" width="8" height="64"/><rect x="118" y="72" width="8" height="64"/>
+        <rect x="70" y="138" width="60" height="6"/>
+        <circle cx="60" cy="146" r="7"/><circle cx="140" cy="146" r="7"/>
+        <rect x="62" y="148" width="76" height="8" rx="2"/>
+      </g>
+    </symbol>
+    <symbol id="kakao" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3C6.5 3 2 6.6 2 11c0 2.8 1.9 5.3 4.7 6.7l-1 3.6c-.1.3.3.6.6.4l4.2-2.8c.5.1 1 .1 1.5.1 5.5 0 10-3.6 10-8S17.5 3 12 3z"/></symbol>
+    <symbol id="phone" viewBox="0 0 24 24"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></symbol>
+  </defs>
+</svg>
+
+<header>
+  <div class="wrap nav">
+    <a href="#top" class="brand">
+      <svg><use href="#logo"/></svg>
+      <span><span data-ko="박준철 통역·번역" data-en="Park Jun-cheol">박준철 통역·번역</span>
+        <small data-ko="Court & Business Interpreter" data-en="Court & Business Interpreter">Court & Business Interpreter</small></span>
+    </a>
+    <nav class="nav-links">
+      <a href="#services" data-ko="서비스" data-en="Services">서비스</a>
+      <a href="#area" data-ko="활동지역" data-en="Area">활동지역</a>
+      <a href="#process" data-ko="진행과정" data-en="Process">진행과정</a>
+      <a href="#faq" data-ko="FAQ" data-en="FAQ">FAQ</a>
+      <a href="#contact" data-ko="문의" data-en="Contact">문의</a>
+    </nav>
+    <div class="lang" role="group" aria-label="Language">
+      <button class="on" data-lang="ko">한국어</button>
+      <button data-lang="en">EN</button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" style="padding-top:72px">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow" data-ko="필리핀 앙헬레스 · 마닐라" data-en="ANGELES CITY · METRO MANILA">필리핀 앙헬레스 · 마닐라</span>
+        <h1 data-ko="필리핀 법원·비즈니스 통역,<br><em>한국어로 편하게</em> 상담하세요" data-en="Court & Business Interpreting<br>in the Philippines, <em>in Korean</em>">필리핀 법원·비즈니스 통역,<br><em>한국어로 편하게</em> 상담하세요</h1>
+        <p class="lead" data-ko="법원 재판·조사 통역부터 비즈니스 미팅, 법원서류·계약서 번역까지.<br>낯선 필리핀 법정과 서류 앞에서 혼자 고민하지 마세요." data-en="From court hearings and investigations to business meetings, court documents and contract translation —<br>you don't have to face the Philippine legal system alone.">법원 재판·조사 통역부터 비즈니스 미팅, 법원서류·계약서 번역까지.<br>낯선 필리핀 법정과 서류 앞에서 혼자 고민하지 마세요.</p>
+        <div class="cta">
+          <button class="btn btn-kakao js-kakao"><svg><use href="#kakao"/></svg><span data-ko="카톡으로 상담하기" data-en="Chat on KakaoTalk">카톡으로 상담하기</span></button>
+          <a class="btn btn-call" href="tel:+639150525163"><svg><use href="#phone"/></svg><span data-ko="전화 문의" data-en="Call now">전화 문의</span></a>
+        </div>
+        <div class="badges">
+          <span class="badge" data-ko="법원통역" data-en="Court Interpreting">법원통역</span>
+          <span class="badge" data-ko="비즈니스통역" data-en="Business Interpreting">비즈니스통역</span>
+          <span class="badge" data-ko="법원서류·계약서 번역" data-en="Legal & Contract Translation">법원서류·계약서 번역</span>
+          <span class="badge" data-ko="비밀유지 보장" data-en="Strict Confidentiality">비밀유지 보장</span>
+        </div>
+      </div>
+      <div class="hero-card">
+        <svg class="logo"><use href="#logo"/></svg>
+        <div class="name" data-ko="박 준 철" data-en="PARK JUN-CHEOL">박 준 철</div>
+        <div class="role" data-ko="한국어 ↔ 영어 통역·번역" data-en="Korean ↔ English Interpreter & Translator">한국어 ↔ 영어 통역·번역</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">SERVICES</span>
+        <h2 data-ko="제공 서비스" data-en="What I Do">제공 서비스</h2>
+        <p data-ko="필요한 상황에 맞춰 통역과 번역을 함께 도와드립니다." data-en="Interpreting and translation tailored to your situation.">필요한 상황에 맞춰 통역과 번역을 함께 도와드립니다.</p>
+      </div>
+      <div class="grid4">
+        <div class="card">
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3v18M5 7h14M7 7l-3 7a3 3 0 0 0 6 0L7 7zM17 7l-3 7a3 3 0 0 0 6 0l-3-7zM8 21h8"/></svg></div>
+          <h3 data-ko="법원 통역" data-en="Court Interpreting">법원 통역</h3>
+          <p data-ko="재판, 조정, 수사기관 조사에 동행하여 정확하게 통역합니다." data-en="Accurate interpreting at hearings, mediation and investigations.">재판, 조정, 수사기관 조사에 동행하여 정확하게 통역합니다.</p>
+          <ul>
+            <li data-ko="재판·심리 출석" data-en="Court hearings">재판·심리 출석</li>
+            <li data-ko="조정·합의 절차" data-en="Mediation & settlement">조정·합의 절차</li>
+            <li data-ko="경찰·검찰 조사" data-en="Police & prosecutor interviews">경찰·검찰 조사</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18"/></svg></div>
+          <h3 data-ko="비즈니스 통역" data-en="Business Interpreting">비즈니스 통역</h3>
+          <p data-ko="필리핀 현지 미팅, 협상, 현장 방문을 원활하게 연결합니다." data-en="Meetings, negotiations and site visits, smoothly bridged.">필리핀 현지 미팅, 협상, 현장 방문을 원활하게 연결합니다.</p>
+          <ul>
+            <li data-ko="거래처 미팅·협상" data-en="Client meetings & negotiation">거래처 미팅·협상</li>
+            <li data-ko="공장·현장 방문" data-en="Factory & site visits">공장·현장 방문</li>
+            <li data-ko="관공서 업무 동행" data-en="Government office visits">관공서 업무 동행</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg></div>
+          <h3 data-ko="법원서류·계약서 번역" data-en="Legal & Contract Translation">법원서류·계약서 번역</h3>
+          <p data-ko="법원서류와 각종 계약서를 정확한 용어로 번역합니다." data-en="Court documents and contracts translated with precise terminology.">법원서류와 각종 계약서를 정확한 용어로 번역합니다.</p>
+          <ul>
+            <li data-ko="소장·판결문 등 법원서류" data-en="Complaints, decisions, court papers">소장·판결문 등 법원서류</li>
+            <li data-ko="임대차·매매·고용 계약서" data-en="Lease, sales, employment contracts">임대차·매매·고용 계약서</li>
+            <li data-ko="한↔영 양방향" data-en="Korean ↔ English">한↔영 양방향</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg></div>
+          <h3 data-ko="영어·한국어 강의" data-en="English & Korean Lessons">영어·한국어 강의</h3>
+          <p data-ko="교민을 위한 실전 영어, 현지인을 위한 한국어 수업." data-en="Practical English for Koreans, Korean for Filipinos.">교민을 위한 실전 영어, 현지인을 위한 한국어 수업.</p>
+          <ul>
+            <li data-ko="생활·비즈니스 영어" data-en="Everyday & business English">생활·비즈니스 영어</li>
+            <li data-ko="한국어 회화" data-en="Korean conversation">한국어 회화</li>
+            <li data-ko="1:1 맞춤 수업" data-en="1:1 custom lessons">1:1 맞춤 수업</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="area" class="alt">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">AREA & TRUST</span>
+        <h2 data-ko="활동지역과 약속" data-en="Service Area & Promise">활동지역과 약속</h2>
+      </div>
+      <div class="two">
+        <div class="panel">
+          <h3><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span data-ko="활동지역" data-en="Service Area">활동지역</span></h3>
+          <div class="area-row">
+            <b data-ko="앙헬레스 (Angeles City)" data-en="Angeles City">앙헬레스 (Angeles City)</b>
+            <span class="tag main" data-ko="주 활동지역" data-en="Main area">주 활동지역</span>
+          </div>
+          <div class="area-row">
+            <b data-ko="마닐라 (Metro Manila)" data-en="Metro Manila">마닐라 (Metro Manila)</b>
+            <span class="tag sub" data-ko="일정 협의 시 가능" data-en="By appointment">일정 협의 시 가능</span>
+          </div>
+          <p style="color:var(--muted);font-size:14px;margin-top:14px" data-ko="그 외 지역은 카톡으로 일정과 장소를 알려주시면 가능 여부를 안내해 드립니다." data-en="For other locations, send the date and place via KakaoTalk and I'll confirm availability.">그 외 지역은 카톡으로 일정과 장소를 알려주시면 가능 여부를 안내해 드립니다.</p>
+        </div>
+        <div class="panel secure">
+          <h3><svg viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span data-ko="비밀유지 보장" data-en="Strict Confidentiality">비밀유지 보장</span></h3>
+          <p data-ko="법원 사건과 계약은 민감한 정보입니다. 상담 내용과 맡기신 서류는 철저히 비밀로 지킵니다." data-en="Court cases and contracts are sensitive. Everything you share is kept strictly confidential.">법원 사건과 계약은 민감한 정보입니다. 상담 내용과 맡기신 서류는 철저히 비밀로 지킵니다.</p>
+          <ul>
+            <li data-ko="상담 내용 외부 공개 금지" data-en="No disclosure of consultations">상담 내용 외부 공개 금지</li>
+            <li data-ko="서류는 업무 목적으로만 사용" data-en="Documents used only for your job">서류는 업무 목적으로만 사용</li>
+            <li data-ko="업무 완료 후 요청 시 사본 삭제" data-en="Copies deleted on request after completion">업무 완료 후 요청 시 사본 삭제</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="process">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">PROCESS</span>
+        <h2 data-ko="진행 과정" data-en="How It Works">진행 과정</h2>
+        <p data-ko="카톡 한 번이면 시작됩니다." data-en="It all starts with one KakaoTalk message.">카톡 한 번이면 시작됩니다.</p>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="num">1</div><b data-ko="카톡 문의" data-en="Message">카톡 문의</b><span data-ko="상황을 간단히 알려주세요" data-en="Tell me your situation">상황을 간단히 알려주세요</span></div>
+        <div class="step"><div class="num">2</div><b data-ko="자료·일정 공유" data-en="Share details">자료·일정 공유</b><span data-ko="서류, 날짜, 장소" data-en="Documents, date, place">서류, 날짜, 장소</span></div>
+        <div class="step"><div class="num">3</div><b data-ko="견적 안내" data-en="Quote">견적 안내</b><span data-ko="내용 확인 후 안내" data-en="After reviewing details">내용 확인 후 안내</span></div>
+        <div class="step"><div class="num">4</div><b data-ko="통역·번역 진행" data-en="Service">통역·번역 진행</b><span data-ko="현장 동행 또는 번역" data-en="On-site or translation">현장 동행 또는 번역</span></div>
+        <div class="step"><div class="num">5</div><b data-ko="완료" data-en="Done">완료</b><span data-ko="결과 전달 및 마무리" data-en="Delivery & wrap-up">결과 전달 및 마무리</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="alt">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">FAQ</span>
+        <h2 data-ko="자주 묻는 질문" data-en="Frequently Asked Questions">자주 묻는 질문</h2>
+      </div>
+      <div class="faq">
+        <details>
+          <summary data-ko="비용은 어떻게 되나요?" data-en="How much does it cost?">비용은 어떻게 되나요?</summary>
+          <p data-ko="통역 시간, 장소, 서류 분량에 따라 달라집니다. 카톡으로 내용을 보내주시면 확인 후 견적을 안내해 드립니다." data-en="It depends on hours, location and document length. Send the details via KakaoTalk and I'll send you a quote.">통역 시간, 장소, 서류 분량에 따라 달라집니다. 카톡으로 내용을 보내주시면 확인 후 견적을 안내해 드립니다.</p>
+        </details>
+        <details>
+          <summary data-ko="급하게 통역이 필요한데 가능한가요?" data-en="I need an interpreter urgently. Is that possible?">급하게 통역이 필요한데 가능한가요?</summary>
+          <p data-ko="일정이 비어 있으면 가능합니다. 날짜·시간·장소를 카톡으로 먼저 보내주시면 가장 빠르게 확인해 드립니다." data-en="Yes, if my schedule allows. Send the date, time and place via KakaoTalk for the fastest reply.">일정이 비어 있으면 가능합니다. 날짜·시간·장소를 카톡으로 먼저 보내주시면 가장 빠르게 확인해 드립니다.</p>
+        </details>
+        <details>
+          <summary data-ko="앙헬레스 외 지역도 가시나요?" data-en="Do you work outside Angeles City?">앙헬레스 외 지역도 가시나요?</summary>
+          <p data-ko="주 활동지역은 앙헬레스이며, 마닐라는 일정만 맞으면 가능합니다. 그 외 지역은 문의 주세요." data-en="My main area is Angeles City, and Metro Manila is available by appointment. Ask about other areas.">주 활동지역은 앙헬레스이며, 마닐라는 일정만 맞으면 가능합니다. 그 외 지역은 문의 주세요.</p>
+        </details>
+        <details>
+          <summary data-ko="제 사건 내용이 외부에 알려지지 않을까요?" data-en="Will my case details stay private?">제 사건 내용이 외부에 알려지지 않을까요?</summary>
+          <p data-ko="상담 내용과 서류는 업무 목적 외에는 절대 사용하거나 공개하지 않습니다." data-en="Your information and documents are never used or disclosed beyond the job itself.">상담 내용과 서류는 업무 목적 외에는 절대 사용하거나 공개하지 않습니다.</p>
+        </details>
+        <details>
+          <summary data-ko="법률 상담도 해주시나요?" data-en="Do you give legal advice?">법률 상담도 해주시나요?</summary>
+          <p data-ko="통역·번역 서비스이며 법률 자문은 제공하지 않습니다. 변호사와의 상담 자리에 통역으로 함께할 수 있습니다." data-en="No. I provide interpreting and translation only, but I can interpret during your meeting with a lawyer.">통역·번역 서비스이며 법률 자문은 제공하지 않습니다. 변호사와의 상담 자리에 통역으로 함께할 수 있습니다.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">CONTACT</span>
+        <h2 data-ko="지금 바로 상담하세요" data-en="Get in Touch">지금 바로 상담하세요</h2>
+        <p data-ko="카톡이 가장 빠릅니다. 상황을 간단히 적어 보내주세요." data-en="KakaoTalk is the fastest way. Just describe your situation briefly.">카톡이 가장 빠릅니다. 상황을 간단히 적어 보내주세요.</p>
+      </div>
+      <div class="contact-box">
+        <div class="cinfo"><small data-ko="카카오톡 ID" data-en="KAKAOTALK ID">카카오톡 ID</small><div>philpa425</div></div>
+        <div class="cinfo"><small data-ko="전화" data-en="PHONE">전화</small><div><a href="tel:+639150525163">0915-052-5163</a></div></div>
+      </div>
+      <div class="cta" style="justify-content:center;margin-top:28px">
+        <button class="btn btn-kakao js-kakao"><svg><use href="#kakao"/></svg><span data-ko="카톡으로 상담하기" data-en="Chat on KakaoTalk">카톡으로 상담하기</span></button>
+        <a class="btn btn-call" href="tel:+639150525163"><svg><use href="#phone"/></svg><span data-ko="전화 문의" data-en="Call now">전화 문의</span></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p data-ko="박준철 통역·번역 · 필리핀 앙헬레스" data-en="Park Jun-cheol Interpreting & Translation · Angeles City, Philippines">박준철 통역·번역 · 필리핀 앙헬레스</p>
+    <p data-ko="본 서비스는 통역·번역 서비스이며 법률 자문을 제공하지 않습니다." data-en="This is an interpreting and translation service and does not provide legal advice.">본 서비스는 통역·번역 서비스이며 법률 자문을 제공하지 않습니다.</p>
+  </div>
+</footer>
+
+<div class="mbar">
+  <button class="btn btn-kakao js-kakao"><svg><use href="#kakao"/></svg><span data-ko="카톡 상담" data-en="KakaoTalk">카톡 상담</span></button>
+  <a class="btn btn-call" href="tel:+639150525163"><svg><use href="#phone"/></svg><span data-ko="전화하기" data-en="Call">전화하기</span></a>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+  // 카카오톡 오픈채팅 링크가 생기면 여기에 넣으세요 (예: https://open.kakao.com/o/xxxxxxx)
+  const KAKAO_URL = '';
+  const KAKAO_ID = 'philpa425';
+  let lang = 'ko';
+
+  function setLang(l){
+    lang = l;
+    document.documentElement.lang = l;
+    document.querySelectorAll('[data-ko]').forEach(el => { el.innerHTML = el.dataset[l]; });
+    document.querySelectorAll('.lang button').forEach(b => b.classList.toggle('on', b.dataset.lang === l));
+    try { localStorage.setItem('lang', l); } catch(e) {}
+  }
+  document.querySelectorAll('.lang button').forEach(b => b.addEventListener('click', () => setLang(b.dataset.lang)));
+  try { const saved = localStorage.getItem('lang'); if (saved === 'en') setLang('en'); } catch(e) {}
+
+  function toast(msg){
+    const t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('show');
+    clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('show'), 3200);
+  }
+  document.querySelectorAll('.js-kakao').forEach(b => b.addEventListener('click', async () => {
+    if (KAKAO_URL) { window.open(KAKAO_URL, '_blank'); return; }
+    try { await navigator.clipboard.writeText(KAKAO_ID); } catch(e) {}
+    toast(lang === 'ko'
+      ? `카톡 ID "${KAKAO_ID}" 가 복사되었습니다. 카카오톡 › 친구 추가 › ID로 추가에 붙여넣어 주세요.`
+      : `KakaoTalk ID "${KAKAO_ID}" copied. Add it via KakaoTalk › Add Friend › ID.`);
+  }));
+</script>
+</body>
+</html>

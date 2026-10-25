@@ -125,7 +125,16 @@
   .toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%) translateY(20px);background:#111;color:#fff;padding:12px 18px;border-radius:10px;font-size:14px;opacity:0;pointer-events:none;transition:.25s;z-index:40;max-width:calc(100% - 32px);text-align:center}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
-  [data-en]{}
+  .exp{background:#fff;border-bottom:1px solid var(--line);padding:0}
+  .exp-grid{display:grid;grid-template-columns:repeat(4,1fr);text-align:center}
+  .exp-item{padding:26px 10px;border-right:1px solid var(--line)}
+  .exp-item:last-child{border-right:0}
+  .exp-item b{display:block;font-family:'Noto Serif KR',serif;font-size:22px;color:var(--navy)}
+  .exp-item b em{font-style:normal;color:var(--gold)}
+  .exp-item span{font-size:14px;color:var(--muted)}
+  .price-note{max-width:760px;margin:0 auto 22px;background:var(--gold-soft);border:1px solid #e6d3a3;border-radius:12px;padding:18px 22px;text-align:center;color:#6b5218;font-size:15px}
+  .price-note b{color:var(--navy)}
+  @media (max-width:720px){.exp-grid{grid-template-columns:1fr 1fr}.exp-item:nth-child(2){border-right:0}.exp-item:nth-child(-n+2){border-bottom:1px solid var(--line)}}
   @media (max-width:900px){
     .grid4{grid-template-columns:1fr 1fr}
     .steps{grid-template-columns:1fr 1fr 1fr}
@@ -216,6 +225,15 @@
         <div class="name" data-ko="박 준 철" data-en="PARK JUN-CHEOL">박 준 철</div>
         <div class="role" data-ko="한국어 ↔ 영어 통역·번역" data-en="Korean ↔ English Interpreter & Translator">한국어 ↔ 영어 통역·번역</div>
       </div>
+    </div>
+  </section>
+
+  <section class="exp">
+    <div class="wrap exp-grid">
+      <div class="exp-item"><b data-ko="법원 통역 <em>다수</em>" data-en="<em>Extensive</em> court work">법원 통역 <em>다수</em></b><span data-ko="재판·조사 현장 경험" data-en="Hearings & investigations">재판·조사 현장 경험</span></div>
+      <div class="exp-item"><b data-ko="비즈니스 통역 <em>다수</em>" data-en="<em>Many</em> business jobs">비즈니스 통역 <em>다수</em></b><span data-ko="미팅·협상·현장 방문" data-en="Meetings & negotiations">미팅·협상·현장 방문</span></div>
+      <div class="exp-item"><b data-ko="서류 번역 <em>다수</em>" data-en="<em>Many</em> translations">서류 번역 <em>다수</em></b><span data-ko="법원서류·각종 계약서" data-en="Court papers & contracts">법원서류·각종 계약서</span></div>
+      <div class="exp-item"><b data-ko="요금 <em>문의</em>" data-en="Fees <em>on request</em>">요금 <em>문의</em></b><span data-ko="상황 확인 후 견적 안내" data-en="Quote after reviewing">상황 확인 후 견적 안내</span></div>
     </div>
   </section>
 
@@ -327,8 +345,9 @@
         <h2 data-ko="자주 묻는 질문" data-en="Frequently Asked Questions">자주 묻는 질문</h2>
       </div>
       <div class="faq">
+        <div class="price-note" data-ko="<b>요금은 문의 주세요.</b> 통역 시간·장소·서류 분량에 따라 달라지며, 카톡으로 내용을 보내주시면 견적을 안내해 드립니다." data-en="<b>Please contact me for fees.</b> Rates depend on hours, location and document length — send details via KakaoTalk for a quote."><b>요금은 문의 주세요.</b> 통역 시간·장소·서류 분량에 따라 달라지며, 카톡으로 내용을 보내주시면 견적을 안내해 드립니다.</div>
         <details>
-          <summary data-ko="비용은 어떻게 되나요?" data-en="How much does it cost?">비용은 어떻게 되나요?</summary>
+          <summary data-ko="요금은 얼마인가요?" data-en="How much does it cost?">요금은 얼마인가요?</summary>
           <p data-ko="통역 시간, 장소, 서류 분량에 따라 달라집니다. 카톡으로 내용을 보내주시면 확인 후 견적을 안내해 드립니다." data-en="It depends on hours, location and document length. Send the details via KakaoTalk and I'll send you a quote.">통역 시간, 장소, 서류 분량에 따라 달라집니다. 카톡으로 내용을 보내주시면 확인 후 견적을 안내해 드립니다.</p>
         </details>
         <details>
@@ -361,6 +380,7 @@
       <div class="contact-box">
         <div class="cinfo"><small data-ko="카카오톡 ID" data-en="KAKAOTALK ID">카카오톡 ID</small><div>philpa425</div></div>
         <div class="cinfo"><small data-ko="전화" data-en="PHONE">전화</small><div><a href="tel:+639150525163">0915-052-5163</a></div></div>
+        <div class="cinfo"><small data-ko="요금" data-en="FEES">요금</small><div data-ko="상담 후 견적" data-en="Quote on request">상담 후 견적</div></div>
       </div>
       <div class="cta" style="justify-content:center;margin-top:28px">
         <button class="btn btn-kakao js-kakao"><svg><use href="#kakao"/></svg><span data-ko="카톡으로 상담하기" data-en="Chat on KakaoTalk">카톡으로 상담하기</span></button>

@@ -100,6 +100,36 @@ def thumbs():
     json.dump(index, open(f"{out}/index.json", "w"), ensure_ascii=False, indent=1)
     print("thumbs", len(index))
 
+def kor(op, **params):
+    """국문 관광정보 서비스(KorService2) 호출."""
+    q = urllib.parse.urlencode(dict(serviceKey=KEY, MobileOS="ETC", MobileApp="jagalmadang", _type="json", numOfRows=50, pageNo=1, **params))
+    try:
+        d = json.loads(get(f"https://apis.data.go.kr/B551011/KorService2/{op}?" + q))
+    except urllib.error.HTTPError as e:
+        print(op, e.code, e.read()[:300].decode("utf-8", "replace").replace(KEY, "***")); return []
+    items = (d.get("response", {}).get("body", {}).get("items") or {})
+    items = items.get("item", []) if isinstance(items, dict) else []
+    return items if isinstance(items, list) else [items]
+
+def festival():
+    """봉화 은어·송이 축제의 상세 이미지를 작게 받아 tools/kto-candidates/에 저장."""
+    out = "tools/kto-candidates"; os.makedirs(out, exist_ok=True); index = []
+    for kw in ["봉화은어축제", "봉화송이축제"]:
+        for c in kor("searchKeyword2", keyword=kw, contentTypeId=15):
+            print(kw, c.get("contentid"), c.get("title"), c.get("cpyrhtDivCd"))
+            imgs = kor("detailImage2", contentId=c["contentid"], imageYN="Y")
+            if c.get("firstimage"): imgs = [{"originimgurl": c["firstimage"], "imgname": "firstimage", "cpyrhtDivCd": c.get("cpyrhtDivCd")}] + imgs
+            for i, im in enumerate(imgs):
+                try:
+                    pic = Image.open(io.BytesIO(get(im["originimgurl"]))).convert("RGB")
+                    im["size"] = pic.size; pic.thumbnail((360, 360))
+                    im["file"] = f"{out}/{c['contentid']}-{i}.jpg"; pic.save(im["file"], quality=80)
+                    im["festival"] = kw; im["contentid"] = c["contentid"]; index.append(im)
+                except Exception as e: print("dl fail", type(e).__name__)
+            time.sleep(0.5)
+    json.dump(index, open(f"{out}/index.json", "w"), ensure_ascii=False, indent=1)
+    print("festival images", len(index))
+
 def pick():
     sel = json.load(open("tools/kto-pick.json"))
     out = "jagalmadang/images/places"; os.makedirs(out, exist_ok=True)
@@ -112,4 +142,4 @@ def pick():
         print(slug, im.size)
     json.dump(credits, open(f"{out}/kto-credits.json", "w"), ensure_ascii=False, indent=1)
 
-{"survey": survey, "pick": pick, "catalog": catalog, "thumbs": thumbs}[sys.argv[1]]()
+{"survey": survey, "pick": pick, "catalog": catalog, "thumbs": thumbs, "festival": festival}[sys.argv[1]]()

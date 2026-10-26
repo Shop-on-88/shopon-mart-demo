@@ -464,7 +464,7 @@ section.chat { padding: 0; }
     </div>
   </section>
 
-  <section id="news" style="padding-top:0">
+  <section id="news" style="padding-top:0" hidden>
     <div class="wrap">
       <div class="eyebrow" data-en="Latest from Facebook" data-ko="페이스북 최신 소식">Latest from Facebook</div>
       <h2 data-en="New from our salon" data-ko="매장 새 소식">New from our salon</h2>
@@ -899,13 +899,13 @@ langHooks.push(photoLabels); photoLabels();
     $("fb-embed").innerHTML = `<iframe src="${src}" loading="lazy" title="In the month of May Hair Salon on Facebook" allow="encrypted-media"></iframe>`;
   };
   fetch("/api/fbposts").then(r => r.ok ? r.json() : null).then(d => {
-    if (!d || !d.posts || !d.posts.length) return embed();
+    if (!d || !d.posts || !d.posts.length) { $("news").hidden = true; return; }
     const fmt = t => new Date(t).toLocaleDateString(lang === "ko" ? "ko-KR" : "en-PH", { month: "short", day: "numeric" });
     $("fb-grid").innerHTML = d.posts.map(p => `<a class="fb-card" href="${esc(p.url)}" target="_blank" rel="noopener">
       ${p.image ? `<img src="${esc(p.image)}" alt="" loading="lazy" referrerpolicy="no-referrer">` : ""}
       <div><p>${esc(p.text)}</p><small>${fmt(p.time)} · Facebook</small></div></a>`).join("");
-    $("fb-grid").hidden = false;
-  }).catch(embed);
+    $("fb-grid").hidden = false; $("news").hidden = false;
+  }).catch(() => { $("news").hidden = true; });
 })();
 </script>
 

@@ -1,7 +1,7 @@
 // 페이스북 페이지 최신 게시물 자동 연동 (Cloudflare Pages Function: /api/fbposts)
 // Cloudflare 프로젝트 환경 변수: FB_PAGE_TOKEN (필수, 만료 없는 페이지 액세스 토큰), FB_PAGE_ID (선택)
 // 페이스북 응답은 1시간 동안 캐시합니다.
-const PAGE_ID = "61595539443526";
+const PAGE_ID = "1378115242050188";
 const CACHE_SECONDS = 60 * 60;
 
 export async function onRequestGet({ request, env, waitUntil }) {

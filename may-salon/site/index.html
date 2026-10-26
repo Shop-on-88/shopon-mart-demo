@@ -351,6 +351,17 @@ section.chat { padding: 0; }
 .gtab[aria-selected="true"] { background: var(--rose); color: var(--rose-ink); border-color: var(--rose); }
 .gtab span { opacity: .7; margin-left: 4px; font-variant-numeric: tabular-nums; }
 #gallery-grid { margin-top: 20px; }
+
+/* 페이스북 최신 소식 */
+.fb-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 28px; }
+.fb-card { display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--line); border-radius: 4px; overflow: hidden; text-decoration: none; color: var(--ink); min-width: 0; }
+.fb-card img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
+.fb-card div { padding: 14px 16px; display: grid; gap: 6px; }
+.fb-card p { margin: 0; font-size: 14px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.fb-card small { color: var(--muted); font-size: 12px; }
+.fb-embed { margin-top: 28px; display: flex; justify-content: center; }
+.fb-embed iframe { width: 100%; max-width: 500px; height: 640px; border: 0; border-radius: 4px; background: #fff; }
+@media (max-width: 760px) { .fb-grid { grid-template-columns: 1fr 1fr; } }
 </style>
 
 <header>
@@ -453,6 +464,16 @@ section.chat { padding: 0; }
     </div>
   </section>
 
+  <section id="news" style="padding-top:0">
+    <div class="wrap">
+      <div class="eyebrow" data-en="Latest from Facebook" data-ko="페이스북 최신 소식">Latest from Facebook</div>
+      <h2 data-en="New from our salon" data-ko="매장 새 소식">New from our salon</h2>
+      <div class="fb-grid" id="fb-grid" hidden></div>
+      <div class="fb-embed" id="fb-embed"></div>
+      <div class="more-wrap"><a class="btn btn-line" href="https://www.facebook.com/profile.php?id=61595539443526" target="_blank" rel="noopener" data-en="Follow us on Facebook" data-ko="페이스북에서 보기">Follow us on Facebook</a></div>
+    </div>
+  </section>
+
   <section id="salon" style="padding-top:0">
     <div class="wrap">
       <div class="eyebrow" data-en="Our salon" data-ko="매장">Our salon</div>
@@ -511,7 +532,7 @@ section.chat { padding: 0; }
           <div class="now-list">
             <a class="now-item" href="tel:+639477841312"><b data-en="Call" data-ko="전화">Call</b><span>0947 784 1312</span></a>
             <a class="now-item" href="sms:+639477841312"><b data-en="Text message" data-ko="문자">Text message</b><span>0947 784 1312</span></a>
-            <a class="now-item" href="https://m.me/maysalonkim"><b>Messenger</b><span>maysalonkim</span></a>
+            <a class="now-item" href="https://m.me/61595539443526"><b>Messenger</b><span>May salon</span></a>
             <button class="now-item" type="button" data-kakao><b>KakaoTalk</b><span data-en="Open chat" data-ko="오픈채팅 바로가기">Open chat</span></button>
           </div>
         </div>
@@ -529,7 +550,7 @@ section.chat { padding: 0; }
           <div><dt data-en="Call / Text" data-ko="전화·문자">Call / Text</dt><dd><span id="tel">0947 784 1312</span><button class="copy" data-copy="tel" type="button">Copy</button></dd></div>
           <div><dt>KakaoTalk</dt><dd><a href="https://open.kakao.com/o/smmCSkTi" target="_blank" rel="noopener" data-en="Open chat" data-ko="오픈채팅 바로가기">Open chat</a> · ID <span id="kakao">ConyK</span></dd></div>
           <div><dt>Instagram</dt><dd><a href="https://www.instagram.com/eunju3108/">@eunju3108</a></dd></div>
-          <div><dt>Facebook</dt><dd><a href="https://www.facebook.com/share/1KfbtTkiqp/">maysalonkim</a></dd></div>
+          <div><dt>Facebook</dt><dd><a href="https://www.facebook.com/profile.php?id=61595539443526">May salon</a></dd></div>
           <div><dt data-en="Hours" data-ko="영업">Hours</dt><dd data-en="Open daily 9AM – 7PM<br>Bookings are served first" data-ko="매일 오전 9시 – 오후 7시<br>예약 고객 우선">Open daily 9AM – 7PM<br>Bookings are served first</dd></div>
           <div><dt data-en="Payment" data-ko="결제">Payment</dt><dd><div class="pay"><span class="chip" data-en="Cash" data-ko="현금">Cash</span><span class="chip">GCash</span><span class="chip">PayMaya</span><span class="chip" data-en="Bank transfer" data-ko="계좌이체">Bank transfer</span><span class="chip" data-en="No credit cards" data-ko="카드 결제 불가">No credit cards</span></div></dd></div>
         </dl>
@@ -538,7 +559,7 @@ section.chat { padding: 0; }
           <a class="btn btn-line" href="sms:+639477841312" data-en="Text" data-ko="문자">Text</a>
           <a class="btn btn-line" href="https://www.google.com/maps/search/?api=1&amp;query=In+the+month+of+may+hair+salon+%EC%98%A4%EC%9B%94%EC%97%90+%EB%AF%B8%EC%9A%A9%EC%8B%A4+Angeles">Google Maps</a>
           <a class="btn btn-line" href="https://www.instagram.com/eunju3108/">Instagram</a>
-          <a class="btn btn-line" href="https://www.facebook.com/share/1KfbtTkiqp/">Facebook</a>
+          <a class="btn btn-line" href="https://www.facebook.com/profile.php?id=61595539443526">Facebook</a>
         </div>
       </div>
       <div class="map lm" role="img" aria-label="Landmark map: salon is on the 2nd floor, across from JMI, between Kings Meat and Coffee Bay on Fil-Am Friendship Highway">
@@ -580,7 +601,7 @@ section.chat { padding: 0; }
     <span data-en="Talk to the owner" data-ko="원장님과 1:1 상담">Talk to the owner</span>
     <div>
       <button type="button" data-kakao>KakaoTalk</button>
-      <a href="https://m.me/maysalonkim">Messenger</a>
+      <a href="https://m.me/61595539443526">Messenger</a>
       <a href="sms:+639477841312" data-en="Text" data-ko="문자">Text</a>
     </div>
   </div>
@@ -867,6 +888,25 @@ function photoLabels() {
   renderGallery();
 }
 langHooks.push(photoLabels); photoLabels();
+
+// 페이스북 최신 게시물: 토큰이 설정되면 /api/fbposts 로 카드 표시, 아니면 페이스북 공식 페이지 위젯 표시
+(function () {
+  const FB_URL = "https://www.facebook.com/profile.php?id=61595539443526";
+  const embed = () => {
+    if (location.protocol === "file:") return;
+    const src = "https://www.facebook.com/plugins/page.php?href=" + encodeURIComponent(FB_URL) +
+      "&tabs=timeline&width=500&height=640&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false";
+    $("fb-embed").innerHTML = `<iframe src="${src}" loading="lazy" title="In the month of May Hair Salon on Facebook" allow="encrypted-media"></iframe>`;
+  };
+  fetch("/api/fbposts").then(r => r.ok ? r.json() : null).then(d => {
+    if (!d || !d.posts || !d.posts.length) return embed();
+    const fmt = t => new Date(t).toLocaleDateString(lang === "ko" ? "ko-KR" : "en-PH", { month: "short", day: "numeric" });
+    $("fb-grid").innerHTML = d.posts.map(p => `<a class="fb-card" href="${esc(p.url)}" target="_blank" rel="noopener">
+      ${p.image ? `<img src="${esc(p.image)}" alt="" loading="lazy" referrerpolicy="no-referrer">` : ""}
+      <div><p>${esc(p.text)}</p><small>${fmt(p.time)} · Facebook</small></div></a>`).join("");
+    $("fb-grid").hidden = false;
+  }).catch(embed);
+})();
 </script>
 
 </body>

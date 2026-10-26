@@ -893,7 +893,7 @@ langHooks.push(photoLabels); photoLabels();
 (function () {
   const FB_URL = "https://www.facebook.com/profile.php?id=61595539443526";
   const embed = () => {
-    if (location.protocol === "file:") return;
+    if (location.protocol === "file:" || !/b-2\.online|maysalon\.shop|pages\.dev/.test(location.hostname)) return;
     const src = "https://www.facebook.com/plugins/page.php?href=" + encodeURIComponent(FB_URL) +
       "&tabs=timeline&width=500&height=640&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false";
     $("fb-embed").innerHTML = `<iframe src="${src}" loading="lazy" title="In the month of May Hair Salon on Facebook" allow="encrypted-media"></iframe>`;

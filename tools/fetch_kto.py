@@ -103,10 +103,13 @@ def thumbs():
 def kor(op, **params):
     """국문 관광정보 서비스(KorService2) 호출."""
     q = urllib.parse.urlencode(dict(serviceKey=KEY, MobileOS="ETC", MobileApp="jagalmadang", _type="json", numOfRows=50, pageNo=1, **params))
-    try:
-        d = json.loads(get(f"https://apis.data.go.kr/B551011/KorService2/{op}?" + q))
-    except urllib.error.HTTPError as e:
-        print(op, e.code, e.read()[:300].decode("utf-8", "replace").replace(KEY, "***")); return []
+    d = None
+    for svc, o in (("KorService2", op), ("KorService1", op.rstrip("2") + "1")):
+        try:
+            d = json.loads(get(f"https://apis.data.go.kr/B551011/{svc}/{o}?" + q)); print("using", svc); break
+        except urllib.error.HTTPError as e:
+            print(svc, o, e.code, e.read()[:200].decode("utf-8", "replace").replace(KEY, "***"))
+    if d is None: return []
     items = (d.get("response", {}).get("body", {}).get("items") or {})
     items = items.get("item", []) if isinstance(items, dict) else []
     return items if isinstance(items, list) else [items]

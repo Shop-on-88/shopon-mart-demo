@@ -180,6 +180,19 @@ dialog.lightbox .close { position: absolute; top: 8px; right: 8px; border: 0; bo
 .fest article { background: var(--surface); border-radius: 22px; padding: 22px 24px; display: grid; gap: 6px; align-content: start; }
 .fest article.has-photo { padding-top: 0; overflow: hidden; }
 .fest article.has-photo img { width: calc(100% + 48px); max-width: none; margin: 0 -24px 10px; aspect-ratio: 16 / 9; object-fit: cover; }
+.fest-facts { margin: 10px 0 4px; display: grid; gap: 6px; padding: 12px 14px; border-radius: 14px; background: var(--pebble); }
+.fest-facts div { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 8px; }
+.fest-facts dt { font-size: 13px; color: var(--sign); font-weight: 700; padding-top: 2px; }
+.fest-facts dd { margin: 0; font-size: 15px; }
+.fest article h4 { margin: 14px 0 2px; font-family: var(--font-serif); font-size: 17px; }
+.fest-prog { list-style: none; margin: 0; padding: 0; display: grid; }
+.fest-prog li { padding: 8px 0; border-bottom: 1px dashed var(--line); display: grid; gap: 2px; }
+.fest-prog b { font-size: 16px; }
+.fest-prog span { font-size: 15px; color: var(--muted); }
+.fest-stat { margin-top: 12px !important; color: var(--ink) !important; }
+.fest-stat b { color: var(--sign); }
+.fest-more { justify-self: start; margin-top: 8px; padding: 9px 16px; border-radius: 10px; border: 2px solid var(--navy); color: var(--ink); text-decoration: none; font-weight: 700; font-size: 15px; }
+.fest-more:hover { background: var(--pebble); }
 .fest .season { font-size: 14px; color: var(--sign); font-weight: 700; letter-spacing: .06em; }
 .fest h3 { font-family: var(--font-serif); font-size: 24px; }
 .fest p { margin: 0; color: var(--muted); font-size: 16px; }
@@ -448,7 +461,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       <div class="sec-head">
         <div class="eyebrow">봉화 축제</div>
         <h2>여름엔 은어축제, 가을엔 송이축제</h2>
-        <p>해마다 봉화읍 내성천에서 큰 축제가 열립니다. 자갈마당도 봉화읍 안에 있어 축제장과 가깝습니다.</p>
+        <p>해마다 봉화읍 내성천에서 큰 축제가 열립니다. 자갈마당도 봉화읍 안에 있어 축제장과 가깝습니다. 아래는 2026년 축제 내용입니다. 내년 날짜와 프로그램은 봉화축제관광재단이 발표합니다.</p>
       </div>
       <div class="fest">
         <article class="has-photo">
@@ -456,7 +469,8 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
           <div class="season">여름</div>
           <h3>봉화은어축제</h3>
           <p class="when">매년 7월 말 ~ 8월 초 · 봉화읍 내성천</p>
-          <p>맑은 내성천에서 맨손으로 은어를 잡는 여름 축제입니다. 은어잡이 체험과 물놀이로 가족 손님이 많이 찾습니다.</p>
+          <p>맑은 내성천에서 은어를 잡고 물놀이하는 여름 축제입니다. 가족 손님이 특히 많이 찾습니다.</p>
+          <dl class="fest-facts"><div><dt>기간</dt><dd>2026년 7월 25일(토) ~ 8월 2일(일), 9일간 · 제28회</dd></div><div><dt>시간</dt><dd>오전 9시 ~ 밤 10시</dd></div><div><dt>장소</dt><dd>봉화읍 내성천 일원</dd></div><div><dt>입장</dt><dd>무료 (일부 체험만 유료)</dd></div></dl><h4>이런 체험을 해요</h4><ul class="fest-prog"><li><b>은어 반두잡이</b><span>그물(반두)로 은어를 몰아 잡는 대표 체험. 매일 11시·15시·17시. 현장 12,000원, 온라인 사전예매 10,000원이고 5,000원은 봉화사랑상품권으로 돌려줍니다.</span></li><li><b>은어 맨손잡이</b><span>물속에서 맨손으로 은어 잡기. 평일 하루 3회, 주말 4회.</span></li><li><b>퐁당! 어린이 워터파크</b><span>내성천 야외 물놀이장의 대형 미끄럼틀. 10시·13시·16시, 3,000원.</span></li><li><b>은어키즈 모래놀이장</b><span>모래성 쌓고 파라솔 아래 쉬어 가는 가족 공간. 오전 10시 ~ 밤 8시.</span></li></ul><h4>먹거리</h4><ul class="fest-prog"><li><b>은어 숯불구이·튀김</b><span>직접 잡은 은어를 바로 튀기거나 구워 먹을 수 있습니다.</span></li><li><b>활어 판매장 · 스낵존</b><span>싱싱한 은어를 사 가거나 간식을 즐길 수 있습니다.</span></li></ul><h4>밤에는</h4><ul class="fest-prog"><li><b>야간 공연 · 물벼락쇼</b><span>낮엔 은어를 잡고, 밤엔 무대 공연과 물놀이 쇼가 이어집니다.</span></li><li><b>폐막 축하공연</b><span>마지막 날 밤 8시, 특설무대에서 가수들의 축하공연.</span></li></ul><p class="fest-stat">2026년 축제에는 <b>24만 명</b>이 다녀갔습니다.</p><a class="fest-more" href="https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=9cfdf097-5fcd-469f-ab72-b979b3cb69ce" target="_blank" rel="noopener">은어축제 공식 안내 보기</a>
           <small class="credit">사진 <a href="https://commons.wikimedia.org/wiki/File:Plecoglossus_altivelis_altivelis_ayu.jpg" target="_blank" rel="noopener">Apple2000</a> · <a href="https://creativecommons.org/licenses/by/3.0" target="_blank" rel="noopener">CC BY 3.0</a></small>
         </article>
         <article class="has-photo">
@@ -464,7 +478,8 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
           <div class="season">가을</div>
           <h3>봉화송이축제</h3>
           <p class="when">매년 가을 송이철 · 봉화읍 내성천 일원</p>
-          <p>봉화 송이를 맛보고 사 갈 수 있는 축제입니다. 송이 채취 체험과 봉화 한약우 행사도 함께 열립니다.</p>
+          <p>향 좋은 봉화 송이와 봉화 한약우를 맛보고 사 갈 수 있는 가을 축제입니다.</p>
+          <dl class="fest-facts"><div><dt>기간</dt><dd>2026년 10월 15일(목) ~ 18일(일), 4일간 · 제30회</dd></div><div><dt>시간</dt><dd>오전 10시 ~ 밤 10시</dd></div><div><dt>장소</dt><dd>봉화읍 내성천 일원</dd></div><div><dt>입장</dt><dd>무료 (일부 체험만 유료)</dd></div></dl><h4>이런 행사가 열려요</h4><ul class="fest-prog"><li><b>한송이 타임옥션</b><span>봉화 송이를 경매로 사는 행사. 참가비 없이 현장에서 바로 응찰합니다.</span></li><li><b>도전! 송이골든벨 · 송이를 이겨라!</b><span>관람객이 함께하는 퀴즈와 게임, 깜짝 현장 이벤트.</span></li><li><b>송이&한약우 스퀘어</b><span>지역 생산자가 직접 운영하는 송이 판매부스 20곳. 봉화 한약우 불고기 무료 시식회가 하루 세 번 열립니다.</span></li><li><b>오색오미 대형 비빔밥</b><span>송이·한약우·농특산물로 500인분 비빔밥을 함께 비비는 퍼포먼스.</span></li></ul><h4>먹거리</h4><ul class="fest-prog"><li><b>내성천 송이라면</b><span>송이를 넣은 라면을 5,000원에.</span></li><li><b>송이주막 · 푸드트럭존</b><span>송이 요리와 간식을 한자리에서.</span></li></ul><h4>밤에는</h4><ul class="fest-prog"><li><b>매일 축하공연</b><span>개막 공연, 콘서트, 봉화 글로벌 가요제가 이어집니다.</span></li><li><b>드론라이트쇼 · 불꽃쇼</b><span>마지막 날 밤 9시, 내성천 밤하늘을 수놓습니다.</span></li></ul><p class="fest-stat">같은 기간에 <b>청량문화제</b>도 함께 열립니다.</p><a class="fest-more" href="https://bhftf.or.kr/festival/pine_mushroom_festival/" target="_blank" rel="noopener">송이축제 공식 안내 보기</a>
           <small class="credit">사진 <a href="https://commons.wikimedia.org/wiki/File:Matsutake.jpg" target="_blank" rel="noopener">Tomomarusan</a> · <a href="https://creativecommons.org/licenses/by/2.5" target="_blank" rel="noopener">CC BY 2.5</a></small>
         </article>
       </div>
@@ -477,7 +492,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         </ul>
         <a href="tel:0546725505">054-672-5505</a>
       </div>
-      <p class="fest-link">축제 날짜는 해마다 조금씩 달라집니다. 올해 날짜는 <a href="https://www.bhftf.or.kr" target="_blank" rel="noopener">봉화군축제관광재단</a>에서 확인하세요.</p>
+      <p class="fest-link">축제 날짜와 프로그램은 해마다 조금씩 달라집니다. 최신 소식은 <a href="https://bhftf.or.kr" target="_blank" rel="noopener">봉화축제관광재단</a>(054-674-3053)에서 확인하세요.</p>
 
       <div class="sec-head" style="margin-top:64px">
         <div class="eyebrow">봉화 여행</div>

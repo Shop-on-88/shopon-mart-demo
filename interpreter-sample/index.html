@@ -11,7 +11,7 @@
   :root{
     --navy:#1e3a5f; --navy-dark:#132840; --gold:#c9a24a; --gold-soft:#f5ecd6;
     --bg:#ffffff; --bg-alt:#f6f7f9; --text:#1c2430; --muted:#5b6575; --line:#e3e6eb;
-    --kakao:#fee500; --kakao-text:#191919;
+    --ink:#1e3a5f; --surface:#ffffff; --header-bg:rgba(255,255,255,.95); --kakao:#fee500; --kakao-text:#191919;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
@@ -20,13 +20,13 @@
   .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
 
   /* header */
-  header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.95);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+  header{position:sticky;top:0;z-index:20;background:var(--header-bg);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
   .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
-  .brand{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--navy)}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--ink)}
   .brand svg{width:38px;height:38px;color:#2c4a73}
   .brand small{display:block;font-size:11px;font-weight:500;color:var(--muted);letter-spacing:.02em}
   .nav-links{display:flex;gap:24px;font-size:15px;color:var(--muted)}
-  .nav-links a:hover{color:var(--navy)}
+  .nav-links a:hover{color:var(--ink)}
   .lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;font-size:13px}
   .lang button{border:0;background:none;padding:6px 12px;cursor:pointer;color:var(--muted);font-family:inherit}
   .lang button.on{background:var(--navy);color:#fff}
@@ -50,22 +50,22 @@
   .hero-card .name{font-family:'Noto Serif KR',serif;font-size:26px;font-weight:700;letter-spacing:.2em}
   .hero-card .role{color:rgba(255,255,255,.7);font-size:14px;margin-top:4px}
   .badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
-  .badge{font-size:13px;padding:6px 12px;border-radius:999px;background:rgba(201,162,74,.15);color:var(--gold-soft);border:1px solid rgba(201,162,74,.35)}
+  .badge{font-size:13px;padding:6px 12px;border-radius:999px;background:rgba(201,162,74,.15);color:#f5ecd6;border:1px solid rgba(201,162,74,.35)}
 
   section{padding:80px 0}
   section.alt{background:var(--bg-alt)}
   .sec-head{text-align:center;margin-bottom:44px}
   .sec-head .eyebrow{color:var(--gold);margin-bottom:8px}
-  .sec-head h2{font-family:'Noto Serif KR',serif;font-size:clamp(24px,4vw,34px);color:var(--navy)}
+  .sec-head h2{font-family:'Noto Serif KR',serif;font-size:clamp(24px,4vw,34px);color:var(--ink)}
   .sec-head p{color:var(--muted);margin-top:10px}
 
   /* services */
   .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:26px 22px;transition:box-shadow .2s,border-color .2s}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:26px 22px;transition:box-shadow .2s,border-color .2s}
   .card:hover{box-shadow:0 10px 30px rgba(30,58,95,.08);border-color:var(--gold)}
   .card .ic{width:48px;height:48px;border-radius:12px;background:var(--gold-soft);display:grid;place-items:center;margin-bottom:16px}
-  .card .ic svg{width:26px;height:26px;stroke:var(--navy);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-  .card h3{font-size:18px;color:var(--navy);margin-bottom:8px}
+  .card .ic svg{width:26px;height:26px;stroke:var(--ink);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .card h3{font-size:18px;color:var(--ink);margin-bottom:8px}
   .card p{font-size:14.5px;color:var(--muted)}
   .card ul{list-style:none;margin-top:12px;font-size:14px}
   .card li{padding:3px 0 3px 16px;position:relative}
@@ -73,15 +73,15 @@
 
   /* area + trust */
   .two{display:grid;grid-template-columns:1fr 1fr;gap:22px}
-  .panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:30px}
-  .panel h3{font-size:19px;color:var(--navy);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:30px}
+  .panel h3{font-size:19px;color:var(--ink);margin-bottom:16px;display:flex;align-items:center;gap:10px}
   .panel h3 svg{width:24px;height:24px;stroke:var(--gold);fill:none;stroke-width:2}
   .area-row{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px dashed var(--line)}
   .area-row:last-child{border-bottom:0}
   .area-row b{font-size:17px}
   .tag{font-size:13px;padding:4px 10px;border-radius:6px;font-weight:700}
   .tag.main{background:var(--navy);color:#fff}
-  .tag.sub{background:var(--gold-soft);color:#8a6a1f}
+  .tag.sub{background:#f5ecd6;color:#8a6a1f}
   .secure{background:var(--navy);color:#fff;border:0}
   .secure h3{color:#fff}
   .secure p{color:rgba(255,255,255,.82);font-size:15px}
@@ -92,14 +92,14 @@
   /* process */
   .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;counter-reset:s}
   .step{text-align:center;padding:20px 10px}
-  .step .num{width:46px;height:46px;border-radius:50%;margin:0 auto 12px;background:#fff;border:2px solid var(--gold);color:var(--navy);display:grid;place-items:center;font-weight:900;font-size:18px}
-  .step b{display:block;color:var(--navy);margin-bottom:4px}
+  .step .num{width:46px;height:46px;border-radius:50%;margin:0 auto 12px;background:var(--surface);border:2px solid var(--gold);color:var(--ink);display:grid;place-items:center;font-weight:900;font-size:18px}
+  .step b{display:block;color:var(--ink);margin-bottom:4px}
   .step span{font-size:13.5px;color:var(--muted)}
 
   /* faq */
   .faq{max-width:760px;margin:0 auto}
-  details{background:#fff;border:1px solid var(--line);border-radius:12px;margin-bottom:10px;padding:0 22px}
-  summary{cursor:pointer;padding:18px 0;font-weight:700;color:var(--navy);list-style:none;display:flex;justify-content:space-between;gap:12px}
+  details{background:var(--surface);border:1px solid var(--line);border-radius:12px;margin-bottom:10px;padding:0 22px}
+  summary{cursor:pointer;padding:18px 0;font-weight:700;color:var(--ink);list-style:none;display:flex;justify-content:space-between;gap:12px}
   summary::-webkit-details-marker{display:none}
   summary::after{content:"+";color:var(--gold);font-size:22px;line-height:1}
   details[open] summary::after{content:"−"}
@@ -118,22 +118,29 @@
   footer p+p{margin-top:6px}
 
   /* sticky mobile bar */
-  .mbar{position:fixed;left:0;right:0;bottom:0;z-index:30;display:none;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:#fff;border-top:1px solid var(--line);box-shadow:0 -4px 20px rgba(0,0,0,.06)}
+  .mbar{position:fixed;left:0;right:0;bottom:0;z-index:30;display:none;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:var(--surface);border-top:1px solid var(--line);box-shadow:0 -4px 20px rgba(0,0,0,.06)}
   .mbar .btn{flex:1;justify-content:center;padding:13px 10px;font-size:15px}
   .mbar .btn-call{background:var(--navy);border:0}
 
   .toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%) translateY(20px);background:#111;color:#fff;padding:12px 18px;border-radius:10px;font-size:14px;opacity:0;pointer-events:none;transition:.25s;z-index:40;max-width:calc(100% - 32px);text-align:center}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
-  .exp{background:#fff;border-bottom:1px solid var(--line);padding:0}
+  .brand svg,.brand{color:var(--brand-ink,#2c4a73)}
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+    --bg:#0f1722; --bg-alt:#141e2c; --surface:#1a2534; --header-bg:rgba(15,23,34,.94);
+    --text:#e6ebf2; --muted:#a3aebd; --line:#2a3647; --ink:#c9d6ea; --gold-soft:#3a3120; --brand-ink:#c9d6ea}}
+  :root[data-theme="dark"]{
+    --bg:#0f1722; --bg-alt:#141e2c; --surface:#1a2534; --header-bg:rgba(15,23,34,.94);
+    --text:#e6ebf2; --muted:#a3aebd; --line:#2a3647; --ink:#c9d6ea; --gold-soft:#3a3120; --brand-ink:#c9d6ea}
+  .exp{background:var(--surface);border-bottom:1px solid var(--line);padding:0}
   .exp-grid{display:grid;grid-template-columns:repeat(4,1fr);text-align:center}
   .exp-item{padding:26px 10px;border-right:1px solid var(--line)}
   .exp-item:last-child{border-right:0}
-  .exp-item b{display:block;font-family:'Noto Serif KR',serif;font-size:22px;color:var(--navy)}
+  .exp-item b{display:block;font-family:'Noto Serif KR',serif;font-size:22px;color:var(--ink)}
   .exp-item b em{font-style:normal;color:var(--gold)}
   .exp-item span{font-size:14px;color:var(--muted)}
-  .price-note{max-width:760px;margin:0 auto 22px;background:var(--gold-soft);border:1px solid #e6d3a3;border-radius:12px;padding:18px 22px;text-align:center;color:#6b5218;font-size:15px}
-  .price-note b{color:var(--navy)}
+  .price-note{max-width:760px;margin:0 auto 22px;background:#f5ecd6;border:1px solid #e6d3a3;border-radius:12px;padding:18px 22px;text-align:center;color:#6b5218;font-size:15px}
+  .price-note b{color:#1e3a5f}
   @media (max-width:720px){.exp-grid{grid-template-columns:1fr 1fr}.exp-item:nth-child(2){border-right:0}.exp-item:nth-child(-n+2){border-bottom:1px solid var(--line)}}
   @media (max-width:900px){
     .grid4{grid-template-columns:1fr 1fr}
@@ -210,7 +217,7 @@
         <h1 data-ko="필리핀 법원·비즈니스 통역,<br><em>한국어로 편하게</em> 상담하세요" data-en="Court & Business Interpreting<br>in the Philippines, <em>in Korean</em>">필리핀 법원·비즈니스 통역,<br><em>한국어로 편하게</em> 상담하세요</h1>
         <p class="lead" data-ko="법원 재판·조사 통역부터 비즈니스 미팅, 법원서류·계약서 번역까지.<br>낯선 필리핀 법정과 서류 앞에서 혼자 고민하지 마세요." data-en="From court hearings and investigations to business meetings, court documents and contract translation —<br>you don't have to face the Philippine legal system alone.">법원 재판·조사 통역부터 비즈니스 미팅, 법원서류·계약서 번역까지.<br>낯선 필리핀 법정과 서류 앞에서 혼자 고민하지 마세요.</p>
         <div class="cta">
-          <button class="btn btn-kakao js-kakao"><svg><use href="#kakao"/></svg><span data-ko="카톡으로 상담하기" data-en="Chat on KakaoTalk">카톡으로 상담하기</span></button>
+          <a class="btn btn-kakao" href="https://open.kakao.com/o/sLTDXdUi" target="_blank" rel="noopener"><svg><use href="#kakao"/></svg><span data-ko="카톡으로 상담하기" data-en="Chat on KakaoTalk">카톡으로 상담하기</span></a>
           <a class="btn btn-call" href="tel:+639150525163"><svg><use href="#phone"/></svg><span data-ko="전화 문의" data-en="Call now">전화 문의</span></a>
         </div>
         <div class="badges">
@@ -384,7 +391,7 @@
         <div class="cinfo"><small data-ko="요금" data-en="FEES">요금</small><div data-ko="상담 후 견적" data-en="Quote on request">상담 후 견적</div></div>
       </div>
       <div class="cta" style="justify-content:center;margin-top:28px">
-        <button class="btn btn-kakao js-kakao"><svg><use href="#kakao"/></svg><span data-ko="카톡으로 상담하기" data-en="Chat on KakaoTalk">카톡으로 상담하기</span></button>
+        <a class="btn btn-kakao" href="https://open.kakao.com/o/sLTDXdUi" target="_blank" rel="noopener"><svg><use href="#kakao"/></svg><span data-ko="카톡으로 상담하기" data-en="Chat on KakaoTalk">카톡으로 상담하기</span></a>
         <a class="btn btn-call" href="tel:+639150525163"><svg><use href="#phone"/></svg><span data-ko="전화 문의" data-en="Call now">전화 문의</span></a>
       </div>
     </div>
@@ -399,7 +406,7 @@
 </footer>
 
 <div class="mbar">
-  <button class="btn btn-kakao js-kakao"><svg><use href="#kakao"/></svg><span data-ko="카톡 상담" data-en="KakaoTalk">카톡 상담</span></button>
+  <a class="btn btn-kakao" href="https://open.kakao.com/o/sLTDXdUi" target="_blank" rel="noopener"><svg><use href="#kakao"/></svg><span data-ko="카톡 상담" data-en="KakaoTalk">카톡 상담</span></a>
   <a class="btn btn-call" href="tel:+639150525163"><svg><use href="#phone"/></svg><span data-ko="전화하기" data-en="Call">전화하기</span></a>
 </div>
 <div class="toast" id="toast"></div>

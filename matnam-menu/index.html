@@ -185,7 +185,7 @@
   .cover .info { align-items: center; }
   .cover .wifi { display: flex; align-items: center; gap: 3.5mm; text-align: left; }
   .cover .wifi img { width: 22mm; height: 22mm; border-radius: 1.5mm; display: block; }
-  .cover .wifi small { display: block; font-size: 7.5pt; color: rgba(245,238,225,.65); margin-top: .8mm; line-height: 1.4; }
+  .cover .info small { display: block; white-space: nowrap; font-size: 7.5pt; color: rgba(245,238,225,.65); margin-top: .8mm; line-height: 1.4; }
 </style>
 </head>
 <body>
@@ -200,7 +200,7 @@
  * check: true → 원본에서 가격 판독 불가, 노란색 표시 (확인 후 삭제)
  * 페이지 옵션 cols: 한 줄 카드 수
  */
-const PHONE = "0945 756 9770";
+const PHONE = "0966 166 2215";
 const WIFI = "HUAWEI-5G-2zC8";
 
 const MENU = [
@@ -428,7 +428,7 @@ function coverHTML() {
       <div class="div"><span></span><i></i><span></span></div>
       <div class="toc">${toc}</div>
     </div>
-    <div class="info"><span>TEL<b>${PHONE}</b></span>
+    <div class="info"><span>TEL<b>${PHONE}</b><small>매일 08:00 – 24:00 · Open daily 8AM – 12MN<br>현금 결제만 가능 · Cash only</small></span>
       <div class="wifi"><img src="img/wifi-qr.svg" alt="Wi-Fi QR">
         <span>Wi-Fi<b>${WIFI}</b><small>비밀번호 입력 없이 QR 코드를 스캔해 연결하세요<br>Scan to join Wi-Fi</small></span></div></div>
   </div>`;

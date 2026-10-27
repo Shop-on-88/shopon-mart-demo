@@ -32,7 +32,7 @@
     background: var(--paper);
     position: relative;
     overflow: hidden;
-    padding: 14mm 15mm 13mm;
+    padding: 10mm 10.5mm 8.5mm;
     display: flex; flex-direction: column;
     box-shadow: 0 4px 24px rgba(0,0,0,.25);
   }
@@ -42,16 +42,16 @@
   }
   /* 테두리 장식 */
   .page::before {
-    content: ""; position: absolute; inset: 7mm;
+    content: ""; position: absolute; inset: 4mm;
     border: 0.4mm solid var(--line); pointer-events: none;
   }
   .page::after {
-    content: ""; position: absolute; inset: 8.4mm;
+    content: ""; position: absolute; inset: 5.2mm;
     border: 0.15mm solid var(--line); pointer-events: none;
   }
 
   /* ---------- 섹션 헤더 ---------- */
-  .head { text-align: center; margin-bottom: 5mm; }
+  .head { text-align: center; margin-bottom: 4mm; }
   .head .no {
     font-family: "Cormorant Garamond", serif; font-style: italic;
     color: var(--gold); font-size: 12pt; letter-spacing: .5px;
@@ -73,6 +73,8 @@
 
   /* ---------- 본문 ---------- */
   .body { flex: 1; display: flex; flex-direction: column; }
+  .body.spread { justify-content: space-between; }
+  .body.spread .group:last-child { margin-bottom: 0; }
   .group { margin-bottom: 4.5mm; }
   .group h3 {
     display: flex; align-items: baseline; gap: 2.5mm;
@@ -86,7 +88,7 @@
   }
 
   /* 사진 카드 */
-  .grid { display: grid; grid-template-columns: repeat(var(--cols, 4), 1fr); gap: 3.2mm 4mm; }
+  .grid { display: grid; grid-template-columns: repeat(var(--cols, 4), minmax(0, 1fr)); gap: 3.2mm 4mm; }
   .card { display: flex; flex-direction: column; }
   .card .ph {
     position: relative; aspect-ratio: var(--ratio, 4 / 3); border-radius: 1.6mm; overflow: hidden;
@@ -132,10 +134,10 @@
   .shake span small { color: var(--muted); font-size: 7pt; margin-left: 1mm; text-transform: uppercase; }
 
   /* 음료 페이지 하단 사진 띠 */
-  .strip { margin-top: auto; margin-bottom: 4mm; }
+  .strip { margin-top: auto; margin-bottom: 3mm; }
   .strip p { text-align: center; font-family: "Noto Serif KR", serif; font-weight: 700; font-size: 11pt; margin-bottom: 3mm; }
   .strip p small { display: block; font-family: "Cormorant Garamond", serif; font-size: 9.5pt; color: var(--red); letter-spacing: 3px; text-transform: uppercase; font-weight: 600; }
-  .strip .imgs { display: grid; grid-template-columns: repeat(6, 1fr); gap: 3mm; }
+  .strip .imgs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 3mm; }
   .strip img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 1.6mm; display: block; }
 
   /* ---------- 하단 ---------- */
@@ -149,17 +151,17 @@
   .cover { background: #1f1b17; color: var(--paper); padding: 0; }
   .cover::before, .cover::after { border-color: rgba(245,238,225,.35); z-index: 2; }
   .cover .mosaic {
-    display: grid; grid-template-columns: repeat(5, 1fr); grid-template-rows: repeat(2, 1fr);
-    height: 82mm; gap: 1.2mm; position: relative;
+    display: grid; grid-template-columns: repeat(5, 1fr); grid-template-rows: repeat(3, 1fr);
+    height: 120mm; gap: 1.2mm; position: relative;
   }
   .cover .mosaic img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .cover .mosaic::after {
     content: ""; position: absolute; inset: 0;
-    background: linear-gradient(to bottom, rgba(31,27,23,0) 45%, #1f1b17 100%);
+    background: linear-gradient(to bottom, rgba(31,27,23,0) 62%, #1f1b17 100%);
   }
   .cover .inner {
     flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
-    padding: 0 20mm; margin-top: -8mm; position: relative;
+    padding: 0 20mm; margin-top: -12mm; position: relative;
   }
   .cover .since {
     font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 15pt; letter-spacing: 4px; color: #d8b26a;
@@ -171,7 +173,7 @@
   .cover .tagline {
     font-family: "Cormorant Garamond", serif; font-weight: 600; font-size: 13pt; letter-spacing: 7px; text-transform: uppercase;
   }
-  .cover .div { display: flex; align-items: center; gap: 3mm; margin: 9mm 0 7mm; }
+  .cover .div { display: flex; align-items: center; gap: 3mm; margin: 7mm 0 6mm; }
   .cover .div span { width: 30mm; height: .3mm; background: rgba(245,238,225,.5); }
   .cover .div i { width: 2.4mm; height: 2.4mm; background: var(--red); transform: rotate(45deg); }
   .cover .toc { display: grid; grid-template-columns: repeat(3, auto); gap: 3mm 10mm; font-size: 10.5pt; }
@@ -179,7 +181,7 @@
   .cover .toc b { font-family: "Noto Serif KR", serif; font-weight: 700; }
   .cover .toc small { font-family: "Cormorant Garamond", serif; color: #d8b26a; letter-spacing: 1.5px; font-size: 9.5pt; text-transform: uppercase; }
   .cover .info {
-    display: flex; justify-content: center; gap: 12mm; padding: 0 20mm 16mm; font-size: 9.5pt; color: rgba(245,238,225,.8);
+    display: flex; justify-content: center; gap: 12mm; padding: 0 14mm 11mm; font-size: 9.5pt; color: rgba(245,238,225,.8);
   }
   .cover .info b { color: var(--paper); font-weight: 700; margin-left: 1.5mm; }
   .cover .info { align-items: center; }
@@ -329,7 +331,7 @@ const MENU = [
   {
     no: "06", ko: "음료", en: "Drinks",
     text: true,
-    strip: ["golbaengi", "pajeon", "sutbul", "fries", "dubu-kimchi", "egg-roll"],
+    strip: ["golbaengi", "pajeon", "sutbul", "fries", "dubu-kimchi", "nogari"],
     groups: [
       { ko: "주류", en: "Liquor", items: [
         { ko: "소주", en: "Soju", p: 250 },
@@ -417,7 +419,8 @@ function pageHTML(sec, i) {
 }
 
 function coverHTML() {
-  const pics = ["daktoritang", "kimchi-rice", "jeyuk-rice", "tteokbokki", "budae", "kongnamul", "pajeon", "chik-mul", "sutbul", "veg-kimbap"];
+  const pics = ["daktoritang", "kimchi-rice", "jeyuk-rice", "tteokbokki", "budae", "kongnamul", "pajeon", "chik-mul", "sutbul", "veg-kimbap",
+    "dolsot", "golbaengi", "hanbang", "mini-kimbap", "dongtae"];
   const toc = MENU.map(s => `<div><b>${s.ko}</b><small>${s.en.split(" ")[0]}</small></div>`).join("");
   return `<div class="page cover">
     <div class="mosaic">${pics.map(n => `<img src="${src(n)}" alt="">`).join("")}</div>
@@ -435,6 +438,61 @@ function coverHTML() {
 }
 
 document.getElementById("menu").innerHTML = coverHTML() + MENU.map(pageHTML).join("");
+
+/* ─── 여백 자동 채우기: 페이지마다 사진 크기·열 수를 조절해 하단 빈 공간을 없앱니다 ─── */
+const MM = 96 / 25.4;
+function contentBottom(body) {
+  return Math.max(...[...body.children].map(c => c.getBoundingClientRect().bottom));
+}
+function fitCards(pg) {
+  const body = pg.querySelector(".body"), foot = pg.querySelector(".foot");
+  const limit = foot.getBoundingClientRect().top - 2.5 * MM;
+  const pageW = body.getBoundingClientRect().width;
+  const grids = [...pg.querySelectorAll(".grid")];
+  const base = grids.map(g => +getComputedStyle(g).getPropertyValue("--cols"));
+  const opts = base.map(c => c >= 3 ? [3, 4, 5] : [c]);
+  const ratio = g => { const r = (g.style.getPropertyValue("--ratio") || "4 / 3").split("/"); return r[1] / r[0]; };
+  // 마지막 줄이 덜 찼으면 그 줄 카드들을 넓혀 빈 칸 없이 채웁니다.
+  const layout = (g, c) => {
+    const items = [...g.children], rem = items.length % c, L = rem ? c * rem : c;
+    g.style.setProperty("--cols", L);
+    items.forEach((it, j) => it.style.gridColumn = `span ${rem && j >= items.length - rem ? L / rem : L / c}`);
+  };
+  const apply = (cols, s) => grids.forEach((g, i) => {
+    layout(g, cols[i]);
+    const w = g.querySelector(".ph").getBoundingClientRect().width;
+    g.querySelectorAll(".ph").forEach(ph => ph.style.height = (w * ratio(g) * s) + "px");
+  });
+  const settle = (cols, s) => { apply(cols, s); return contentBottom(body) <= limit; };
+  // 모든 열 조합을 시도해 "아래쪽 빈 공간 + 마지막 줄 빈 칸" 넓이가 가장 작은 배치를 고릅니다.
+  const combos = opts.reduce((acc, o) => acc.flatMap(a => o.map(c => [...a, c])), [[]]);
+  let best = null;
+  for (const cols of combos) {
+    let lo = 0.6, hi = 1.33;
+    if (!settle(cols, lo)) continue;
+    for (let k = 0; k < 16; k++) { const mid = (lo + hi) / 2; settle(cols, mid) ? lo = mid : hi = mid; }
+    settle(cols, lo);
+    // 남는 세로 공간이 가장 적고, 같으면 카드가 큰(열이 적은) 배치를 고릅니다.
+    // 마지막 줄에 한 개만 남아 가로로 길게 늘어나는 배치는 피합니다.
+    const lone = grids.filter((g, i) => cols[i] > 2 && g.children.length % cols[i] === 1).length;
+    const waste = (limit - contentBottom(body)) * pageW + cols.reduce((a, b) => a + b, 0) * MM * MM + lone * 1e9;
+    if (!best || waste < best.waste) best = { cols, s: lo, waste };
+  }
+  if (best) settle(best.cols, best.s);
+  if (pg.querySelectorAll(".group").length > 1) body.classList.add("spread");
+}
+function fitStrip(pg) {
+  const strip = pg.querySelector(".strip"); if (!strip) return;
+  const list = pg.querySelector(".cols2"), imgs = [...strip.querySelectorAll("img")];
+  const room = strip.getBoundingClientRect().bottom - list.getBoundingClientRect().bottom - 6 * MM
+             - strip.querySelector("p").getBoundingClientRect().height - 3 * MM;
+  const rows = Math.ceil(imgs.length / 3), w = imgs[0].getBoundingClientRect().width;
+  const h = Math.min(w * 1.1, (room - (rows - 1) * 3 * MM) / rows);
+  imgs.forEach(im => { im.style.aspectRatio = "auto"; im.style.height = h + "px"; });
+}
+window.fitDone = document.fonts.ready.then(() => {
+  document.querySelectorAll(".page:not(.cover)").forEach(pg => pg.querySelector(".cols2") ? fitStrip(pg) : fitCards(pg));
+});
 </script>
 </body>
 </html>

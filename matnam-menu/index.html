@@ -182,6 +182,10 @@
     display: flex; justify-content: center; gap: 12mm; padding: 0 20mm 16mm; font-size: 9.5pt; color: rgba(245,238,225,.8);
   }
   .cover .info b { color: var(--paper); font-weight: 700; margin-left: 1.5mm; }
+  .cover .info { align-items: center; }
+  .cover .wifi { display: flex; align-items: center; gap: 3.5mm; text-align: left; }
+  .cover .wifi img { width: 22mm; height: 22mm; border-radius: 1.5mm; display: block; }
+  .cover .wifi small { display: block; font-size: 7.5pt; color: rgba(245,238,225,.65); margin-top: .8mm; line-height: 1.4; }
 </style>
 </head>
 <body>
@@ -220,7 +224,7 @@ const MENU = [
         { ko: "된장찌개", en: "Soybean Paste Stew", p: 380, img: "doenjang" },
         { ko: "순두부찌개", en: "Soft Tofu Stew", p: 430, img: "sundubu" },
         { ko: "청국장", en: "Cheonggukjang", p: 380, img: "cheonggukjang" },
-        { ko: "누룽지탕", en: "Scorched Rice Soup", p: null, check: true, img: "nurungji" },
+        { ko: "누룽지탕", en: "Scorched Rice Soup", p: 200, img: "nurungji" },
         { ko: "설렁탕", en: "Ox Bone Soup", p: 300, img: "seolleongtang" },
         { ko: "콩나물국밥", en: "Bean Sprout Rice Soup", p: 380, img: "kongnamul" },
       ]},
@@ -424,7 +428,9 @@ function coverHTML() {
       <div class="div"><span></span><i></i><span></span></div>
       <div class="toc">${toc}</div>
     </div>
-    <div class="info"><span>TEL<b>${PHONE}</b></span><span>Wi-Fi<b>${WIFI}</b></span></div>
+    <div class="info"><span>TEL<b>${PHONE}</b></span>
+      <div class="wifi"><img src="img/wifi-qr.svg" alt="Wi-Fi QR">
+        <span>Wi-Fi<b>${WIFI}</b><small>비밀번호 입력 없이 QR 코드를 스캔해 연결하세요<br>Scan to join Wi-Fi</small></span></div></div>
   </div>`;
 }
 

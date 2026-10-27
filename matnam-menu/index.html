@@ -17,7 +17,6 @@
     --muted: #6f655a;
     --line: #cbbda5;
     --red: #b8322a;
-    --red-soft: #f1d9d2;
     --gold: #a77b2c;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -33,7 +32,7 @@
     background: var(--paper);
     position: relative;
     overflow: hidden;
-    padding: 16mm 15mm 14mm;
+    padding: 14mm 15mm 13mm;
     display: flex; flex-direction: column;
     box-shadow: 0 4px 24px rgba(0,0,0,.25);
   }
@@ -52,74 +51,92 @@
   }
 
   /* ---------- 섹션 헤더 ---------- */
-  .head { text-align: center; margin-bottom: 7mm; }
+  .head { text-align: center; margin-bottom: 5mm; }
   .head .no {
     font-family: "Cormorant Garamond", serif; font-style: italic;
-    color: var(--gold); font-size: 13pt; letter-spacing: .5px;
+    color: var(--gold); font-size: 12pt; letter-spacing: .5px;
   }
   .head h2 {
     font-family: "Noto Serif KR", serif; font-weight: 900;
-    font-size: 30pt; letter-spacing: 6px; line-height: 1.15;
+    font-size: 26pt; letter-spacing: 6px; line-height: 1.15;
   }
   .head .en {
     font-family: "Cormorant Garamond", serif; font-weight: 600;
-    font-size: 12pt; letter-spacing: 6px; color: var(--red); text-transform: uppercase;
+    font-size: 11pt; letter-spacing: 6px; color: var(--red); text-transform: uppercase;
   }
   .head .rule {
-    display: flex; align-items: center; gap: 3mm; justify-content: center; margin-top: 3mm;
+    display: flex; align-items: center; gap: 3mm; justify-content: center; margin-top: 2.5mm;
   }
   .head .rule span { height: .3mm; width: 22mm; background: var(--ink); }
   .head .rule i { width: 2.2mm; height: 2.2mm; background: var(--red); transform: rotate(45deg); }
-  .head .note { margin-top: 2.5mm; font-size: 8.5pt; color: var(--muted); }
+  .head .note { margin-top: 2mm; font-size: 8.5pt; color: var(--muted); }
 
   /* ---------- 본문 ---------- */
-  .body { flex: 1; display: grid; grid-template-columns: 1fr 1fr; column-gap: 11mm; align-content: start; }
-  .body.one { grid-template-columns: 1fr; }
-  .group { break-inside: avoid; margin-bottom: 6.5mm; }
-  .group.span { grid-column: 1 / -1; }
+  .body { flex: 1; display: flex; flex-direction: column; }
+  .group { margin-bottom: 4.5mm; }
   .group h3 {
     display: flex; align-items: baseline; gap: 2.5mm;
-    font-family: "Noto Serif KR", serif; font-weight: 700; font-size: 13pt;
-    padding-bottom: 1.6mm; margin-bottom: 2.6mm;
+    font-family: "Noto Serif KR", serif; font-weight: 700; font-size: 12pt;
+    padding-bottom: 1.3mm; margin-bottom: 3mm;
     border-bottom: .45mm solid var(--ink);
   }
   .group h3 small {
-    font-family: "Cormorant Garamond", serif; font-weight: 600; font-size: 10pt;
+    font-family: "Cormorant Garamond", serif; font-weight: 600; font-size: 9.5pt;
     letter-spacing: 2.5px; color: var(--red); text-transform: uppercase;
   }
-  .group .gnote { font-size: 8pt; color: var(--muted); margin: -1.2mm 0 2.4mm; }
 
+  /* 사진 카드 */
+  .grid { display: grid; grid-template-columns: repeat(var(--cols, 4), 1fr); gap: 3.2mm 4mm; }
+  .card { display: flex; flex-direction: column; }
+  .card .ph {
+    position: relative; aspect-ratio: var(--ratio, 4 / 3); border-radius: 1.6mm; overflow: hidden;
+    background: var(--paper-deep); box-shadow: 0 .4mm 1.2mm rgba(60,40,20,.18);
+  }
+  .card .ph img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .card .ph .tag {
+    position: absolute; top: 1.4mm; left: 1.4mm;
+    font-size: 6.5pt; font-weight: 700; color: #fff; background: var(--red);
+    border-radius: .8mm; padding: .2mm 1.3mm; letter-spacing: .5px;
+  }
+  .card .row { display: flex; justify-content: space-between; align-items: baseline; gap: 1.5mm; margin-top: 1.6mm; }
+  .card .ko { font-weight: 700; font-size: 9.8pt; line-height: 1.25; }
+  .card .price { font-weight: 700; font-size: 9.8pt; color: var(--red); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .card .price small { font-weight: 500; font-size: 7pt; color: var(--muted); margin: 0 .4mm 0 1.2mm; }
+  .card .price small:first-child { margin-left: 0; }
+  .card .en { font-size: 6.6pt; letter-spacing: .5px; color: var(--muted); text-transform: uppercase; line-height: 1.35; margin-top: .3mm; }
+  .card .incl { font-size: 7pt; color: var(--gold); font-weight: 700; margin-top: .4mm; }
+  .card.check .price { background: #ffe58a; color: var(--ink); padding: 0 1mm; }
+
+  /* 큰 카드 (요리 페이지) */
+  .big .card .ko, .big .card .price { font-size: 11pt; }
+  .big .card .en { font-size: 7.2pt; }
+
+  /* 텍스트 목록 (음료) */
+  .cols2 { display: grid; grid-template-columns: 1fr 1fr; column-gap: 11mm; align-items: start; }
   .item { display: grid; grid-template-columns: auto 1fr auto; align-items: end; column-gap: 2mm; padding: 1.55mm 0; }
   .item .ko { font-weight: 700; font-size: 11pt; white-space: nowrap; }
   .item .dots { border-bottom: .35mm dotted var(--line); transform: translateY(-1.6mm); }
-  .item .price { font-weight: 700; font-size: 11pt; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .item .price { font-weight: 700; font-size: 11pt; white-space: nowrap; }
   .item .price .cur { font-weight: 500; font-size: 8.5pt; color: var(--muted); margin-right: .6mm; }
-  .item .sub { grid-column: 1 / -1; display: flex; gap: 2mm; align-items: baseline; margin-top: .3mm; }
-  .item .en { font-size: 7.6pt; letter-spacing: .6px; color: var(--muted); text-transform: uppercase; }
-  .item .tag {
-    font-size: 6.8pt; font-weight: 700; color: var(--red); border: .25mm solid var(--red);
-    border-radius: 1mm; padding: 0 1.2mm; line-height: 1.5; white-space: nowrap;
-  }
-  .item .tag.fill { background: var(--red); color: #fff; }
-  .item.size .price { display: flex; gap: 3mm; }
-  .item.size .price b { font-weight: 500; font-size: 7.5pt; color: var(--muted); margin-right: .8mm; }
-  .item.soldout .ko, .item.soldout .en { color: #a99d8c; text-decoration: line-through; text-decoration-thickness: .2mm; }
-  .item.check .price { background: #ffe58a; padding: 0 1mm; }
+  .item .en { grid-column: 1 / -1; font-size: 7.6pt; letter-spacing: .6px; color: var(--muted); text-transform: uppercase; margin-top: .3mm; }
 
-  /* 큰 카드형 (요리 페이지) */
-  .feature .item { padding: 2.2mm 0; }
-  .feature .item .ko { font-size: 12.5pt; }
-  .feature .item .price { font-size: 12.5pt; }
+  /* 추가 옵션 */
+  .addons { display: grid; grid-template-columns: repeat(5, 1fr); gap: 2.5mm; }
+  .addon { background: var(--paper-deep); border-radius: 1.6mm; padding: 2mm 2.5mm; text-align: center; }
+  .addon div { font-size: 9.5pt; font-weight: 700; }
+  .addon small { display: block; font-size: 6.5pt; color: var(--muted); letter-spacing: .5px; text-transform: uppercase; }
+  .addon b { display: block; color: var(--red); font-size: 10pt; margin-top: .6mm; }
 
-  /* 추가 옵션 칩 */
-  .addons { display: grid; grid-template-columns: 1fr 1fr; gap: 1.6mm 6mm; }
-  .addon { display: flex; justify-content: space-between; font-size: 9.5pt; border-bottom: .2mm solid var(--line); padding: 1mm 0; }
-  .addon span:first-child small { display: block; font-size: 6.8pt; color: var(--muted); letter-spacing: .5px; text-transform: uppercase; }
-  .addon b { font-weight: 700; color: var(--red); align-self: center; }
-
-  .shake { display: flex; flex-wrap: wrap; gap: 1.6mm; margin-top: 1mm; }
+  .shake { display: flex; flex-wrap: wrap; gap: 1.6mm; margin-top: 1mm; grid-column: 1 / -1; }
   .shake span { font-size: 8.8pt; background: var(--paper-deep); border-radius: 5mm; padding: .7mm 2.6mm; }
   .shake span small { color: var(--muted); font-size: 7pt; margin-left: 1mm; text-transform: uppercase; }
+
+  /* 음료 페이지 하단 사진 띠 */
+  .strip { margin-top: auto; margin-bottom: 4mm; }
+  .strip p { text-align: center; font-family: "Noto Serif KR", serif; font-weight: 700; font-size: 11pt; margin-bottom: 3mm; }
+  .strip p small { display: block; font-family: "Cormorant Garamond", serif; font-size: 9.5pt; color: var(--red); letter-spacing: 3px; text-transform: uppercase; font-weight: 600; }
+  .strip .imgs { display: grid; grid-template-columns: repeat(6, 1fr); gap: 3mm; }
+  .strip img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 1.6mm; display: block; }
 
   /* ---------- 하단 ---------- */
   .foot {
@@ -130,27 +147,31 @@
 
   /* ---------- 표지 ---------- */
   .cover { background: #1f1b17; color: var(--paper); padding: 0; }
-  .cover::before, .cover::after { border-color: rgba(245,238,225,.35); }
+  .cover::before, .cover::after { border-color: rgba(245,238,225,.35); z-index: 2; }
+  .cover .mosaic {
+    display: grid; grid-template-columns: repeat(5, 1fr); grid-template-rows: repeat(2, 1fr);
+    height: 82mm; gap: 1.2mm; position: relative;
+  }
+  .cover .mosaic img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .cover .mosaic::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(to bottom, rgba(31,27,23,0) 45%, #1f1b17 100%);
+  }
   .cover .inner {
     flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
-    padding: 20mm;
+    padding: 0 20mm; margin-top: -8mm; position: relative;
   }
   .cover .since {
     font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 15pt; letter-spacing: 4px; color: #d8b26a;
   }
-  .cover .seal {
-    width: 22mm; height: 22mm; border-radius: 3mm; background: var(--red); color: #fff;
-    display: grid; place-items: center; font-family: "Noto Serif KR", serif; font-weight: 900;
-    font-size: 11pt; line-height: 1.15; margin-bottom: 9mm; transform: rotate(-4deg);
-  }
   .cover h1 {
     font-family: "Nanum Brush Script", cursive; font-weight: 400;
-    font-size: 104pt; line-height: .95; letter-spacing: 2px; margin: 4mm 0 2mm;
+    font-size: 96pt; line-height: .95; letter-spacing: 2px; margin: 3mm 0 2mm;
   }
   .cover .tagline {
-    font-family: "Cormorant Garamond", serif; font-weight: 600; font-size: 14pt; letter-spacing: 7px; text-transform: uppercase;
+    font-family: "Cormorant Garamond", serif; font-weight: 600; font-size: 13pt; letter-spacing: 7px; text-transform: uppercase;
   }
-  .cover .div { display: flex; align-items: center; gap: 3mm; margin: 11mm 0 9mm; }
+  .cover .div { display: flex; align-items: center; gap: 3mm; margin: 9mm 0 7mm; }
   .cover .div span { width: 30mm; height: .3mm; background: rgba(245,238,225,.5); }
   .cover .div i { width: 2.4mm; height: 2.4mm; background: var(--red); transform: rotate(45deg); }
   .cover .toc { display: grid; grid-template-columns: repeat(3, auto); gap: 3mm 10mm; font-size: 10.5pt; }
@@ -158,7 +179,7 @@
   .cover .toc b { font-family: "Noto Serif KR", serif; font-weight: 700; }
   .cover .toc small { font-family: "Cormorant Garamond", serif; color: #d8b26a; letter-spacing: 1.5px; font-size: 9.5pt; text-transform: uppercase; }
   .cover .info {
-    display: flex; justify-content: center; gap: 12mm; padding: 0 20mm 17mm; font-size: 9.5pt; color: rgba(245,238,225,.8);
+    display: flex; justify-content: center; gap: 12mm; padding: 0 20mm 16mm; font-size: 9.5pt; color: rgba(245,238,225,.8);
   }
   .cover .info b { color: var(--paper); font-weight: 700; margin-left: 1.5mm; }
 </style>
@@ -169,45 +190,39 @@
 <script>
 /*
  * ─── 메뉴 데이터 ───────────────────────────────────────────
- * ko: 한글명 / en: 영문명 / p: 가격(페소) / tags: 보조 표기
- * soldout: true  → "품절"로 회색 처리 (메뉴판에서 빼려면 해당 줄 삭제)
- * check: true    → 원본에서 가격 판독 불가, 노란색 표시 (확인 후 삭제)
+ * ko: 한글명 / en: 영문명 / p: 가격(페소) / img: img/ 폴더의 사진 파일명
+ * incl: 포함 구성 (예: 공기밥 2 포함) / tag: 사진 위 표시 (NEW 등)
  * sizes: [["M",280],["L",560]] → 사이즈별 가격
+ * check: true → 원본에서 가격 판독 불가, 노란색 표시 (확인 후 삭제)
+ * 페이지 옵션 cols: 한 줄 카드 수
  */
 const PHONE = "0945 756 9770";
 const WIFI = "HUAWEI-5G-2zC8";
 
 const MENU = [
   {
-    no: "01", ko: "식사", en: "Rice & Stew",
+    no: "01", ko: "식사", en: "Rice & Stew", cols: 5,
     note: "모든 식사 메뉴에 기본 반찬이 제공됩니다 · Served with side dishes",
     groups: [
-      { ko: "덮밥 · 비빔밥", en: "Rice Bowls", items: [
-        { ko: "제육덮밥", en: "Spicy Pork Rice", p: 330 },
-        { ko: "오징어덮밥", en: "Spicy Squid Rice", p: 330 },
-        { ko: "불고기덮밥", en: "Bulgogi Rice", p: 330 },
-        { ko: "비빔밥", en: "Bibimbap", p: 330 },
-        { ko: "돌솥비빔밥", en: "Stone Pot Bibimbap", p: 450 },
-        { ko: "김치볶음밥", en: "Kimchi Fried Rice", p: 300 },
-        { ko: "오므라이스", en: "Omurice", p: 330 },
+      { ko: "덮밥 · 비빔밥 · 돈까스", en: "Rice Plates", items: [
+        { ko: "제육덮밥", en: "Spicy Pork Rice", p: 330, img: "jeyuk-rice" },
+        { ko: "오징어덮밥", en: "Spicy Squid Rice", p: 330, img: "ojingo-rice" },
+        { ko: "불고기덮밥", en: "Bulgogi Rice", p: 330, img: "bulgogi-rice" },
+        { ko: "비빔밥", en: "Bibimbap", p: 330, img: "bibimbap" },
+        { ko: "돌솥비빔밥", en: "Stone Pot Bibimbap", p: 450, img: "dolsot" },
+        { ko: "김치볶음밥", en: "Kimchi Fried Rice", p: 300, img: "kimchi-rice" },
+        { ko: "오므라이스", en: "Omurice", p: 330, img: "omurice" },
+        { ko: "돈까스", en: "Pork Cutlet", p: 430, img: "donkatsu" },
+        { ko: "생선까스", en: "Fish Cutlet", p: 480, img: "fish-katsu" },
       ]},
-      { ko: "찌개", en: "Jjigae", items: [
-        { ko: "김치찌개", en: "Kimchi Stew", p: 380 },
-        { ko: "된장찌개", en: "Soybean Paste Stew", p: 380 },
-        { ko: "순두부찌개", en: "Soft Tofu Stew", p: 430 },
-        { ko: "청국장", en: "Cheonggukjang", p: 380 },
-        { ko: "누룽지탕", en: "Scorched Rice Soup", p: null, check: true },
-      ]},
-      { ko: "국밥 · 탕", en: "Soups", items: [
-        { ko: "설렁탕", en: "Seolleongtang · Ox Bone Soup", p: 300 },
-        { ko: "콩나물국밥", en: "Bean Sprout Rice Soup", p: 380 },
-        { ko: "곰탕", en: "Gomtang · Beef Soup", soldout: true },
-        { ko: "소내장탕", en: "Beef Tripe Soup", soldout: true },
-        { ko: "도가니탕", en: "Ox Knee Soup", soldout: true },
-      ]},
-      { ko: "돈까스", en: "Cutlet", items: [
-        { ko: "돈까스", en: "Pork Cutlet", p: 430 },
-        { ko: "생선까스", en: "Fish Cutlet", p: 480 },
+      { ko: "찌개 · 국밥", en: "Stews & Soups", items: [
+        { ko: "김치찌개", en: "Kimchi Stew", p: 380, img: "kimchi-jjigae" },
+        { ko: "된장찌개", en: "Soybean Paste Stew", p: 380, img: "doenjang" },
+        { ko: "순두부찌개", en: "Soft Tofu Stew", p: 430, img: "sundubu" },
+        { ko: "청국장", en: "Cheonggukjang", p: 380, img: "cheonggukjang" },
+        { ko: "누룽지탕", en: "Scorched Rice Soup", p: null, check: true, img: "nurungji" },
+        { ko: "설렁탕", en: "Ox Bone Soup", p: 300, img: "seolleongtang" },
+        { ko: "콩나물국밥", en: "Bean Sprout Rice Soup", p: 380, img: "kongnamul" },
       ]},
     ],
   },
@@ -215,107 +230,102 @@ const MENU = [
     no: "02", ko: "면류", en: "Noodles",
     groups: [
       { ko: "따뜻한 면", en: "Hot", items: [
-        { ko: "김치칼국수", en: "Kimchi Kalguksu", p: 330 },
-        { ko: "오징어칼국수", en: "Squid Kalguksu", p: 350 },
-        { ko: "잔치국수", en: "Janchi Guksu", p: 300 },
-        { ko: "떡만두국", en: "Rice Cake & Dumpling Soup", p: 300 },
-        { ko: "냄비우동", en: "Pot Udon", p: 280 },
-        { ko: "냄비라면", en: "Pot Ramyeon", p: 150 },
+        { ko: "김치칼국수", en: "Kimchi Kalguksu", p: 330, img: "kimchi-kalguksu" },
+        { ko: "오징어칼국수", en: "Squid Kalguksu", p: 350, img: "ojingo-kalguksu" },
+        { ko: "잔치국수", en: "Janchi Guksu", p: 300, img: "janchi-guksu" },
+        { ko: "떡만두국", en: "Rice Cake Dumpling Soup", p: 300, img: "tteok-mandu" },
+        { ko: "냄비우동", en: "Pot Udon", p: 280, img: "udon" },
+        { ko: "냄비라면", en: "Pot Ramyeon", p: 150, img: "ramyeon" },
       ]},
       { ko: "시원한 면 · 비빔면", en: "Cold & Spicy", items: [
-        { ko: "칡물냉면", en: "Arrowroot Mul Naengmyeon", p: 450, tags: ["NEW"] },
-        { ko: "칡비빔냉면", en: "Arrowroot Bibim Naengmyeon", p: 450, tags: ["NEW"] },
-        { ko: "냉김치말이국수", en: "Cold Kimchi Noodles", p: 330 },
-        { ko: "열무국수", en: "Young Radish Kimchi Noodles", p: 330 },
-        { ko: "비빔국수", en: "Bibim Guksu", p: 330 },
-        { ko: "망향비빔국수", en: "Manghyang Bibim Guksu", p: 350 },
-        { ko: "쫄면", en: "Jjolmyeon · Chewy Noodles", p: 350 },
+        { ko: "칡물냉면", en: "Arrowroot Mul Naengmyeon", p: 450, img: "chik-mul", tag: "NEW" },
+        { ko: "칡비빔냉면", en: "Arrowroot Bibim Naengmyeon", p: 450, img: "chik-bibim", tag: "NEW" },
+        { ko: "냉김치말이국수", en: "Cold Kimchi Noodles", p: 330, img: "kimchi-mari" },
+        { ko: "열무국수", en: "Young Radish Noodles", p: 330, img: "yeolmu-guksu" },
+        { ko: "비빔국수", en: "Bibim Guksu", p: 330, img: "bibim-guksu" },
+        { ko: "망향비빔국수", en: "Manghyang Bibim Guksu", p: 350, img: "manghyang" },
+        { ko: "쫄면", en: "Chewy Spicy Noodles", p: 350, img: "jjolmyeon" },
       ]},
     ],
   },
   {
     no: "03", ko: "분식", en: "Tteokbokki & Kimbap",
     groups: [
-      { ko: "떡볶이", en: "Tteokbokki", span: true, items: [
-        { ko: "떡볶이", en: "Tteokbokki", sizes: [["M", 280], ["L", 560]] },
-        { ko: "치즈떡볶이", en: "Cheese Tteokbokki", sizes: [["M", 360], ["L", 720]] },
+      { ko: "떡볶이", en: "Tteokbokki", cols: 2, ratio: "16 / 9", items: [
+        { ko: "떡볶이", en: "Tteokbokki", sizes: [["M", 280], ["L", 560]], img: "tteokbokki" },
+        { ko: "치즈떡볶이", en: "Cheese Tteokbokki", sizes: [["M", 360], ["L", 720]], img: "cheese-tteokbokki" },
       ]},
-      { ko: "추가", en: "Add-ons", span: true, addons: [
+      { ko: "추가", en: "Add-ons", addons: [
         { ko: "라면사리", en: "Ramen noodles", p: 50 },
         { ko: "쫄면사리", en: "Chewy noodles", p: 100 },
         { ko: "계란후라이", en: "Fried egg", p: 20 },
         { ko: "삶은계란", en: "Boiled egg", p: 20 },
         { ko: "공기밥", en: "Steamed rice", p: 50 },
       ]},
-      { ko: "김밥", en: "Kimbap", span: true, cols: true, items: [
-        { ko: "야채김밥", en: "Vegetable Kimbap", p: 150 },
-        { ko: "불오뎅김밥", en: "Spicy Fishcake Kimbap", p: 150 },
-        { ko: "치즈김밥", en: "Cheese Kimbap", p: 180 },
-        { ko: "참치김밥", en: "Tuna Kimbap", p: 200 },
-        { ko: "꼬마김밥", en: "Mini Kimbap", p: 200, tags: ["NEW"] },
-        { ko: "충무김밥", en: "Chungmu Kimbap", p: 350 },
+      { ko: "김밥", en: "Kimbap", cols: 3, items: [
+        { ko: "야채김밥", en: "Vegetable Kimbap", p: 150, img: "veg-kimbap" },
+        { ko: "불오뎅김밥", en: "Spicy Fishcake Kimbap", p: 150, img: "fishcake-kimbap" },
+        { ko: "치즈김밥", en: "Cheese Kimbap", p: 180, img: "cheese-kimbap" },
+        { ko: "참치김밥", en: "Tuna Kimbap", p: 200, img: "tuna-kimbap" },
+        { ko: "꼬마김밥", en: "Mini Kimbap", p: 200, img: "mini-kimbap", tag: "NEW" },
+        { ko: "충무김밥", en: "Chungmu Kimbap", p: 350, img: "chungmu-kimbap" },
       ]},
     ],
   },
   {
     no: "04", ko: "요리", en: "Main Dishes",
     note: "2인 이상 추천 · Best for sharing",
-    feature: true,
+    big: true,
     groups: [
       { ko: "전골 · 탕", en: "Hot Pots", items: [
-        { ko: "닭도리탕", en: "Spicy Chicken Stew", p: 1500, tags: ["공기밥 2 포함"] },
-        { ko: "한방백숙", en: "Ginseng Chicken Soup", p: 2000, tags: ["누룽지 포함"] },
-        { ko: "오리한방백숙", en: "Ginseng Duck Soup", soldout: true },
-        { ko: "만두전골", en: "Dumpling Hot Pot", p: 1100 },
-        { ko: "부대찌개", en: "Budae Jjigae · Army Stew", p: 1500 },
-        { ko: "동태탕", en: "Pollack Stew", p: 1700, tags: ["공기밥 2 포함"] },
+        { ko: "닭도리탕", en: "Spicy Chicken Stew", p: 1500, incl: "공기밥 2 포함", img: "daktoritang" },
+        { ko: "한방백숙", en: "Ginseng Chicken Soup", p: 2000, incl: "누룽지 포함", img: "hanbang" },
+        { ko: "동태탕", en: "Pollack Stew", p: 1700, incl: "공기밥 2 포함", img: "dongtae" },
+        { ko: "만두전골", en: "Dumpling Hot Pot", p: 1100, img: "mandu-jeongol" },
+        { ko: "부대찌개", en: "Army Stew", p: 1500, img: "budae" },
       ]},
       { ko: "조림 · 구이", en: "Braised & Grilled", items: [
-        { ko: "갈치조림", en: "Braised Cutlassfish", p: 1300, tags: ["공기밥 2 포함"] },
-        { ko: "병어조림", en: "Braised Butterfish", p: 1400, tags: ["공기밥 2 포함"] },
-        { ko: "숯불돼지불고기", en: "Charcoal Pork Bulgogi (Gochujang)", p: 1200 },
-        { ko: "삼겹살", en: "Samgyeopsal · Pork Belly", p: 400 },
-        { ko: "쪽갈비 / 등갈비", en: "Pork Ribs", soldout: true, tags: ["BEST"] },
-        { ko: "두부튀김", en: "Fried Tofu", p: 250 },
+        { ko: "갈치조림", en: "Braised Cutlassfish", p: 1300, incl: "공기밥 2 포함", img: "galchi-jorim" },
+        { ko: "병어조림", en: "Braised Butterfish", p: 1400, incl: "공기밥 2 포함", img: "byeongeo" },
+        { ko: "숯불돼지불고기", en: "Charcoal Pork Bulgogi", p: 1200, img: "sutbul" },
+        { ko: "삼겹살", en: "Pork Belly", p: 400, img: "samgyeopsal" },
+        { ko: "두부튀김", en: "Fried Tofu", p: 250, img: "fried-tofu" },
       ]},
     ],
   },
   {
     no: "05", ko: "안주", en: "Sides & Bar Snacks",
     groups: [
-      { ko: "볶음", en: "Stir-fried", items: [
-        { ko: "제육볶음", en: "Spicy Pork", p: 750 },
-        { ko: "불고기볶음", en: "Bulgogi", p: 750 },
-        { ko: "오징어볶음", en: "Spicy Squid", p: 750 },
-        { ko: "순대볶음", en: "Stir-fried Sundae", p: 900 },
-        { ko: "똥집야채볶음", en: "Gizzard & Vegetables", p: 450 },
-        { ko: "두부김치", en: "Tofu & Kimchi", p: 900 },
-        { ko: "골뱅이무침", en: "Seasoned Sea Snail", p: 950 },
+      { ko: "볶음 · 튀김", en: "Stir-fried & Fried", cols: 5, items: [
+        { ko: "제육볶음", en: "Spicy Pork", p: 750, img: "jeyuk-bokkeum" },
+        { ko: "불고기볶음", en: "Bulgogi", p: 750, img: "bulgogi-bokkeum" },
+        { ko: "오징어볶음", en: "Spicy Squid", p: 750, img: "ojingo-bokkeum" },
+        { ko: "순대볶음", en: "Stir-fried Sundae", p: 900, img: "sundae-bokkeum" },
+        { ko: "똥집야채볶음", en: "Gizzard & Veggies", p: 450, img: "ttongjip-bokkeum" },
+        { ko: "골뱅이무침", en: "Seasoned Sea Snail", p: 950, img: "golbaengi" },
+        { ko: "두부김치", en: "Tofu & Kimchi", p: 900, img: "dubu-kimchi" },
+        { ko: "감자튀김", en: "French Fries", p: 200, img: "fries" },
+        { ko: "똥집튀김", en: "Fried Gizzard", p: 450, img: "ttongjip-twigim" },
+        { ko: "오징어튀김", en: "Fried Squid", p: 500, img: "ojingo-twigim" },
       ]},
-      { ko: "튀김 · 돈까스", en: "Fried", items: [
-        { ko: "감자튀김", en: "French Fries", p: 200 },
-        { ko: "똥집튀김", en: "Fried Gizzard", p: 450 },
-        { ko: "오징어튀김", en: "Fried Squid", p: 500 },
-        { ko: "모듬돈까스", en: "Assorted Cutlet Platter", p: 900 },
-      ]},
-      { ko: "전 · 계란", en: "Pancakes & Egg", items: [
-        { ko: "계란찜", en: "Steamed Egg", p: 250 },
-        { ko: "김계란말이", en: "Seaweed Egg Roll", p: 250 },
-        { ko: "왕계란말이", en: "Jumbo Egg Roll", p: 600 },
-        { ko: "김치전", en: "Kimchi Pancake", p: 500 },
-        { ko: "해물파전", en: "Seafood Scallion Pancake", p: 650 },
-      ]},
-      { ko: "구이 · 마른안주", en: "Grilled & Dried", items: [
-        { ko: "찰순대", en: "Sundae · Blood Sausage", p: 450 },
-        { ko: "번데기탕", en: "Beondegi Soup", p: 350 },
-        { ko: "갈치구이", en: "Grilled Cutlassfish", p: 850 },
-        { ko: "노가리 + 땅콩", en: "Grilled Pollack + Peanuts", p: 900 },
-        { ko: "아귀포 + 땅콩", en: "Monkfish Jerky + Peanuts", soldout: true },
+      { ko: "전 · 계란 · 구이", en: "Pancakes, Egg & Grilled", cols: 5, items: [
+        { ko: "김치전", en: "Kimchi Pancake", p: 500, img: "kimchijeon" },
+        { ko: "해물파전", en: "Seafood Pancake", p: 650, img: "pajeon" },
+        { ko: "계란찜", en: "Steamed Egg", p: 250, img: "steamed-egg" },
+        { ko: "김계란말이", en: "Seaweed Egg Roll", p: 250, img: "kim-egg-roll" },
+        { ko: "왕계란말이", en: "Jumbo Egg Roll", p: 600, img: "egg-roll" },
+        { ko: "모듬돈까스", en: "Cutlet Platter", p: 900, img: "donkatsu-platter" },
+        { ko: "찰순대", en: "Korean Sausage", p: 450, img: "sundae" },
+        { ko: "번데기탕", en: "Beondegi Soup", p: 350, img: "beondegi" },
+        { ko: "갈치구이", en: "Grilled Cutlassfish", p: 850, img: "galchi-gui" },
+        { ko: "노가리 + 땅콩", en: "Pollack + Peanuts", p: 900, img: "nogari" },
       ]},
     ],
   },
   {
     no: "06", ko: "음료", en: "Drinks",
+    text: true,
+    strip: ["golbaengi", "pajeon", "sutbul", "fries", "dubu-kimchi", "egg-roll"],
     groups: [
       { ko: "주류", en: "Liquor", items: [
         { ko: "소주", en: "Soju", p: 250 },
@@ -339,43 +349,45 @@ const MENU = [
 
 /* ─── 렌더링 ─────────────────────────────────────────── */
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-const won = n => n.toLocaleString("en-US");
+const peso = n => "₱" + n.toLocaleString("en-US");
+const src = name => `img/${name}.jpg`;
 
-function itemHTML(it) {
-  const cls = ["item"];
-  if (it.sizes) cls.push("size");
-  if (it.soldout) cls.push("soldout");
-  if (it.check) cls.push("check");
+function cardHTML(it) {
   let price;
-  if (it.soldout) price = "";
-  else if (it.sizes) price = it.sizes.map(([s, p]) => `<span><b>${s}</b>₱${won(p)}</span>`).join("");
-  else if (it.p == null) price = `<span class="cur">₱</span>확인필요`;
-  else price = `<span class="cur">₱</span>${won(it.p)}`;
-  const tags = (it.tags || []).map(t => `<span class="tag${t === "NEW" || t === "BEST" ? " fill" : ""}">${esc(t)}</span>`);
-  if (it.soldout) tags.push(`<span class="tag">품절 · SOLD OUT</span>`);
-  const shake = it.shake
-    ? `<div class="shake" style="grid-column:1/-1">${it.shake.map(([k, e]) => `<span>${k}<small>${e}</small></span>`).join("")}</div>` : "";
-  return `<div class="${cls.join(" ")}">
-    <span class="ko">${esc(it.ko)}</span><span class="dots"></span><span class="price">${price}</span>
-    <div class="sub"><span class="en">${esc(it.en)}</span>${tags.join("")}</div>${shake}
+  if (it.sizes) price = it.sizes.map(([s, p]) => `<small>${s}</small>${peso(p)}`).join("");
+  else if (it.p == null) price = "₱ 확인필요";
+  else price = peso(it.p);
+  return `<div class="card${it.check ? " check" : ""}">
+    <div class="ph"><img src="${src(it.img)}" alt="${esc(it.ko)}">${it.tag ? `<span class="tag">${esc(it.tag)}</span>` : ""}</div>
+    <div class="row"><span class="ko">${esc(it.ko)}</span><span class="price">${price}</span></div>
+    <div class="en">${esc(it.en)}</div>
+    ${it.incl ? `<div class="incl">+ ${esc(it.incl)}</div>` : ""}
   </div>`;
 }
 
-function groupHTML(g) {
+function itemHTML(it) {
+  const shake = it.shake
+    ? `<div class="shake">${it.shake.map(([k, e]) => `<span>${k}<small>${e}</small></span>`).join("")}</div>` : "";
+  return `<div class="item">
+    <span class="ko">${esc(it.ko)}</span><span class="dots"></span>
+    <span class="price"><span class="cur">₱</span>${it.p.toLocaleString("en-US")}</span>
+    <div class="en">${esc(it.en)}</div>${shake}
+  </div>`;
+}
+
+function groupHTML(g, sec) {
   const head = `<h3>${esc(g.ko)} <small>${esc(g.en)}</small></h3>`;
   let inner;
   if (g.addons) {
     inner = `<div class="addons">${g.addons.map(a =>
-      `<div class="addon"><span>${esc(a.ko)}<small>${esc(a.en)}</small></span><b>+₱${a.p}</b></div>`).join("")}</div>`;
-  } else if (g.cols) {
-    const half = Math.ceil(g.items.length / 2);
-    inner = `<div style="display:grid;grid-template-columns:1fr 1fr;column-gap:11mm">
-      <div>${g.items.slice(0, half).map(itemHTML).join("")}</div>
-      <div>${g.items.slice(half).map(itemHTML).join("")}</div></div>`;
-  } else {
+      `<div class="addon"><div>${esc(a.ko)}</div><small>${esc(a.en)}</small><b>+₱${a.p}</b></div>`).join("")}</div>`;
+  } else if (sec.text) {
     inner = g.items.map(itemHTML).join("");
+  } else {
+    const style = `--cols:${g.cols || sec.cols || 4}${g.ratio ? `;--ratio:${g.ratio}` : ""}`;
+    inner = `<div class="grid" style="${style}">${g.items.map(cardHTML).join("")}</div>`;
   }
-  return `<section class="group${g.span ? " span" : ""}">${head}${inner}</section>`;
+  return `<section class="group">${head}${inner}</section>`;
 }
 
 function footHTML(n) {
@@ -383,6 +395,10 @@ function footHTML(n) {
 }
 
 function pageHTML(sec, i) {
+  const groups = sec.groups.map(g => groupHTML(g, sec)).join("");
+  const strip = sec.strip
+    ? `<div class="strip"><p>술 한잔엔 안주 한 접시<small>Pair it with our sides</small></p>
+        <div class="imgs">${sec.strip.map(n => `<img src="${src(n)}" alt="">`).join("")}</div></div>` : "";
   return `<div class="page">
     <header class="head">
       <div class="no">— ${sec.no} —</div>
@@ -391,16 +407,17 @@ function pageHTML(sec, i) {
       <div class="rule"><span></span><i></i><span></span></div>
       ${sec.note ? `<div class="note">${esc(sec.note)}</div>` : ""}
     </header>
-    <div class="body${sec.feature ? " feature" : ""}">${sec.groups.map(groupHTML).join("")}</div>
+    <div class="body${sec.big ? " big" : ""}">${sec.text ? `<div class="cols2">${groups}</div>` : groups}${strip}</div>
     ${footHTML(i + 1)}
   </div>`;
 }
 
 function coverHTML() {
+  const pics = ["daktoritang", "kimchi-rice", "jeyuk-rice", "tteokbokki", "budae", "kongnamul", "pajeon", "chik-mul", "sutbul", "veg-kimbap"];
   const toc = MENU.map(s => `<div><b>${s.ko}</b><small>${s.en.split(" ")[0]}</small></div>`).join("");
   return `<div class="page cover">
+    <div class="mosaic">${pics.map(n => `<img src="${src(n)}" alt="">`).join("")}</div>
     <div class="inner">
-      <div class="seal">한국<br>음식</div>
       <div class="since">— Since 2019 —</div>
       <h1>맛남의광장</h1>
       <div class="tagline">Home of Quality Food</div>

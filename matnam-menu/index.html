@@ -73,8 +73,6 @@
 
   /* ---------- 본문 ---------- */
   .body { flex: 1; display: flex; flex-direction: column; }
-  .body.spread { justify-content: space-between; }
-  .body.spread .group:last-child { margin-bottom: 0; }
   .group { margin-bottom: 4.5mm; }
   .group h3 {
     display: flex; align-items: baseline; gap: 2.5mm;
@@ -91,7 +89,7 @@
   .grid { display: grid; grid-template-columns: repeat(var(--cols, 4), minmax(0, 1fr)); gap: 3.2mm 4mm; }
   .card { display: flex; flex-direction: column; }
   .card .ph {
-    position: relative; aspect-ratio: var(--ratio, 4 / 3); border-radius: 1.6mm; overflow: hidden;
+    position: relative; aspect-ratio: 1; border-radius: 1.6mm; overflow: hidden;
     background: var(--paper-deep); box-shadow: 0 .4mm 1.2mm rgba(60,40,20,.18);
   }
   .card .ph img { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -139,6 +137,12 @@
   .strip p small { display: block; font-family: "Cormorant Garamond", serif; font-size: 9.5pt; color: var(--red); letter-spacing: 3px; text-transform: uppercase; font-weight: 600; }
   .strip .imgs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 3mm; }
   .strip img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 1.6mm; display: block; }
+
+  /* 남는 공간을 채우는 대표 사진 띠 */
+  .fill { margin-top: auto; display: grid; grid-template-rows: minmax(0, 1fr); gap: 3mm; overflow: hidden; }
+  .body.spread { justify-content: space-between; }
+  .body.spread .group:last-child { margin-bottom: 0; }
+  .fill img { width: 100%; height: 100%; object-fit: cover; border-radius: 1.6mm; display: block; }
 
   /* ---------- 하단 ---------- */
   .foot {
@@ -200,14 +204,15 @@
  * incl: 포함 구성 (예: 공기밥 2 포함) / tag: 사진 위 표시 (NEW 등)
  * sizes: [["M",280],["L",560]] → 사이즈별 가격
  * check: true → 원본에서 가격 판독 불가, 노란색 표시 (확인 후 삭제)
- * 페이지 옵션 cols: 한 줄 카드 수
+ * 모든 음식 사진은 같은 크기(한 줄 COLS개, 정사각형)로 나옵니다.
  */
 const PHONE = "0966 166 2215";
 const WIFI = "HUAWEI-5G-2zC8";
+const COLS = 5;
 
 const MENU = [
   {
-    no: "01", ko: "식사", en: "Rice & Stew", cols: 5,
+    no: "01", ko: "식사", en: "Rice & Stew",
     note: "모든 식사 메뉴에 기본 반찬이 제공됩니다 · Served with side dishes",
     groups: [
       { ko: "덮밥 · 비빔밥 · 돈까스", en: "Rice Plates", items: [
@@ -257,7 +262,7 @@ const MENU = [
   {
     no: "03", ko: "분식", en: "Tteokbokki & Kimbap",
     groups: [
-      { ko: "떡볶이", en: "Tteokbokki", cols: 2, ratio: "16 / 9", items: [
+      { ko: "떡볶이", en: "Tteokbokki", items: [
         { ko: "떡볶이", en: "Tteokbokki", sizes: [["M", 280], ["L", 560]], img: "tteokbokki" },
         { ko: "치즈떡볶이", en: "Cheese Tteokbokki", sizes: [["M", 360], ["L", 720]], img: "cheese-tteokbokki" },
       ]},
@@ -268,7 +273,7 @@ const MENU = [
         { ko: "삶은계란", en: "Boiled egg", p: 20 },
         { ko: "공기밥", en: "Steamed rice", p: 50 },
       ]},
-      { ko: "김밥", en: "Kimbap", cols: 3, items: [
+      { ko: "김밥", en: "Kimbap", items: [
         { ko: "야채김밥", en: "Vegetable Kimbap", p: 150, img: "veg-kimbap" },
         { ko: "불오뎅김밥", en: "Spicy Fishcake Kimbap", p: 150, img: "fishcake-kimbap" },
         { ko: "치즈김밥", en: "Cheese Kimbap", p: 180, img: "cheese-kimbap" },
@@ -302,7 +307,7 @@ const MENU = [
   {
     no: "05", ko: "안주", en: "Sides & Bar Snacks",
     groups: [
-      { ko: "볶음 · 튀김", en: "Stir-fried & Fried", cols: 5, items: [
+      { ko: "볶음 · 튀김", en: "Stir-fried & Fried", items: [
         { ko: "제육볶음", en: "Spicy Pork", p: 750, img: "jeyuk-bokkeum" },
         { ko: "불고기볶음", en: "Bulgogi", p: 750, img: "bulgogi-bokkeum" },
         { ko: "오징어볶음", en: "Spicy Squid", p: 750, img: "ojingo-bokkeum" },
@@ -314,7 +319,7 @@ const MENU = [
         { ko: "똥집튀김", en: "Fried Gizzard", p: 450, img: "ttongjip-twigim" },
         { ko: "오징어튀김", en: "Fried Squid", p: 500, img: "ojingo-twigim" },
       ]},
-      { ko: "전 · 계란 · 구이", en: "Pancakes, Egg & Grilled", cols: 5, items: [
+      { ko: "전 · 계란 · 구이", en: "Pancakes, Egg & Grilled", items: [
         { ko: "김치전", en: "Kimchi Pancake", p: 500, img: "kimchijeon" },
         { ko: "해물파전", en: "Seafood Pancake", p: 650, img: "pajeon" },
         { ko: "계란찜", en: "Steamed Egg", p: 250, img: "steamed-egg" },
@@ -390,7 +395,7 @@ function groupHTML(g, sec) {
   } else if (sec.text) {
     inner = g.items.map(itemHTML).join("");
   } else {
-    const style = `--cols:${g.cols || sec.cols || 4}${g.ratio ? `;--ratio:${g.ratio}` : ""}`;
+    const style = `--cols:${COLS}`;
     inner = `<div class="grid" style="${style}">${g.items.map(cardHTML).join("")}</div>`;
   }
   return `<section class="group">${head}${inner}</section>`;
@@ -444,42 +449,49 @@ const MM = 96 / 25.4;
 function contentBottom(body) {
   return Math.max(...[...body.children].map(c => c.getBoundingClientRect().bottom));
 }
-function fitCards(pg) {
-  const body = pg.querySelector(".body"), foot = pg.querySelector(".foot");
-  const limit = foot.getBoundingClientRect().top - 2.5 * MM;
-  const pageW = body.getBoundingClientRect().width;
-  const grids = [...pg.querySelectorAll(".grid")];
-  const base = grids.map(g => +getComputedStyle(g).getPropertyValue("--cols"));
-  const opts = base.map(c => c >= 3 ? [3, 4, 5] : [c]);
-  const ratio = g => { const r = (g.style.getPropertyValue("--ratio") || "4 / 3").split("/"); return r[1] / r[0]; };
-  // 마지막 줄이 덜 찼으면 그 줄 카드들을 넓혀 빈 칸 없이 채웁니다.
-  const layout = (g, c) => {
-    const items = [...g.children], rem = items.length % c, L = rem ? c * rem : c;
-    g.style.setProperty("--cols", L);
-    items.forEach((it, j) => it.style.gridColumn = `span ${rem && j >= items.length - rem ? L / rem : L / c}`);
-  };
-  const apply = (cols, s) => grids.forEach((g, i) => {
-    layout(g, cols[i]);
-    const w = g.querySelector(".ph").getBoundingClientRect().width;
-    g.querySelectorAll(".ph").forEach(ph => ph.style.height = (w * ratio(g) * s) + "px");
+// 모든 페이지에서 사진 크기를 똑같이 맞춥니다: 가장 꽉 찬 페이지에 들어가는 최대 크기를 공통으로 씁니다.
+// 하단 줄 바로 위까지가 쓸 수 있는 공간입니다. 본문이 넘쳐 하단 줄이 밀려나도 기준이 바뀌지 않도록 페이지 바닥에서 계산합니다.
+function limitOf(pg) {
+  const foot = pg.querySelector(".foot");
+  return pg.getBoundingClientRect().bottom - parseFloat(getComputedStyle(pg).paddingBottom)
+       - foot.getBoundingClientRect().height - 2.5 * MM;
+}
+function fitUniform(pages) {
+  const set = h => pages.forEach(pg => pg.querySelectorAll(".ph").forEach(ph => {
+    ph.style.aspectRatio = "auto"; ph.style.height = h + "px"; }));
+  const lims = pages.map(limitOf);
+  const ok = () => pages.every((pg, i) => contentBottom(pg.querySelector(".body")) <= lims[i]);
+  const w = pages[0].querySelector(".ph").getBoundingClientRect().width;
+  let lo = w * 0.5, hi = w;
+  for (let k = 0; k < 18; k++) { const mid = (lo + hi) / 2; set(mid); ok() ? lo = mid : hi = mid; }
+  set(lo);
+  // 남는 공간이 큰 페이지는 그 페이지 대표 사진 띠로 채웁니다.
+  pages.forEach(pg => {
+    const body = pg.querySelector(".body"), left = limitOf(pg) - contentBottom(body);
+    // 조금 남으면 섹션 사이 간격으로 나누고, 많이 남으면 대표 사진 띠로 채웁니다.
+    if (left < 25 * MM) {
+      // 사진 크기는 그대로 두고, 줄 사이 간격을 고르게 넓혀 빈 곳을 없앱니다.
+      const grids = [...pg.querySelectorAll(".grid")], groups = [...pg.querySelectorAll(".group")];
+      const set = e => { grids.forEach(g => g.style.rowGap = `calc(3.2mm + ${e}px)`);
+                         groups.forEach((g, j) => g.style.marginBottom = j === groups.length - 1 ? "0" : `calc(4.5mm + ${e}px)`); };
+      // 본문이 늘어나면 하단 줄도 밀려나므로, 바꾸기 전 기준선을 고정해 두고 비교합니다.
+      const lim = limitOf(pg);
+      let lo = 0, hi = left;
+      for (let k = 0; k < 16; k++) { const mid = (lo + hi) / 2; set(mid); contentBottom(body) <= lim ? lo = mid : hi = mid; }
+      set(lo); return;
+    }
+    // 크게 확대되므로 그 페이지에서 해상도가 가장 높은 사진 3장을 고릅니다.
+    const pics = [...pg.querySelectorAll(".ph img")]
+      .sort((a, b) => b.naturalWidth * b.naturalHeight - a.naturalWidth * a.naturalHeight)
+      .slice(0, 3).map(i => i.getAttribute("src"));
+    const fill = document.createElement("div");
+    fill.className = "fill";
+    fill.style.gridTemplateColumns = `repeat(${pics.length}, minmax(0, 1fr))`;
+    fill.style.height = (left - 1 * MM) + "px";
+    body.lastElementChild.style.marginBottom = "4mm";
+    fill.innerHTML = pics.map(s => `<img src="${s}" alt="">`).join("");
+    body.appendChild(fill);
   });
-  const settle = (cols, s) => { apply(cols, s); return contentBottom(body) <= limit; };
-  // 모든 열 조합을 시도해 "아래쪽 빈 공간 + 마지막 줄 빈 칸" 넓이가 가장 작은 배치를 고릅니다.
-  const combos = opts.reduce((acc, o) => acc.flatMap(a => o.map(c => [...a, c])), [[]]);
-  let best = null;
-  for (const cols of combos) {
-    let lo = 0.6, hi = 1.33;
-    if (!settle(cols, lo)) continue;
-    for (let k = 0; k < 16; k++) { const mid = (lo + hi) / 2; settle(cols, mid) ? lo = mid : hi = mid; }
-    settle(cols, lo);
-    // 남는 세로 공간이 가장 적고, 같으면 카드가 큰(열이 적은) 배치를 고릅니다.
-    // 마지막 줄에 한 개만 남아 가로로 길게 늘어나는 배치는 피합니다.
-    const lone = grids.filter((g, i) => cols[i] > 2 && g.children.length % cols[i] === 1).length;
-    const waste = (limit - contentBottom(body)) * pageW + cols.reduce((a, b) => a + b, 0) * MM * MM + lone * 1e9;
-    if (!best || waste < best.waste) best = { cols, s: lo, waste };
-  }
-  if (best) settle(best.cols, best.s);
-  if (pg.querySelectorAll(".group").length > 1) body.classList.add("spread");
 }
 function fitStrip(pg) {
   const strip = pg.querySelector(".strip"); if (!strip) return;
@@ -491,7 +503,9 @@ function fitStrip(pg) {
   imgs.forEach(im => { im.style.aspectRatio = "auto"; im.style.height = h + "px"; });
 }
 window.fitDone = document.fonts.ready.then(() => {
-  document.querySelectorAll(".page:not(.cover)").forEach(pg => pg.querySelector(".cols2") ? fitStrip(pg) : fitCards(pg));
+  const pages = [...document.querySelectorAll(".page:not(.cover)")];
+  pages.filter(pg => pg.querySelector(".cols2")).forEach(fitStrip);
+  fitUniform(pages.filter(pg => !pg.querySelector(".cols2")));
 });
 </script>
 </body>

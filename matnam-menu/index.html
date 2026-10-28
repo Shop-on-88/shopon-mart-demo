@@ -89,8 +89,13 @@
 
   /* 사진 카드 */
   /* 카드 크기는 한 줄 카드 수(--cols)로 정해지고, 마지막 줄이 덜 차면 가운데로 모읍니다 */
-  .grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 3.2mm 4mm; }
-  .grid > .card { width: var(--cw, calc((100% - (var(--cols, 4) - 1) * 4mm) / var(--cols, 4))); }
+  /* 한 페이지 안의 카드는 모두 같은 크기, 같은 칸 수로 반듯하게 정렬합니다 */
+  .grid { display: grid; grid-template-columns: repeat(var(--cols, 4), var(--cw, minmax(0, 1fr))); justify-content: center; gap: 3.2mm 4mm; }
+  /* 요리 페이지 아래에 붙는 음료 */
+  .drinks { margin-top: 2mm; }
+  .drinks > h2 { display: flex; align-items: baseline; justify-content: center; gap: 3mm; font-family: "Noto Serif KR", serif;
+    font-weight: 900; font-size: 18pt; letter-spacing: 4px; margin-bottom: 3mm; }
+  .drinks > h2 small { font-family: "Cormorant Garamond", serif; font-weight: 600; font-size: 10pt; letter-spacing: 5px; color: var(--red); text-transform: uppercase; }
   .card { display: flex; flex-direction: column; }
   .card .ph {
     position: relative; aspect-ratio: 4 / 3; border-radius: 1.6mm; overflow: hidden;
@@ -210,7 +215,7 @@ const WIFI = "HUAWEI-5G-2zC8";
 
 const MENU = [
   {
-    no: "01", ko: "식사", en: "Rice & Stew",
+    no: "01", ko: "식사", en: "Rice & Stew", cols: 4,
     note: "모든 식사 메뉴에 기본 반찬이 제공됩니다 · Served with side dishes",
     groups: [
       { ko: "덮밥 · 비빔밥 · 돈까스", en: "Rice Plates", items: [
@@ -218,13 +223,13 @@ const MENU = [
         { ko: "오징어덮밥", en: "Spicy Squid Rice", p: 330, img: "ojingo-rice" },
         { ko: "불고기덮밥", en: "Bulgogi Rice", p: 330, img: "bulgogi-rice" },
         { ko: "비빔밥", en: "Bibimbap", p: 330, img: "bibimbap" },
-        { ko: "돌솥비빔밥", en: "Stone Pot Bibimbap", p: 450, img: "dolsot" },
         { ko: "김치볶음밥", en: "Kimchi Fried Rice", p: 300, img: "kimchi-rice" },
         { ko: "오므라이스", en: "Omurice", p: 330, img: "omurice" },
         { ko: "돈까스", en: "Pork Cutlet", p: 430, img: "donkatsu" },
         { ko: "생선까스", en: "Fish Cutlet", p: 480, img: "fish-katsu" },
       ]},
-      { ko: "찌개 · 국밥", en: "Stews & Soups", items: [
+      { ko: "돌솥 · 찌개 · 국밥", en: "Stone Pot & Stews", items: [
+        { ko: "돌솥비빔밥", en: "Stone Pot Bibimbap", p: 450, img: "dolsot" },
         { ko: "김치찌개", en: "Kimchi Stew", p: 380, img: "kimchi-jjigae" },
         { ko: "된장찌개", en: "Soybean Paste Stew", p: 380, img: "doenjang" },
         { ko: "순두부찌개", en: "Soft Tofu Stew", p: 430, img: "sundubu" },
@@ -236,7 +241,7 @@ const MENU = [
     ],
   },
   {
-    no: "02", ko: "면류", en: "Noodles",
+    no: "02", ko: "면류", en: "Noodles", cols: 3,
     groups: [
       { ko: "따뜻한 면", en: "Hot", items: [
         { ko: "김치칼국수", en: "Kimchi Kalguksu", p: 330, img: "kimchi-kalguksu" },
@@ -253,16 +258,16 @@ const MENU = [
         { ko: "열무국수", en: "Young Radish Noodles", p: 330, img: "yeolmu-guksu" },
         { ko: "비빔국수", en: "Bibim Guksu", p: 330, img: "bibim-guksu" },
         { ko: "망향비빔국수", en: "Manghyang Bibim Guksu", p: 350, img: "manghyang" },
-        { ko: "쫄면", en: "Chewy Spicy Noodles", p: 350, img: "jjolmyeon" },
       ]},
     ],
   },
   {
-    no: "03", ko: "분식", en: "Tteokbokki & Kimbap",
+    no: "03", ko: "분식", en: "Tteokbokki & Kimbap", cols: 3,
     groups: [
-      { ko: "떡볶이", en: "Tteokbokki", items: [
+      { ko: "떡볶이 · 쫄면", en: "Tteokbokki & Jjolmyeon", items: [
         { ko: "떡볶이", en: "Tteokbokki", sizes: [["M", 280], ["L", 560]], img: "tteokbokki" },
         { ko: "치즈떡볶이", en: "Cheese Tteokbokki", sizes: [["M", 360], ["L", 720]], img: "cheese-tteokbokki" },
+        { ko: "쫄면", en: "Chewy Spicy Noodles", p: 350, img: "jjolmyeon" },
       ]},
       { ko: "추가", en: "Add-ons", addons: [
         { ko: "라면사리", en: "Ramen noodles", p: 50 },
@@ -284,7 +289,7 @@ const MENU = [
   {
     no: "04", ko: "요리", en: "Main Dishes",
     note: "2인 이상 추천 · Best for sharing",
-    big: true,
+    big: true, cols: 5,
     groups: [
       { ko: "전골 · 탕", en: "Hot Pots", items: [
         { ko: "닭도리탕", en: "Spicy Chicken Stew", p: 1500, incl: "공기밥 2 포함", img: "daktoritang" },
@@ -303,7 +308,30 @@ const MENU = [
     ],
   },
   {
-    no: "05", ko: "안주", en: "Sides & Bar Snacks",
+    no: "05", ko: "음료", en: "Drinks",
+    text: true,
+    merged: true,   // 요리 페이지 아래에 함께 넣습니다
+    groups: [
+      { ko: "주류", en: "Liquor", items: [
+        { ko: "소주", en: "Soju", p: 250 },
+        { ko: "진로 이즈백", en: "Jinro Is Back Soju", p: 280 },
+        { ko: "막걸리", en: "Korean Rice Wine", p: 250 },
+        { ko: "복분자", en: "Black Raspberry Wine", p: 750 },
+        { ko: "맥주", en: "San Miguel Light / Pilsen", p: 100 },
+      ]},
+      { ko: "음료", en: "Non-Alcoholic", items: [
+        { ko: "아이스 아메리카노", en: "Iced Americano", p: 100 },
+        { ko: "음료수", en: "Coke / Sprite / Royal", p: 80 },
+        { ko: "생수", en: "Bottled Water", p: 50 },
+        { ko: "과일 쉐이크", en: "Fruit Shake", p: 180, shake: [
+          ["아보카도", "Avocado"], ["딸기", "Strawberry"], ["망고", "Mango"],
+          ["그린망고", "Green Mango"], ["키위", "Kiwi"], ["수박", "Watermelon"], ["레몬", "Lemon"],
+        ]},
+      ]},
+    ],
+  },
+  {
+    no: "05", ko: "안주", en: "Sides & Bar Snacks", cols: 5,
     groups: [
       { ko: "볶음 · 튀김", en: "Stir-fried & Fried", items: [
         { ko: "제육볶음", en: "Spicy Pork", p: 750, img: "jeyuk-bokkeum" },
@@ -331,29 +359,7 @@ const MENU = [
       ]},
     ],
   },
-  {
-    no: "06", ko: "음료", en: "Drinks",
-    text: true,
-    strip: ["golbaengi", "pajeon", "sutbul", "fries", "dubu-kimchi", "nogari"],
-    groups: [
-      { ko: "주류", en: "Liquor", items: [
-        { ko: "소주", en: "Soju", p: 250 },
-        { ko: "진로 이즈백", en: "Jinro Is Back Soju", p: 280 },
-        { ko: "막걸리", en: "Korean Rice Wine", p: 250 },
-        { ko: "복분자", en: "Black Raspberry Wine", p: 750 },
-        { ko: "맥주", en: "San Miguel Light / Pilsen", p: 100 },
-      ]},
-      { ko: "음료", en: "Non-Alcoholic", items: [
-        { ko: "아이스 아메리카노", en: "Iced Americano", p: 100 },
-        { ko: "음료수", en: "Coke / Sprite / Royal", p: 80 },
-        { ko: "생수", en: "Bottled Water", p: 50 },
-        { ko: "과일 쉐이크", en: "Fruit Shake", p: 180, shake: [
-          ["아보카도", "Avocado"], ["딸기", "Strawberry"], ["망고", "Mango"],
-          ["그린망고", "Green Mango"], ["키위", "Kiwi"], ["수박", "Watermelon"], ["레몬", "Lemon"],
-        ]},
-      ]},
-    ],
-  },
+
 ];
 
 /* ─── 렌더링 ─────────────────────────────────────────── */
@@ -394,16 +400,23 @@ function groupHTML(g, sec) {
   } else if (sec.text) {
     inner = g.items.map(itemHTML).join("");
   } else {
-    const style = `--cols:5`;
+    const style = `--cols:${sec.cols || 4}`;
     inner = `<div class="grid" style="${style}">${g.items.map(cardHTML).join("")}</div>`;
   }
   return `<section class="group">${head}${inner}</section>`;
 }
 
 function footHTML(n) {
-  return `<div class="foot"><span class="brand">맛남의광장</span><span>TEL ${PHONE} · 매일 08:00 – 24:00 · Open daily 8AM – 12MN</span><span>${n} / ${MENU.length}</span></div>`;
+  return `<div class="foot"><span class="brand">맛남의광장</span><span>TEL ${PHONE} · 매일 08:00 – 24:00 · Open daily 8AM – 12MN</span><span>${n} / ${PAGES.length}</span></div>`;
 }
 
+// 다음 섹션이 merged 이면(음료) 이 페이지 아래에 목록으로 붙입니다.
+function drinksHTML(i) {
+  const next = MENU[MENU.indexOf(PAGES[i]) + 1];
+  if (!next || !next.merged) return "";
+  return `<section class="drinks"><h2>${esc(next.ko)} <small>${esc(next.en)}</small></h2>
+    <div class="cols2">${next.groups.map(g => groupHTML(g, next)).join("")}</div></section>`;
+}
 function pageHTML(sec, i) {
   const groups = sec.groups.map(g => groupHTML(g, sec)).join("");
   const strip = sec.strip
@@ -411,13 +424,13 @@ function pageHTML(sec, i) {
         <div class="imgs">${sec.strip.map(n => `<img src="${photo(n)}" alt="">`).join("")}</div></div>` : "";
   return `<div class="page">
     <header class="head">
-      <div class="no">— ${sec.no} —</div>
+      <div class="no">— 0${i + 1} —</div>
       <h2>${esc(sec.ko)}</h2>
       <div class="en">${esc(sec.en)}</div>
       <div class="rule"><span></span><i></i><span></span></div>
       ${sec.note ? `<div class="note">${esc(sec.note)}</div>` : ""}
     </header>
-    <div class="body${sec.big ? " big" : ""}">${sec.text ? `<div class="cols2">${groups}</div>` : groups}${strip}</div>
+    <div class="body${sec.big ? " big" : ""}">${sec.text ? `<div class="cols2">${groups}</div>` : groups}${strip}${drinksHTML(i)}</div>
     ${footHTML(i + 1)}
   </div>`;
 }
@@ -441,7 +454,8 @@ function coverHTML() {
   </div>`;
 }
 
-document.getElementById("menu").innerHTML = coverHTML() + MENU.map(pageHTML).join("");
+const PAGES = MENU.filter(s => !s.merged);
+document.getElementById("menu").innerHTML = coverHTML() + PAGES.map(pageHTML).join("");
 
 /* ─── 여백 자동 채우기: 페이지마다 사진 크기·열 수를 조절해 하단 빈 공간을 없앱니다 ─── */
 const MM = 96 / 25.4;
@@ -457,13 +471,17 @@ function limitOf(pg) {
 // 가장 크게 들어가는 크기를 쓰고, 그래도 남는 공간은 줄 간격으로 고르게 나눕니다.
 function fitCards(pg) {
   const body = pg.querySelector(".body"), lim = limitOf(pg);
-  const grids = [...pg.querySelectorAll(".grid")], groups = [...pg.querySelectorAll(".group")];
-  // 페이지에 들어가는 가장 큰 카드 크기를 찾습니다(한 줄 카드 수는 크기에 따라 자동으로 정해짐).
-  const full = grids[0].getBoundingClientRect().width;
+  const grids = [...pg.querySelectorAll(".grid")], groups = [...body.children];
+  // 칸 수는 페이지마다 정해져 있고, 페이지에 다 들어가는 가장 큰 카드 크기를 찾습니다.
+  const full = grids[0].getBoundingClientRect().width, cols = +getComputedStyle(grids[0]).getPropertyValue("--cols");
+  const maxW = (full - (cols - 1) * 4 * MM) / cols;
   const setW = w => grids.forEach(g => g.style.setProperty("--cw", w + "px"));
-  let wLo = (full - 4 * 4 * MM) / 5, wHi = (full - 4 * MM) / 2;
-  for (let k = 0; k < 18; k++) { const mid = (wLo + wHi) / 2; setW(mid); contentBottom(body) <= lim ? wLo = mid : wHi = mid; }
-  setW(wLo);
+  let wLo = maxW * 0.5, wHi = maxW;
+  setW(wHi);
+  if (contentBottom(body) > lim) {
+    for (let k = 0; k < 18; k++) { const mid = (wLo + wHi) / 2; setW(mid); contentBottom(body) <= lim ? wLo = mid : wHi = mid; }
+    setW(wLo);
+  }
   const left = lim - contentBottom(body);
   const set = e => { grids.forEach(g => g.style.rowGap = `calc(3.2mm + ${e}px)`);
                      groups.forEach((g, j) => g.style.marginBottom = j === groups.length - 1 ? "0" : `calc(4.5mm + ${e}px)`); };
@@ -481,7 +499,7 @@ function fitStrip(pg) {
   imgs.forEach(im => { im.style.aspectRatio = "auto"; im.style.height = h + "px"; });
 }
 window.fitDone = document.fonts.ready.then(() => {
-  document.querySelectorAll(".page:not(.cover)").forEach(pg => pg.querySelector(".cols2") ? fitStrip(pg) : fitCards(pg));
+  document.querySelectorAll(".page:not(.cover)").forEach(pg => pg.querySelector(".grid") ? fitCards(pg) : fitStrip(pg));
 });
 </script>
 </body>

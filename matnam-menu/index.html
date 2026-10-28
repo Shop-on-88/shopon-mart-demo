@@ -91,7 +91,7 @@
   .grid { display: grid; grid-template-columns: repeat(var(--cols, 4), minmax(0, 1fr)); gap: 3.2mm 4mm; }
   .card { display: flex; flex-direction: column; }
   .card .ph {
-    position: relative; aspect-ratio: 1; border-radius: 1.6mm; overflow: hidden;
+    position: relative; aspect-ratio: 4 / 3; border-radius: 1.6mm; overflow: hidden;
     background: var(--paper-deep); box-shadow: 0 .4mm 1.2mm rgba(60,40,20,.18);
   }
   .card .ph img { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -200,8 +200,8 @@
  * incl: 포함 구성 (예: 공기밥 2 포함) / tag: 사진 위 표시 (NEW 등)
  * sizes: [["M",280],["L",560]] → 사이즈별 가격
  * check: true → 원본에서 가격 판독 불가, 노란색 표시 (확인 후 삭제)
- * 한 페이지 안의 음식 사진은 모두 같은 크기(정사각형)이고, 사진 속 그릇 크기도 같게 맞춰져 있습니다
- * (img/ = 그릇 크기를 맞춘 사진, img-src/ = 원본. tools/compose_dishes.py 로 다시 만들 수 있습니다).
+ * 한 페이지 안의 음식 사진은 모두 같은 크기(4:3)이고, 사진 속 그릇 크기도 같게 맞춰져 있습니다
+ * (img/ = 그릇 크기에 맞춰 자른 사진, img-src/ = 원본. tools/crop_dishes.py 로 다시 만들 수 있습니다).
  */
 const PHONE = "0966 166 2215";
 const WIFI = "HUAWEI-5G-2zC8";
@@ -457,8 +457,14 @@ function fitCards(pg) {
   const body = pg.querySelector(".body"), lim = limitOf(pg);
   const grids = [...pg.querySelectorAll(".grid")], groups = [...pg.querySelectorAll(".group")];
   const setCols = c => grids.forEach(g => g.style.setProperty("--cols", c));
-  let cols = 5;
-  for (const c of [3, 4, 5]) { setCols(c); if (contentBottom(body) <= lim) { cols = c; break; } }
+  // 들어가는 배치 중 "남는 공간 + 마지막 줄 빈 칸"이 가장 적은 열 수를 고릅니다.
+  let cols = 5, best = Infinity;
+  for (const c of [3, 4, 5]) {
+    setCols(c); const left = lim - contentBottom(body); if (left < 0) continue;
+    const empty = grids.reduce((a, g) => a + (c - g.children.length % c) % c, 0);
+    const score = left + empty * 20 * MM;
+    if (score < best) { best = score; cols = c; }
+  }
   setCols(cols);
   const left = lim - contentBottom(body);
   const set = e => { grids.forEach(g => g.style.rowGap = `calc(3.2mm + ${e}px)`);

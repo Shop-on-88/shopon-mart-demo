@@ -907,6 +907,22 @@ langHooks.push(photoLabels); photoLabels();
     $("fb-grid").hidden = false; $("news").hidden = false;
   }).catch(() => { $("news").hidden = true; });
 })();
+
+// 버튼 클릭·방문 수 집계 (/stats 페이지에서 확인)
+(function () {
+  const send = e => { try { const b = JSON.stringify({ e }); navigator.sendBeacon ? navigator.sendBeacon("/api/track", new Blob([b], { type: "application/json" })) : fetch("/api/track", { method: "POST", body: b, keepalive: true }); } catch {} };
+  try { if (!sessionStorage.getItem("may-v")) { sessionStorage.setItem("may-v", "1"); send("visit"); } } catch { send("visit"); }
+  document.addEventListener("click", ev => {
+    const el = ev.target.closest("a, button"); if (!el) return;
+    const h = el.getAttribute("href") || "";
+    const e = h.startsWith("tel:") ? "call" : h.startsWith("sms:") ? "text"
+      : (el.hasAttribute("data-kakao") || h.includes("open.kakao.com")) ? "kakao"
+      : h.includes("m.me/") ? "messenger" : (h.includes("google.com/maps") || h.includes("maps.app.goo.gl")) ? "map"
+      : el.id === "chat-fab" ? "chat" : h.includes("facebook.com") ? "facebook" : h.includes("instagram.com") ? "instagram" : "";
+    if (e === "chat" && !$("chat").hidden) return;
+    if (e) send(e);
+  }, true);
+})();
 </script>
 
 </body>

@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>고향집 메뉴</title>
+<meta name="description" content="고향집 한식당 메뉴 · Angeles, Pampanga · 매일 07:00 – 23:00">
+<meta property="og:title" content="고향집 메뉴 | Gohyang Korean Restaurant">
+<meta property="og:description" content="정식 · 생선요리 · 전골 · 탕과 찜 · 뚝배기 · 음료 — 매일 07:00 – 23:00">
+<meta property="og:image" content="og.jpg">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#8f2f22">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #faf4ea;
+    --card: #f3e6d2;
+    --card-line: #e6d3b6;
+    --ink: #2b211b;
+    --muted: #7a6a5c;
+    --accent: #8f2f22;
+    --accent-ink: #fff8ef;
+    --shadow: 0 1px 2px rgba(60, 35, 20, .08), 0 6px 18px rgba(60, 35, 20, .06);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1c1714; --card: #2a221d; --card-line: #3b3029;
+      --ink: #f3e9dc; --muted: #b3a291; --accent: #e0826f; --accent-ink: #1c1714;
+      --shadow: none;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1c1714; --card: #2a221d; --card-line: #3b3029;
+    --ink: #f3e9dc; --muted: #b3a291; --accent: #e0826f; --accent-ink: #1c1714;
+    --shadow: none;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 64px; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "Noto Sans KR", system-ui, sans-serif; line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+  }
+  .serif { font-family: "Noto Serif KR", serif; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 16px; }
+
+  /* Header */
+  header.hero { padding: 28px 0 18px; text-align: center; }
+  .logo {
+    display: inline-grid; place-items: center; width: 64px; height: 64px;
+    background: var(--accent); color: var(--accent-ink); border-radius: 6px;
+    font: 700 19px/1.05 "Noto Serif KR", serif; letter-spacing: .02em;
+  }
+  .hero h1 { margin: 12px 0 2px; font: 700 30px/1.2 "Noto Serif KR", serif; letter-spacing: .08em; }
+  .hero .en { margin: 0; color: var(--muted); font-size: 13px; letter-spacing: .18em; text-transform: uppercase; }
+  .info { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 14px; margin-top: 14px; font-size: 13px; color: var(--muted); }
+  .info a { color: inherit; }
+  .info strong { color: var(--ink); font-weight: 500; }
+
+  /* Category tabs */
+  nav.tabs {
+    position: sticky; top: 0; z-index: 10; background: var(--bg);
+    border-bottom: 1px solid var(--card-line);
+  }
+  nav.tabs .wrap { display: flex; gap: 6px; overflow-x: auto; padding-top: 10px; padding-bottom: 10px; scrollbar-width: none; }
+  nav.tabs .wrap::-webkit-scrollbar { display: none; }
+  nav.tabs a {
+    flex: none; padding: 7px 14px; border-radius: 999px; font-size: 14px; font-weight: 500;
+    color: var(--ink); text-decoration: none; border: 1px solid var(--card-line); background: var(--card);
+  }
+  nav.tabs a.on { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+
+  /* Sections */
+  section { padding: 26px 0 6px; }
+  .sec-head { display: flex; align-items: baseline; gap: 10px; border-bottom: 2px solid var(--accent); padding-bottom: 8px; margin-bottom: 6px; }
+  .sec-head h2 { margin: 0; font: 700 22px/1.2 "Noto Serif KR", serif; letter-spacing: .04em; }
+  .sec-head span { color: var(--muted); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; }
+  .note { margin: 8px 0 12px; font-size: 13px; color: var(--accent); font-weight: 500; }
+
+  .items { display: grid; gap: 12px; margin-top: 12px; }
+  .item {
+    display: grid; grid-template-columns: 116px 1fr; gap: 14px; align-items: center;
+    background: var(--card); border-radius: 10px; padding: 10px; box-shadow: var(--shadow);
+    border-left: 3px solid var(--accent);
+  }
+  .item.noimg { grid-template-columns: 1fr; padding: 12px 14px; }
+  .item button.ph { all: unset; cursor: zoom-in; display: block; border-radius: 6px; overflow: hidden; aspect-ratio: 4 / 3; background: var(--card-line); }
+  .item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .body { min-width: 0; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 6px 12px; }
+  .names { min-width: 0; flex: 1 1 150px; }
+  .ko { margin: 0; font-size: 18px; font-weight: 700; }
+  .rom { margin: 1px 0 0; font-size: 12px; font-weight: 500; color: var(--ink); opacity: .8; }
+  .eng { margin: 0; font-size: 12px; color: var(--muted); }
+  .desc { margin: 5px 0 0; font-size: 12px; color: var(--accent); }
+  .prices { display: grid; gap: 3px; justify-items: end; font-variant-numeric: tabular-nums; }
+  .price { display: flex; align-items: center; gap: 6px; font-weight: 700; font-size: 16px; white-space: nowrap; }
+  .price small { font-size: 11px; font-weight: 400; color: var(--muted); }
+  .size {
+    display: inline-grid; place-items: center; width: 18px; height: 18px; border: 1.5px solid var(--accent);
+    color: var(--accent); border-radius: 4px; font-size: 11px; font-weight: 700;
+  }
+  .items.compact { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .items.compact .item { padding: 10px 12px; }
+  .items.compact .ko { font-size: 16px; }
+  @media (max-width: 380px) { .items.compact { grid-template-columns: 1fr; } }
+  @media (min-width: 600px) { .item { grid-template-columns: 160px 1fr; } }
+
+  footer { margin: 34px 0 0; padding: 22px 0 40px; border-top: 1px solid var(--card-line); text-align: center; font-size: 13px; color: var(--muted); }
+  footer .calls { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+  footer .calls a {
+    padding: 9px 16px; border-radius: 999px; background: var(--accent); color: var(--accent-ink);
+    text-decoration: none; font-weight: 500;
+  }
+  footer .calls a.ghost { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
+  footer p { margin: 4px 0; }
+
+  /* Lightbox */
+  dialog { border: 0; padding: 0; background: transparent; max-width: min(92vw, 900px); }
+  dialog::backdrop { background: rgba(15, 10, 8, .82); }
+  dialog img { width: 100%; border-radius: 10px; display: block; }
+  dialog p { color: #fff; text-align: center; margin: 10px 0 0; font-weight: 500; }
+</style>
+</head>
+<body>
+<header class="hero wrap">
+  <div class="logo" aria-hidden="true">고향<br>집</div>
+  <h1>고향집</h1>
+  <p class="en">Gohyang Korean Restaurant · Menu</p>
+  <div class="info">
+    <span><strong>매일</strong> 07:00 – 23:00</span>
+    <a href="tel:+639771414716">0977 141 4716</a>
+    <a href="tel:+639693204659">0969 320 4659</a>
+  </div>
+</header>
+
+<nav class="tabs" aria-label="메뉴 카테고리"><div class="wrap" id="tabs"></div></nav>
+
+<main class="wrap" id="menu"></main>
+
+<footer class="wrap">
+  <div class="calls">
+    <a href="tel:+639771414716">전화 0977 141 4716</a>
+    <a href="tel:+639693204659" class="ghost">전화 0969 320 4659</a>
+    <a class="ghost" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=249+Fil-Am+Friendship+Hwy,+Angeles,+Pampanga">지도 보기</a>
+  </div>
+  <p>249 Fil-Am Friendship Hwy, Angeles, Pampanga</p>
+  <p>매일 07:00 – 23:00 · 가격 단위 P (페소)</p>
+  <p>사진은 실제 제공되는 음식과 다를 수 있습니다.</p>
+</footer>
+
+<dialog id="lb"><img alt=""><p></p></dialog>
+
+<script>
+const MENU = [
+  { id: "set", ko: "정식", en: "Set Meals", note: "정식 가격은 1인분 기준 · 2인분 이상 주문 가능", items: [
+    ["고향정식", "Gohyang Jungsik", "Gohyang Set Meal", [["", 650]], "gohyang-set", "제육 · 된장찌개 · 고등어조림 · 반찬 8가지"],
+    ["보쌈정식", "Bossam Jungsik", "Boiled Pork Wrap Set Meal", [["", 750]], "bossam-set", "보쌈 · 보쌈김치 · 된장찌개 · 고등어조림 · 반찬 7가지"],
+    ["불고기정식", "Bulgogi Jungsik", "Bulgogi Set Meal", [["", 1000]], "bulgogi-set", "불고기전골 · 보쌈김치 · 고등어조림 · 반찬 7가지"],
+  ]},
+  { id: "fish", ko: "생선요리", en: "Fish Specialties", note: "갈치 메뉴: M 5토막 · L 8토막", items: [
+    ["갈치조림", "Galchi Jorim", "Braised Hairtail", [["M", 1700, "5토막"], ["L", 2500, "8토막"]], "galchi-jorim"],
+    ["갈치구이", "Galchi Gui", "Grilled Hairtail", [["M", 1500, "5토막"], ["L", 2200, "8토막"]], "galchi-gui"],
+    ["고등어조림", "Godeungeo Jorim", "Braised Mackerel", [["M", 1400], ["L", 1900]], "godeungeo-jorim"],
+  ]},
+  { id: "grill", ko: "구이와 전골", en: "Grill & Hot Pots", items: [
+    ["옥돔구이", "Okdom Gui", "Grilled Red Tilefish", [["", 1200]], "okdom-gui"],
+    ["닭도리탕", "Dakdori Tang", "Spicy Braised Chicken", [["L", 1800]], "dakdori-tang"],
+    ["동태전골", "Dongtae Jeongol", "Pollock Hot Pot", [["M", 1300], ["L", 1800]], "dongtae-jeongol"],
+    ["김치전골", "Kimchi Jeongol", "Kimchi Hot Pot", [["M", 1200], ["L", 1700]], "kimchi-jeongol"],
+  ]},
+  { id: "stew", ko: "탕과 찜", en: "Hearty Specialties", items: [
+    ["감자탕", "Gamja Tang", "Pork Backbone Stew", [["M", 1200], ["L", 1800]], "gamja-tang"],
+    ["뼈찜", "Ppyeo Jjim", "Spicy Braised Pork Backbone", [["M", 1300], ["L", 1900]], "ppyeo-jjim"],
+    ["아구찜", "Agu Jjim", "Spicy Braised Monkfish", [["M", 2000], ["L", 3000]], "agu-jjim"],
+    ["아구탕", "Agu Tang", "Monkfish Soup", [["M", 2000], ["L", 3000]], "agu-tang"],
+  ]},
+  { id: "bossam", ko: "보쌈과 볶음", en: "Bossam & Stir-Fries", items: [
+    ["보쌈", "Bossam", "Boiled Pork for Wraps", [["M", 1500], ["L", 2000]], "bossam"],
+    ["제육볶음", "Jeyuk Bokkeum", "Spicy Stir-Fried Pork", [["", 700]], "jeyuk-bokkeum"],
+    ["오징어볶음", "Ojingeo Bokkeum", "Spicy Stir-Fried Squid", [["", 700]], "ojingeo-bokkeum"],
+    ["오삼불고기", "Osam Bulgogi", "Spicy Stir-Fried Squid & Pork Belly", [["", 1100]], "osam-bulgogi"],
+  ]},
+  { id: "pot", ko: "뚝배기", en: "Earthenware Pot Dishes", items: [
+    ["차돌된장찌개", "Chadol Doenjang Jjigae", "Beef Brisket Soybean Paste Stew", [["", 400]], "chadol-doenjang"],
+    ["김치찌개", "Kimchi Jjigae", "Kimchi Stew", [["", 400]], "kimchi-jjigae"],
+    ["뚝배기 감자탕", "Ttukbaegi Gamja Tang", "Pork Backbone Stew in an Earthenware Pot", [["", 450]], "ttuk-gamja-tang"],
+    ["뚝배기 불고기", "Ttukbaegi Bulgogi", "Bulgogi in an Earthenware Pot", [["", 450]], "ttuk-bulgogi"],
+    ["소고기 무국", "Sogogi Muguk", "Beef & Radish Soup", [["", 400]], "sogogi-muguk"],
+  ]},
+  { id: "rice", ko: "식사와 별미", en: "Rice, Noodles & More", items: [
+    ["삼겹살", "Samgyeopsal", "Pork Belly for Grilling", [["", 400]], "samgyeopsal"],
+    ["비빔밥", "Bibimbap", "Rice with Mixed Vegetables", [["", 400]], "bibimbap"],
+    ["해물파전", "Haemul Pajeon", "Seafood & Green Onion Pancake", [["", 600]], "haemul-pajeon"],
+    ["부추전", "Buchu Jeon", "Chive Pancake", [["", 300]], "buchu-jeon"],
+    ["잔치국수", "Janchi Guksu", "Noodles in Warm Broth", [["", 350]], "janchi-guksu"],
+  ]},
+  { id: "side", ko: "추가 메뉴", en: "Side Dishes", compact: true, items: [
+    ["계란말이", "", "Rolled Omelette", [["", 300]]],
+    ["계란찜", "", "Steamed Egg", [["", 300]]],
+  ]},
+  { id: "drink", ko: "음료와 주류", en: "Beverages", compact: true, items: [
+    ["콜라", "", "Coke", [["", 80]]],
+    ["스프라이트", "", "Sprite", [["", 80]]],
+    ["로얄 (환타)", "", "Royal (Fanta)", [["", 80]]],
+    ["삼다수", "", "Samdasoo Water", [["", 80]]],
+    ["깔라만시 주스", "", "Calamansi Juice", [["", 150]]],
+    ["소주", "", "Soju", [["", 300]]],
+    ["맥주", "", "Beer", [["", 120]]],
+    ["막걸리", "", "Makgeolli", [["", 300]]],
+  ]},
+];
+
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const fmt = n => n.toLocaleString("en-US") + " P";
+
+document.getElementById("tabs").innerHTML =
+  MENU.map(c => `<a href="#${c.id}" data-id="${c.id}">${c.ko}</a>`).join("");
+
+document.getElementById("menu").innerHTML = MENU.map(c => `
+  <section id="${c.id}">
+    <div class="sec-head"><h2>${c.ko}</h2><span>${c.en}</span></div>
+    ${c.note ? `<p class="note">${c.note}</p>` : ""}
+    <div class="items${c.compact ? " compact" : ""}">
+      ${c.items.map(([ko, rom, en, prices, img, desc]) => `
+        <article class="item${img ? "" : " noimg"}">
+          ${img ? `<button class="ph" data-src="img/${img}.jpg" data-name="${esc(ko)}" aria-label="${esc(ko)} 사진 크게 보기">
+            <img src="img/${img}.jpg" alt="${esc(ko)}" loading="lazy" width="800" height="600"></button>` : ""}
+          <div class="body">
+            <div class="names">
+              <p class="ko">${esc(ko)}</p>
+              ${rom ? `<p class="rom">${esc(rom)}</p>` : ""}
+              <p class="eng">${esc(en)}</p>
+              ${desc ? `<p class="desc">${esc(desc)}</p>` : ""}
+            </div>
+            <div class="prices">
+              ${prices.map(([s, p, pc]) => `<div class="price">${pc ? `<small>${pc}</small>` : ""}${s ? `<span class="size">${s}</span>` : ""}${fmt(p)}</div>`).join("")}
+            </div>
+          </div>
+        </article>`).join("")}
+    </div>
+  </section>`).join("");
+
+// Highlight the tab of the section currently in view
+const tabs = [...document.querySelectorAll("#tabs a")];
+const setOn = id => tabs.forEach(t => {
+  const on = t.dataset.id === id;
+  t.classList.toggle("on", on);
+  if (on) t.parentElement.scrollTo({ left: t.offsetLeft - (t.parentElement.clientWidth - t.offsetWidth) / 2, behavior: "smooth" });
+});
+const io = new IntersectionObserver(es => {
+  es.forEach(e => e.isIntersecting && setOn(e.target.id));
+}, { rootMargin: "-70px 0px -70% 0px" });
+document.querySelectorAll("main section").forEach(s => io.observe(s));
+setOn(MENU[0].id);
+
+// Photo lightbox
+const lb = document.getElementById("lb");
+document.getElementById("menu").addEventListener("click", e => {
+  const b = e.target.closest("button.ph");
+  if (!b) return;
+  lb.querySelector("img").src = b.dataset.src;
+  lb.querySelector("img").alt = b.dataset.name;
+  lb.querySelector("p").textContent = b.dataset.name;
+  lb.showModal();
+});
+lb.addEventListener("click", () => lb.close());
+</script>
+</body>
+</html>

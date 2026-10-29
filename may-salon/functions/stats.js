@@ -1,5 +1,5 @@
 // 사장님 전용 통계 페이지 (GET /stats)
-// Cloudflare 프로젝트: KV 바인딩 STATS, 비밀 STATS_PASSWORD 필요. 아이디는 아무거나, 비밀번호는 STATS_PASSWORD.
+// Cloudflare 프로젝트: KV 바인딩 STATS, 비밀 STATS_PASSWORD 필요. 페이지 안 입력창에 비밀번호를 넣으면 30일 동안 기억합니다.
 import { manilaDate } from "./api/track.js";
 
 const COLS = [["visit", "Visitors", "방문"], ["call", "Call", "전화"], ["kakao", "KakaoTalk", "카톡"], ["messenger", "Messenger", "메신저"],
@@ -21,13 +21,35 @@ th{background:#17130f;color:#c9a45c;font-weight:600}tr.sum td{color:#e3c88d;font
 </style></head><body>${body}</body></html>`, { headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" } });
 }
 
+async function hash(s) {
+  const b = await crypto.subtle.digest("SHA-256", new TextEncoder().encode("maysalon-stats:" + s));
+  return [...new Uint8Array(b)].map(x => x.toString(16).padStart(2, "0")).join("");
+}
+const COOKIE = "may_stats";
+function loginPage(msg) {
+  return page(`<h1>오월에 홈페이지 통계</h1><p>${msg || "비밀번호를 입력하세요"}</p>
+<form method="post" style="display:grid;gap:10px;max-width:320px">
+<input name="pw" type="password" autocomplete="current-password" placeholder="비밀번호" required autofocus
+ style="font:16px system-ui;padding:12px;border-radius:8px;border:1px solid #3a2f22;background:#17130f;color:#f2e8d6">
+<button style="font:600 16px system-ui;padding:12px;border-radius:8px;border:0;background:#c9a45c;color:#15100a">보기</button></form>`);
+}
+
+// 비밀번호 입력 (POST /stats): 맞으면 30일 동안 기억
+export async function onRequestPost({ request, env }) {
+  const pw = env.STATS_PASSWORD;
+  const form = await request.formData().catch(() => null);
+  const given = form ? String(form.get("pw") || "") : "";
+  if (!pw || given !== pw) return loginPage("비밀번호가 맞지 않아요. 다시 입력해 주세요.");
+  return new Response(null, { status: 303, headers: {
+    Location: "/stats",
+    "Set-Cookie": `${COOKIE}=${await hash(pw)}; Path=/stats; Max-Age=2592000; HttpOnly; Secure; SameSite=Lax`,
+  } });
+}
+
 export async function onRequestGet({ request, env }) {
   const pw = env.STATS_PASSWORD;
-  const auth = request.headers.get("Authorization") || "";
-  const given = auth.startsWith("Basic ") ? (atob(auth.slice(6)).split(":").slice(1).join(":")) : null;
-  if (!pw || given !== pw) {
-    return new Response("Password required", { status: 401, headers: { "WWW-Authenticate": 'Basic realm="maysalon stats", charset="UTF-8"' } });
-  }
+  const cookie = (request.headers.get("Cookie") || "").split(/;\s*/).find(c => c.startsWith(COOKIE + "="));
+  if (!pw || !cookie || cookie.slice(COOKIE.length + 1) !== await hash(pw)) return loginPage();
   if (!env.STATS) return page("<h1>오월에 홈페이지 통계</h1><p>저장 공간(KV) 연결이 아직 안 됐어요. Cloudflare에서 STATS 바인딩을 추가해 주세요.</p>");
 
   const days = [];

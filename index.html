@@ -168,6 +168,49 @@
   .perks svg { width: 20px; height: 20px; flex: none; color: var(--gold); }
   .note { text-align: center; color: var(--gold); font-size: 13px; letter-spacing: .25em; text-indent: .25em; margin: 0 0 16px; text-transform: none; }
 
+  /* Roulette */
+  .roulette { text-align: center; margin: 44px 0 40px; }
+  .roulette h2 { margin: 0 0 6px; font-family: "Noto Serif KR", serif; font-weight: 900; font-size: 24px; }
+  .wheel-wrap { position: relative; width: min(340px, 82vw); aspect-ratio: 1; margin: 22px auto 10px; }
+  .wheel {
+    width: 100%; height: 100%; border-radius: 50%;
+    background: conic-gradient(
+      #24345f 0deg 36deg, #16233f 36deg 72deg, #24345f 72deg 108deg,
+      #16233f 108deg 144deg, #24345f 144deg 180deg, #16233f 180deg 216deg,
+      #7a5a1e 216deg 252deg, #6a4d18 252deg 288deg, #7a5a1e 288deg 324deg,
+      #b8902f 324deg 360deg);
+    box-shadow: 0 0 0 8px rgba(232,201,138,.9), 0 0 0 11px rgba(120,90,30,.9),
+                0 0 50px rgba(232,201,138,.4), inset 0 0 60px rgba(0,0,0,.55);
+    transition: transform 5s cubic-bezier(.17,.67,.2,1);
+    position: relative;
+  }
+  /* 세그먼트 라벨 */
+  .wheel .seg { position: absolute; inset: 0; display: flex; justify-content: center; pointer-events: none; }
+  .wheel .seg span {
+    margin-top: 16px; color: #f6efe1; font-size: 12px; font-weight: 700; letter-spacing: .02em;
+    transform-origin: center; white-space: nowrap; text-shadow: 0 1px 3px rgba(0,0,0,.6);
+  }
+  .wheel .seg.gold span { color: #2a1c05; text-shadow: none; }
+  .wheel-pointer {
+    position: absolute; top: -6px; left: 50%; transform: translateX(-50%); z-index: 3;
+    width: 0; height: 0; border-left: 13px solid transparent; border-right: 13px solid transparent;
+    border-top: 22px solid var(--gold); filter: drop-shadow(0 2px 4px rgba(0,0,0,.5));
+  }
+  .wheel-hub {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 2;
+    width: 78px; height: 78px; border-radius: 50%; cursor: pointer;
+    font: inherit; font-family: "Cormorant Garamond", serif; font-weight: 700; font-size: 20px; letter-spacing: .08em;
+    color: #2a1c05; background: radial-gradient(circle at 50% 35%, #fff6dc, #e8c98a 55%, #c2924a);
+    border: 3px solid #fff2cc; box-shadow: 0 6px 18px rgba(0,0,0,.5), 0 0 24px rgba(232,201,138,.5);
+    transition: transform .15s ease, filter .2s ease;
+  }
+  .wheel-hub:hover { filter: brightness(1.06); }
+  .wheel-hub:active { transform: translate(-50%,-50%) scale(.95); }
+  .wheel-hub:disabled { cursor: default; filter: saturate(.6) brightness(.9); }
+  .wheel-result { margin: 16px 0 4px; font-size: 18px; font-weight: 700; color: var(--ink); min-height: 1.4em; }
+  .wheel-result.win { color: var(--gold); font-family: "Noto Serif KR", serif; font-size: 22px; }
+  .wheel-odds { margin: 0; font-size: 12px; color: var(--ink-dim); letter-spacing: .02em; }
+
   /* Form */
   .apply {
     position: relative;
@@ -299,6 +342,18 @@
   </ul>
   <p class="note">선정 시 호텔 체험 혜택 안내</p>
 
+  <section class="roulette" aria-labelledby="rouletteTitle">
+    <h2 id="rouletteTitle">행운의 체험권 룰렛</h2>
+    <p class="apply-sub">SPIN &amp; WIN</p>
+    <div class="wheel-wrap">
+      <div class="wheel-pointer" aria-hidden="true"></div>
+      <div class="wheel" id="wheel"></div>
+      <button type="button" class="wheel-hub" id="spinBtn" aria-label="룰렛 돌리기">SPIN</button>
+    </div>
+    <p class="wheel-result" id="wheelResult" role="status" aria-live="polite">버튼을 눌러 체험권을 뽑아보세요</p>
+    <p class="wheel-odds">1박 체험권 60% · 2박 체험권 30% · 3박 체험권 10%</p>
+  </section>
+
   <section class="apply" id="apply">
     <h2>숙박권 추첨 신청</h2>
     <p class="apply-sub">LUXURY HOTEL STAY</p>
@@ -335,6 +390,7 @@
         <textarea id="review" name="review" maxlength="1000" placeholder="호텔·야경 체험에 대한 기대평이나 후기를 남겨 주세요. (예: 부산 야경 보러 꼭 가보고 싶어요!)" required></textarea>
         <div class="err">리뷰를 10자 이상 입력해 주세요.</div>
       </div>
+      <input type="hidden" id="prize" name="prize" value="">
 
       <details class="consent">
         <summary>[필수] 개인정보 수집·이용 동의 내용 보기</summary>
@@ -423,6 +479,50 @@
       && y >= 1900 && dt <= new Date();
   }
 
+  // ===== 룰렛 =====
+  // 10개 균등 칸: 1박×6 + 2박×3 + 3박×1 → 자연스럽게 60% / 30% / 10%
+  const wheel = document.getElementById("wheel");
+  const spinBtn = document.getElementById("spinBtn");
+  const wheelResult = document.getElementById("wheelResult");
+  const prizeEl = document.getElementById("prize");
+  const SEG = ["1박 체험권","2박 체험권","3박 체험권","1박 체험권","2박 체험권","1박 체험권","1박 체험권","2박 체험권","1박 체험권","3박 체험권"];
+  // 칸 라벨 배치 (각 칸 중앙 = i*36+18도)
+  SEG.forEach((label, i) => {
+    const seg = document.createElement("div");
+    seg.className = "seg" + (/3박|2박/.test(label) ? " gold" : "");
+    seg.style.transform = `rotate(${i * 36 + 18}deg)`;
+    const span = document.createElement("span");
+    span.textContent = label.replace(" 체험권", "");
+    seg.appendChild(span);
+    wheel.appendChild(seg);
+  });
+
+  let spinning = false, rotation = 0;
+  spinBtn.addEventListener("click", () => {
+    if (spinning) return;
+    spinning = true;
+    spinBtn.disabled = true;
+    wheelResult.className = "wheel-result";
+    wheelResult.textContent = "추첨 중…";
+
+    const idx = Math.floor(Math.random() * SEG.length);   // 균등 추첨
+    const center = idx * 36 + 18;
+    // 현재 회전을 넘어서 5바퀴 돌고 해당 칸이 위쪽 포인터에 멈추도록
+    const target = Math.ceil(rotation / 360) * 360 + 360 * 5 + (360 - center);
+    rotation = target;
+    wheel.style.transform = `rotate(${rotation}deg)`;
+
+    setTimeout(() => {
+      const prize = SEG[idx];
+      prizeEl.value = prize;
+      wheelResult.className = "wheel-result win";
+      wheelResult.textContent = `🎉 ${prize} 당첨! 아래에서 신청을 완료하세요`;
+      spinBtn.textContent = "완료";
+      spinning = false;
+      if (window.fbq) fbq("trackCustom", "SpinWheel", { prize });
+    }, 5200);
+  });
+
   const rules = [
     [nameEl, () => nameEl.value.trim().length >= 2],
     [phoneEl, () => /^01[016789]\d{7,8}$/.test(digits(phoneEl.value))],
@@ -448,6 +548,12 @@
       if (bad && !firstBad) firstBad = el;
     }
     if (firstBad) { firstBad.focus(); return; }
+    if (!prizeEl.value) {
+      statusEl.className = "status fail";
+      statusEl.textContent = "먼저 룰렛을 돌려 체험권을 뽑아 주세요.";
+      document.getElementById("rouletteTitle").scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
     if (!agreeEl.checked) {
       statusEl.className = "status fail";
       statusEl.textContent = "개인정보 수집·이용에 동의해 주세요.";
@@ -468,6 +574,7 @@
       birth: birthEl.value,
       hotel: hotelEl.value,
       review: reviewEl.value.trim(),
+      prize: prizeEl.value,
       agreed: "Y",
     });
 

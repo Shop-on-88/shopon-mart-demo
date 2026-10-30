@@ -18,6 +18,7 @@ function doPost(e) {
     const hotel = String(p.hotel || "").trim();
     const review = String(p.review || "").trim();
     const prize = String(p.prize || "").trim();
+    const entryNo = String(p.entryNo || "").trim();
 
     if (name.length < 2 || !/^01[016789]\d{7,8}$/.test(phone) || !/^\d{8}$/.test(birth) || !hotel || review.length < 10 || p.agreed !== "Y") {
       return json({ ok: false, message: "invalid" });
@@ -26,7 +27,7 @@ function doPost(e) {
     const ss = SpreadsheetApp.getActiveSpreadsheet();
     const sheet = ss.getSheetByName(SHEET_NAME) || ss.insertSheet(SHEET_NAME);
     if (sheet.getLastRow() === 0) {
-      sheet.appendRow(["신청일시", "이름", "휴대폰", "생년월일", "희망호텔", "리뷰", "체험권(룰렛)", "개인정보동의"]);
+      sheet.appendRow(["신청일시", "추첨번호", "이름", "휴대폰", "생년월일", "희망호텔", "리뷰", "체험권(룰렛)", "개인정보동의"]);
     }
 
     const last = sheet.getLastRow();
@@ -38,19 +39,20 @@ function doPost(e) {
     const fmtPhone = phone.replace(/^(\d{3})(\d{3,4})(\d{4})$/, "$1-$2-$3");
     const fmtBirth = birth.replace(/^(\d{4})(\d{2})(\d{2})$/, "$1-$2-$3");
     // 앞에 '를 붙여 시트가 숫자/날짜로 자동 변환하지 않게 함
-    sheet.appendRow([new Date(), name, "'" + fmtPhone, "'" + fmtBirth, hotel, review, prize, "Y"]);
+    sheet.appendRow([new Date(), entryNo, name, "'" + fmtPhone, "'" + fmtBirth, hotel, review, prize, "Y"]);
 
-    notifyTelegram(name, fmtPhone, fmtBirth, hotel, review, prize);
+    notifyTelegram(name, fmtPhone, fmtBirth, hotel, review, prize, entryNo);
     return json({ ok: true });
   } finally {
     lock.releaseLock();
   }
 }
 
-function notifyTelegram(name, phone, birth, hotel, review, prize) {
+function notifyTelegram(name, phone, birth, hotel, review, prize, entryNo) {
   if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) return;
   const text =
     "🏨 *새 숙박권 응모*\n\n" +
+    "• 추첨번호: " + entryNo + "\n" +
     "• 이름: " + name + "\n" +
     "• 휴대폰: " + phone + "\n" +
     "• 생년월일: " + birth + "\n" +

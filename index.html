@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>호텔 무료 숙박권 추첨 이벤트</title>
+<meta name="description" content="제주·부산·서울 야경, 호텔에서 하루 더 이어가세요. 호텔 무료 숙박권 추첨 이벤트">
+<!-- 링크 미리보기 (페이스북/카카오톡). og:url, og:image 는 실제 사이트 주소로 바꿔 주세요 -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="호텔 무료 숙박권 추첨 이벤트">
+<meta property="og:description" content="제주·부산·서울 야경, 호텔에서 하루 더 이어가세요">
+<meta property="og:url" content="https://example.com/">
+<meta property="og:image" content="https://example.com/images/og.jpg">
+<meta property="og:image:width" content="1024">
+<meta property="og:image:height" content="1024">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Serif+KR:wght@600;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy-0: #070d1f;
+    --navy-1: #0d1733;
+    --navy-2: #16234a;
+    --gold: #e8c98a;
+    --gold-2: #c9a25a;
+    --gold-soft: rgba(232, 201, 138, .35);
+    --ink: #f6efe1;
+    --ink-dim: #c9c3b5;
+    --card: #ffffff;
+    --card-ink: #1b1b1b;
+    --error: #ff8a7a;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    font-family: "Noto Sans KR", system-ui, sans-serif;
+    color: var(--ink);
+    background:
+      radial-gradient(ellipse 80% 40% at 50% 0%, #1d2d5e 0%, transparent 70%),
+      radial-gradient(circle at 15% 70%, rgba(255, 190, 100, .08), transparent 40%),
+      radial-gradient(circle at 85% 80%, rgba(255, 190, 100, .08), transparent 40%),
+      linear-gradient(180deg, var(--navy-1) 0%, var(--navy-0) 100%);
+    background-color: var(--navy-0);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 48px 16px 64px; }
+
+  /* Hero */
+  .hero { text-align: center; }
+  .eyebrow {
+    display: inline-block;
+    padding: 8px 22px;
+    border: 1.5px solid var(--gold-2);
+    outline: 1px solid var(--gold-soft);
+    outline-offset: 3px;
+    border-radius: 4px;
+    color: var(--gold);
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: .02em;
+    background: rgba(7, 13, 31, .6);
+  }
+  h1 {
+    margin: 22px 0 14px;
+    font-weight: 900;
+    font-size: clamp(36px, 9vw, 68px);
+    line-height: 1.15;
+    letter-spacing: -.02em;
+    text-shadow: 0 4px 24px rgba(0, 0, 0, .5);
+  }
+  h1 .gold {
+    background: linear-gradient(180deg, #fff1cf 0%, var(--gold) 45%, var(--gold-2) 100%);
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent;
+  }
+  .sub { margin: 0; font-size: clamp(15px, 3.6vw, 20px); font-weight: 500; color: var(--ink); }
+
+  /* Hotels */
+  .hotels {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 18px;
+    margin: 40px 0 32px;
+  }
+  .hotel, .ticket { grid-column: span 2; }
+  .hotels > :nth-child(1) { grid-column: 1 / span 2; }
+  .hotels > :nth-child(2) { grid-column: 3 / span 2; }
+  .hotels > :nth-child(3) { grid-column: 5 / span 2; }
+  .hotel {
+    background: var(--card);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .45);
+    position: relative;
+    transition: transform .2s ease;
+  }
+  .hotel:hover { transform: translateY(-3px); }
+  .hotel img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+  .hotel .badge {
+    position: absolute; top: 8px; right: 8px;
+    background: linear-gradient(180deg, #fbe7b8, var(--gold));
+    color: #3a2a0c; font-weight: 700; font-size: 13px;
+    padding: 3px 10px; border-radius: 999px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, .3);
+  }
+  .hotel .name {
+    color: var(--card-ink); text-align: center;
+    font-weight: 700; font-size: 15px; padding: 10px 6px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .hotel.featured { box-shadow: 0 0 0 2px var(--gold), 0 0 40px rgba(232, 201, 138, .45), 0 10px 30px rgba(0, 0, 0, .45); }
+  .ticket {
+    display: flex; align-items: center; justify-content: center;
+  }
+  .ticket div {
+    width: 62%; height: 100%; min-height: 150px;
+    display: flex; align-items: center; justify-content: center; text-align: center;
+    font-family: "Noto Serif KR", Georgia, serif; font-weight: 600;
+    color: #4a3612; font-size: 15px; line-height: 1.5; letter-spacing: .04em;
+    background: linear-gradient(135deg, #fff2cc 0%, #e8c98a 40%, #b88d43 100%);
+    border-radius: 6px;
+    -webkit-mask: radial-gradient(circle 10px at 50% 0, transparent 98%, #000) top / 100% 51% no-repeat,
+                  radial-gradient(circle 10px at 50% 100%, transparent 98%, #000) bottom / 100% 51% no-repeat;
+            mask: radial-gradient(circle 10px at 50% 0, transparent 98%, #000) top / 100% 51% no-repeat,
+                  radial-gradient(circle 10px at 50% 100%, transparent 98%, #000) bottom / 100% 51% no-repeat;
+    box-shadow: 0 0 40px rgba(232, 201, 138, .6);
+    filter: drop-shadow(0 0 18px rgba(232, 201, 138, .5));
+  }
+
+  /* Perks */
+  .perks { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 0 0 18px; padding: 0; list-style: none; }
+  .perks li {
+    display: flex; align-items: center; gap: 8px;
+    padding: 9px 18px; border: 1px solid var(--gold-soft); border-radius: 999px;
+    background: rgba(7, 13, 31, .55); font-weight: 500; font-size: 15px;
+  }
+  .perks svg { width: 20px; height: 20px; flex: none; color: var(--gold); }
+  .note { text-align: center; color: var(--gold); font-size: 14px; margin: 0 0 14px; }
+
+  /* Form */
+  .apply {
+    background: rgba(13, 23, 51, .85);
+    border: 1.5px solid var(--gold-2);
+    outline: 1px solid var(--gold-soft); outline-offset: 4px;
+    border-radius: 8px;
+    padding: 28px 24px;
+    scroll-margin-top: 16px;
+  }
+  .apply h2 { margin: 0 0 20px; text-align: center; font-size: 22px; font-weight: 900; }
+  .field { margin-bottom: 16px; }
+  .field label { display: block; font-weight: 700; font-size: 14px; margin-bottom: 6px; color: var(--gold); }
+  .field input, .field select {
+    width: 100%; padding: 13px 14px; font: inherit; font-size: 16px;
+    color: var(--ink); background: rgba(255, 255, 255, .06);
+    border: 1px solid rgba(232, 201, 138, .4); border-radius: 6px;
+    color-scheme: dark;
+  }
+  .field select { appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23e8c98a' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 14px center; padding-right: 40px; }
+  .field select option { color: #1b1b1b; }
+  .field input:focus, .field select:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(232, 201, 138, .2); }
+  .field input[aria-invalid="true"], .field select[aria-invalid="true"] { border-color: var(--error); }
+  .field .err { display: none; color: var(--error); font-size: 13px; margin-top: 5px; }
+  .field input[aria-invalid="true"] + .err,
+  .field select[aria-invalid="true"] + .err { display: block; }
+
+  .consent {
+    font-size: 13px; color: var(--ink-dim); line-height: 1.6;
+    background: rgba(255, 255, 255, .04); border-radius: 6px; padding: 12px 14px; margin: 6px 0 16px;
+  }
+  .consent summary { cursor: pointer; color: var(--ink); font-weight: 500; }
+  .consent table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+  .consent th, .consent td { text-align: left; padding: 6px 4px; border-top: 1px solid rgba(255, 255, 255, .1); vertical-align: top; }
+  .consent th { width: 30%; color: var(--gold); font-weight: 500; }
+  .agree { display: flex; align-items: center; gap: 10px; font-size: 15px; margin-bottom: 20px; cursor: pointer; }
+  .agree input { width: 20px; height: 20px; accent-color: var(--gold); }
+
+  .cta {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    width: 100%; padding: 16px; font: inherit; font-size: 20px; font-weight: 900;
+    color: var(--ink); background: linear-gradient(180deg, #1f3170, var(--navy-2));
+    border: 1.5px solid var(--gold); border-radius: 6px; cursor: pointer;
+    box-shadow: 0 0 24px rgba(232, 201, 138, .25);
+  }
+  .cta:hover { background: linear-gradient(180deg, #273c86, #1b2a5a); }
+  .cta:disabled { opacity: .6; cursor: progress; }
+  .status { text-align: center; margin: 14px 0 0; font-size: 15px; }
+  .status:empty { display: none; }
+  .status.ok { color: var(--gold); }
+  .status.fail { color: var(--error); }
+  .done { text-align: center; padding: 20px 0; }
+  .done strong { display: block; font-size: 22px; margin-bottom: 8px; color: var(--gold); }
+
+  .rules { margin-top: 28px; font-size: 13px; color: var(--ink-dim); line-height: 1.7; }
+  .rules h3 { font-size: 15px; color: var(--gold); margin: 0 0 8px; }
+  .rules ul { margin: 0; padding-left: 18px; }
+  footer a { color: inherit; }
+  footer { text-align: center; color: #8d8a83; font-size: 12px; margin-top: 32px; line-height: 1.7; }
+
+  @media (max-width: 600px) {
+    .wrap { padding-top: 32px; }
+    .hotels { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .hotels > * { grid-column: auto !important; }
+    .ticket { grid-column: 1 / -1 !important; order: -1; }
+    .hotels > :last-child { grid-column: 1 / -1 !important; }
+    .hotels > :last-child img { aspect-ratio: 21 / 9; }
+    .ticket div { width: 70%; min-height: 72px; padding: 12px; }
+    .hotel .name { font-size: 13px; }
+    .apply { padding: 22px 16px; }
+  }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <section class="hero">
+    <span class="eyebrow">야경 연계 숙박 체험</span>
+    <h1>호텔 무료 숙박권<br><span class="gold">추첨 이벤트</span></h1>
+    <p class="sub">제주·부산·서울 야경, 호텔에서 하루 더 이어가세요</p>
+  </section>
+
+  <section class="hotels" aria-label="참여 호텔">
+    <figure class="hotel" style="margin:0">
+      <img src="images/jeju-shillastay.jpg" alt="신라스테이 플러스 이호테우 전경">
+      <span class="badge">제주</span>
+      <figcaption class="name">신라스테이 플러스 이호테우</figcaption>
+    </figure>
+    <div class="ticket" aria-hidden="true"><div>FREE<br>1-NIGHT<br>STAY</div></div>
+    <figure class="hotel featured" style="margin:0">
+      <img src="images/busan-parkhyatt.jpg" alt="파크 하얏트 부산 인피니티 풀">
+      <span class="badge">부산</span>
+      <figcaption class="name">파크 하얏트 부산</figcaption>
+    </figure>
+    <figure class="hotel" style="margin:0">
+      <img src="images/busan-westin.jpg" alt="해운대 해변 전경">
+      <span class="badge">부산</span>
+      <figcaption class="name">웨스틴 조선 부산</figcaption>
+    </figure>
+    <figure class="hotel" style="margin:0">
+      <img src="images/seoul-jamsil.jpg" alt="석촌호수와 잠실 야경">
+      <span class="badge">서울</span>
+      <figcaption class="name">잠실 레이크뷰 호텔</figcaption>
+    </figure>
+    <figure class="hotel" style="margin:0">
+      <img src="images/seoul-namsan.jpg" alt="남산타워와 서울 야경">
+      <span class="badge">서울</span>
+      <figcaption class="name">남산 시티뷰 호텔</figcaption>
+    </figure>
+  </section>
+
+  <ul class="perks">
+    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>원하는 호텔 직접 선택</li>
+    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14.2c2.8.4 5 2.8 5 5.8"/></svg>동반 신청 가능</li>
+    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>리뷰 1건이면 참여 완료</li>
+  </ul>
+  <p class="note">선정 시 호텔 체험 혜택 안내</p>
+
+  <section class="apply" id="apply">
+    <h2>숙박권 추첨 신청</h2>
+    <form id="applyForm" novalidate>
+      <div class="field">
+        <label for="name">이름</label>
+        <input id="name" name="name" type="text" autocomplete="name" maxlength="20" placeholder="홍길동" required>
+        <div class="err">이름을 2자 이상 입력해 주세요.</div>
+      </div>
+      <div class="field">
+        <label for="phone">휴대폰 번호</label>
+        <input id="phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel" maxlength="13" placeholder="010-0000-0000" required>
+        <div class="err">올바른 휴대폰 번호를 입력해 주세요.</div>
+      </div>
+      <div class="field">
+        <label for="birth">생년월일</label>
+        <input id="birth" name="birth" type="text" inputmode="numeric" autocomplete="bday" maxlength="10" placeholder="1990-01-01" required>
+        <div class="err">생년월일 8자리를 정확히 입력해 주세요. (예: 19900101)</div>
+      </div>
+      <div class="field">
+        <label for="hotel">희망 호텔</label>
+        <select id="hotel" name="hotel" required>
+          <option value="" disabled selected>원하는 호텔을 선택해 주세요</option>
+          <option value="신라스테이 플러스 이호테우 (제주)">신라스테이 플러스 이호테우 (제주)</option>
+          <option value="파크 하얏트 부산 (부산)">파크 하얏트 부산 (부산)</option>
+          <option value="웨스틴 조선 부산 (부산)">웨스틴 조선 부산 (부산)</option>
+          <option value="잠실 레이크뷰 호텔 (서울)">잠실 레이크뷰 호텔 (서울)</option>
+          <option value="남산 시티뷰 호텔 (서울)">남산 시티뷰 호텔 (서울)</option>
+        </select>
+        <div class="err">희망 호텔을 선택해 주세요.</div>
+      </div>
+
+      <details class="consent">
+        <summary>[필수] 개인정보 수집·이용 동의 내용 보기</summary>
+        <table>
+          <tr><th>수집 항목</th><td>이름, 휴대폰 번호, 생년월일, 희망 호텔</td></tr>
+          <tr><th>이용 목적</th><td>숙박권 추첨, 당첨자 본인 확인 및 연락</td></tr>
+          <tr><th>보유 기간</th><td>이벤트 종료 후 3개월 이내 파기</td></tr>
+        </table>
+        <p style="margin:10px 0 0">동의를 거부할 수 있으며, 거부 시 이벤트 참여가 제한됩니다.</p>
+      </details>
+      <label class="agree"><input type="checkbox" id="agree" required> 개인정보 수집·이용에 동의합니다. (필수)</label>
+
+      <button type="submit" class="cta" id="submitBtn">숙박권 추첨 신청하기 <span aria-hidden="true">▶</span></button>
+      <p class="status" id="status" role="status" aria-live="polite"></p>
+    </form>
+  </section>
+
+  <section class="rules" aria-labelledby="rulesTitle">
+    <h3 id="rulesTitle">이벤트 유의사항</h3>
+    <ul>
+      <li>응모 기간: [2026.00.00 ~ 2026.00.00]</li>
+      <li>당첨 발표: [2026.00.00] 당첨자 개별 문자 안내</li>
+      <li>당첨 인원: [00명] (1인 1회 응모, 동일 휴대폰 번호 중복 응모 불가)</li>
+      <li>숙박 일정은 당첨 후 호텔 예약 가능일 중 협의하여 확정됩니다.</li>
+      <li>경품가액이 5만 원을 초과하는 경우 제세공과금(22%)은 당첨자 부담입니다.</li>
+      <li>체험 후 작성하는 리뷰에는 "숙박권을 제공받아 작성한 후기"임을 표기해야 합니다.</li>
+      <li>허위 정보 입력 시 당첨이 취소될 수 있으며, 이벤트는 주최 측 사정에 따라 변경 또는 조기 종료될 수 있습니다.</li>
+      <li>본 이벤트는 Meta(Facebook·Instagram)가 후원, 보증, 관리하지 않으며 Meta와 무관합니다.</li>
+    </ul>
+  </section>
+
+  <footer>
+    주최: [상호명] · 대표 [이름] · 사업자등록번호 [000-00-00000] · 문의 [연락처]<br>
+    <a href="privacy.html">개인정보처리방침</a>
+  </footer>
+</main>
+
+<script>
+  // Meta 픽셀 ID (이벤트 관리자 → 데이터 소스에서 확인). 비워두면 픽셀을 불러오지 않습니다.
+  const META_PIXEL_ID = "";
+  if (META_PIXEL_ID) {
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq("init", META_PIXEL_ID);
+    fbq("track", "PageView");
+  }
+
+  // 신청 데이터를 받을 주소 (Google Apps Script 웹 앱 URL). 설정 방법은 README.md 참고.
+  const ENDPOINT = "";
+
+  const form = document.getElementById("applyForm");
+  const nameEl = document.getElementById("name");
+  const phoneEl = document.getElementById("phone");
+  const birthEl = document.getElementById("birth");
+  const hotelEl = document.getElementById("hotel");
+  const agreeEl = document.getElementById("agree");
+  const statusEl = document.getElementById("status");
+  const submitBtn = document.getElementById("submitBtn");
+
+  const digits = (s) => s.replace(/\D/g, "");
+
+  phoneEl.addEventListener("input", () => {
+    const d = digits(phoneEl.value).slice(0, 11);
+    phoneEl.value = d.length < 4 ? d
+      : d.length < 8 ? `${d.slice(0, 3)}-${d.slice(3)}`
+      : `${d.slice(0, 3)}-${d.slice(3, d.length - 4)}-${d.slice(-4)}`;
+  });
+
+  birthEl.addEventListener("input", () => {
+    const d = digits(birthEl.value).slice(0, 8);
+    birthEl.value = d.length <= 4 ? d
+      : d.length <= 6 ? `${d.slice(0, 4)}-${d.slice(4)}`
+      : `${d.slice(0, 4)}-${d.slice(4, 6)}-${d.slice(6)}`;
+  });
+
+  function validBirth(v) {
+    const d = digits(v);
+    if (d.length !== 8) return false;
+    const y = +d.slice(0, 4), m = +d.slice(4, 6), day = +d.slice(6);
+    const dt = new Date(y, m - 1, day);
+    return dt.getFullYear() === y && dt.getMonth() === m - 1 && dt.getDate() === day
+      && y >= 1900 && dt <= new Date();
+  }
+
+  const rules = [
+    [nameEl, () => nameEl.value.trim().length >= 2],
+    [phoneEl, () => /^01[016789]\d{7,8}$/.test(digits(phoneEl.value))],
+    [birthEl, () => validBirth(birthEl.value)],
+    [hotelEl, () => hotelEl.value !== ""],
+  ];
+
+  rules.forEach(([el, ok]) => el.addEventListener("blur", () => {
+    if (el.value) el.setAttribute("aria-invalid", String(!ok()));
+  }));
+  hotelEl.addEventListener("change", () => hotelEl.setAttribute("aria-invalid", String(!hotelEl.value)));
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    statusEl.className = "status";
+    statusEl.textContent = "";
+
+    let firstBad = null;
+    for (const [el, ok] of rules) {
+      const bad = !ok();
+      el.setAttribute("aria-invalid", String(bad));
+      if (bad && !firstBad) firstBad = el;
+    }
+    if (firstBad) { firstBad.focus(); return; }
+    if (!agreeEl.checked) {
+      statusEl.className = "status fail";
+      statusEl.textContent = "개인정보 수집·이용에 동의해 주세요.";
+      agreeEl.focus();
+      return;
+    }
+    if (!ENDPOINT) {
+      statusEl.className = "status fail";
+      statusEl.textContent = "신청 접수 주소가 아직 설정되지 않았습니다. (관리자: index.html의 ENDPOINT 설정)";
+      return;
+    }
+
+    submitBtn.disabled = true;
+    statusEl.textContent = "신청을 접수하고 있습니다…";
+    const body = new URLSearchParams({
+      name: nameEl.value.trim(),
+      phone: phoneEl.value,
+      birth: birthEl.value,
+      hotel: hotelEl.value,
+      agreed: "Y",
+    });
+
+    try {
+      const res = await fetch(ENDPOINT, { method: "POST", body });
+      const data = await res.json();
+      if (!data.ok) throw new Error(data.message || "fail");
+      // 광고 최적화용 전환 이벤트 (개인정보는 보내지 않음)
+      if (window.fbq) fbq("track", "Lead");
+      form.innerHTML = `<div class="done"><strong>신청이 완료되었습니다!</strong>
+        당첨 시 입력하신 번호로 안내드릴게요.</div>`;
+    } catch (err) {
+      statusEl.className = "status fail";
+      statusEl.textContent = err.message === "duplicate"
+        ? "이미 신청하신 번호입니다."
+        : "접수 중 문제가 발생했습니다. 잠시 후 다시 시도해 주세요.";
+      submitBtn.disabled = false;
+    }
+  });
+</script>
+</body>
+</html>

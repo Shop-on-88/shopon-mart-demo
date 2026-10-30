@@ -150,16 +150,21 @@
   .apply h2 { margin: 0 0 20px; text-align: center; font-size: 22px; font-weight: 900; }
   .field { margin-bottom: 16px; }
   .field label { display: block; font-weight: 700; font-size: 14px; margin-bottom: 6px; color: var(--gold); }
-  .field input {
+  .field input, .field select {
     width: 100%; padding: 13px 14px; font: inherit; font-size: 16px;
     color: var(--ink); background: rgba(255, 255, 255, .06);
     border: 1px solid rgba(232, 201, 138, .4); border-radius: 6px;
     color-scheme: dark;
   }
-  .field input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(232, 201, 138, .2); }
-  .field input[aria-invalid="true"] { border-color: var(--error); }
+  .field select { appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23e8c98a' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 14px center; padding-right: 40px; }
+  .field select option { color: #1b1b1b; }
+  .field input:focus, .field select:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(232, 201, 138, .2); }
+  .field input[aria-invalid="true"], .field select[aria-invalid="true"] { border-color: var(--error); }
   .field .err { display: none; color: var(--error); font-size: 13px; margin-top: 5px; }
-  .field input[aria-invalid="true"] + .err { display: block; }
+  .field input[aria-invalid="true"] + .err,
+  .field select[aria-invalid="true"] + .err { display: block; }
 
   .consent {
     font-size: 13px; color: var(--ink-dim); line-height: 1.6;
@@ -269,11 +274,23 @@
         <input id="birth" name="birth" type="text" inputmode="numeric" autocomplete="bday" maxlength="10" placeholder="1990-01-01" required>
         <div class="err">생년월일 8자리를 정확히 입력해 주세요. (예: 19900101)</div>
       </div>
+      <div class="field">
+        <label for="hotel">희망 호텔</label>
+        <select id="hotel" name="hotel" required>
+          <option value="" disabled selected>원하는 호텔을 선택해 주세요</option>
+          <option value="신라스테이 플러스 이호테우 (제주)">신라스테이 플러스 이호테우 (제주)</option>
+          <option value="파크 하얏트 부산 (부산)">파크 하얏트 부산 (부산)</option>
+          <option value="웨스틴 조선 부산 (부산)">웨스틴 조선 부산 (부산)</option>
+          <option value="잠실 레이크뷰 호텔 (서울)">잠실 레이크뷰 호텔 (서울)</option>
+          <option value="남산 시티뷰 호텔 (서울)">남산 시티뷰 호텔 (서울)</option>
+        </select>
+        <div class="err">희망 호텔을 선택해 주세요.</div>
+      </div>
 
       <details class="consent">
         <summary>[필수] 개인정보 수집·이용 동의 내용 보기</summary>
         <table>
-          <tr><th>수집 항목</th><td>이름, 휴대폰 번호, 생년월일</td></tr>
+          <tr><th>수집 항목</th><td>이름, 휴대폰 번호, 생년월일, 희망 호텔</td></tr>
           <tr><th>이용 목적</th><td>숙박권 추첨, 당첨자 본인 확인 및 연락</td></tr>
           <tr><th>보유 기간</th><td>이벤트 종료 후 3개월 이내 파기</td></tr>
         </table>
@@ -326,6 +343,7 @@
   const nameEl = document.getElementById("name");
   const phoneEl = document.getElementById("phone");
   const birthEl = document.getElementById("birth");
+  const hotelEl = document.getElementById("hotel");
   const agreeEl = document.getElementById("agree");
   const statusEl = document.getElementById("status");
   const submitBtn = document.getElementById("submitBtn");
@@ -359,11 +377,13 @@
     [nameEl, () => nameEl.value.trim().length >= 2],
     [phoneEl, () => /^01[016789]\d{7,8}$/.test(digits(phoneEl.value))],
     [birthEl, () => validBirth(birthEl.value)],
+    [hotelEl, () => hotelEl.value !== ""],
   ];
 
   rules.forEach(([el, ok]) => el.addEventListener("blur", () => {
     if (el.value) el.setAttribute("aria-invalid", String(!ok()));
   }));
+  hotelEl.addEventListener("change", () => hotelEl.setAttribute("aria-invalid", String(!hotelEl.value)));
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -395,6 +415,7 @@
       name: nameEl.value.trim(),
       phone: phoneEl.value,
       birth: birthEl.value,
+      hotel: hotelEl.value,
       agreed: "Y",
     });
 

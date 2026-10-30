@@ -150,21 +150,24 @@
   .apply h2 { margin: 0 0 20px; text-align: center; font-size: 22px; font-weight: 900; }
   .field { margin-bottom: 16px; }
   .field label { display: block; font-weight: 700; font-size: 14px; margin-bottom: 6px; color: var(--gold); }
-  .field input, .field select {
+  .field input, .field select, .field textarea {
     width: 100%; padding: 13px 14px; font: inherit; font-size: 16px;
     color: var(--ink); background: rgba(255, 255, 255, .06);
     border: 1px solid rgba(232, 201, 138, .4); border-radius: 6px;
     color-scheme: dark;
   }
+  .field textarea { resize: vertical; min-height: 92px; line-height: 1.5; }
+  .field .hint { font-weight: 400; font-size: 12px; color: var(--ink-dim); margin-left: 6px; }
   .field select { appearance: none;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23e8c98a' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
     background-repeat: no-repeat; background-position: right 14px center; padding-right: 40px; }
   .field select option { color: #1b1b1b; }
-  .field input:focus, .field select:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(232, 201, 138, .2); }
-  .field input[aria-invalid="true"], .field select[aria-invalid="true"] { border-color: var(--error); }
+  .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(232, 201, 138, .2); }
+  .field input[aria-invalid="true"], .field select[aria-invalid="true"], .field textarea[aria-invalid="true"] { border-color: var(--error); }
   .field .err { display: none; color: var(--error); font-size: 13px; margin-top: 5px; }
   .field input[aria-invalid="true"] + .err,
-  .field select[aria-invalid="true"] + .err { display: block; }
+  .field select[aria-invalid="true"] + .err,
+  .field textarea[aria-invalid="true"] + .err { display: block; }
 
   .consent {
     font-size: 13px; color: var(--ink-dim); line-height: 1.6;
@@ -286,11 +289,16 @@
         </select>
         <div class="err">희망 호텔을 선택해 주세요.</div>
       </div>
+      <div class="field">
+        <label for="review">리뷰 <span class="hint">참여 조건 · 10자 이상</span></label>
+        <textarea id="review" name="review" maxlength="1000" placeholder="호텔·야경 체험에 대한 기대평이나 후기를 남겨 주세요. (예: 부산 야경 보러 꼭 가보고 싶어요!)" required></textarea>
+        <div class="err">리뷰를 10자 이상 입력해 주세요.</div>
+      </div>
 
       <details class="consent">
         <summary>[필수] 개인정보 수집·이용 동의 내용 보기</summary>
         <table>
-          <tr><th>수집 항목</th><td>이름, 휴대폰 번호, 생년월일, 희망 호텔</td></tr>
+          <tr><th>수집 항목</th><td>이름, 휴대폰 번호, 생년월일, 희망 호텔, 리뷰</td></tr>
           <tr><th>이용 목적</th><td>숙박권 추첨, 당첨자 본인 확인 및 연락</td></tr>
           <tr><th>보유 기간</th><td>이벤트 종료 후 3개월 이내 파기</td></tr>
         </table>
@@ -344,6 +352,7 @@
   const phoneEl = document.getElementById("phone");
   const birthEl = document.getElementById("birth");
   const hotelEl = document.getElementById("hotel");
+  const reviewEl = document.getElementById("review");
   const agreeEl = document.getElementById("agree");
   const statusEl = document.getElementById("status");
   const submitBtn = document.getElementById("submitBtn");
@@ -378,6 +387,7 @@
     [phoneEl, () => /^01[016789]\d{7,8}$/.test(digits(phoneEl.value))],
     [birthEl, () => validBirth(birthEl.value)],
     [hotelEl, () => hotelEl.value !== ""],
+    [reviewEl, () => reviewEl.value.trim().length >= 10],
   ];
 
   rules.forEach(([el, ok]) => el.addEventListener("blur", () => {
@@ -416,6 +426,7 @@
       phone: phoneEl.value,
       birth: birthEl.value,
       hotel: hotelEl.value,
+      review: reviewEl.value.trim(),
       agreed: "Y",
     });
 

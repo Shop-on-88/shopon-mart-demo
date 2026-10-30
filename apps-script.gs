@@ -16,15 +16,16 @@ function doPost(e) {
     const phone = String(p.phone || "").replace(/\D/g, "");
     const birth = String(p.birth || "").replace(/\D/g, "");
     const hotel = String(p.hotel || "").trim();
+    const review = String(p.review || "").trim();
 
-    if (name.length < 2 || !/^01[016789]\d{7,8}$/.test(phone) || !/^\d{8}$/.test(birth) || !hotel || p.agreed !== "Y") {
+    if (name.length < 2 || !/^01[016789]\d{7,8}$/.test(phone) || !/^\d{8}$/.test(birth) || !hotel || review.length < 10 || p.agreed !== "Y") {
       return json({ ok: false, message: "invalid" });
     }
 
     const ss = SpreadsheetApp.getActiveSpreadsheet();
     const sheet = ss.getSheetByName(SHEET_NAME) || ss.insertSheet(SHEET_NAME);
     if (sheet.getLastRow() === 0) {
-      sheet.appendRow(["신청일시", "이름", "휴대폰", "생년월일", "희망호텔", "개인정보동의"]);
+      sheet.appendRow(["신청일시", "이름", "휴대폰", "생년월일", "희망호텔", "리뷰", "개인정보동의"]);
     }
 
     const last = sheet.getLastRow();
@@ -36,16 +37,16 @@ function doPost(e) {
     const fmtPhone = phone.replace(/^(\d{3})(\d{3,4})(\d{4})$/, "$1-$2-$3");
     const fmtBirth = birth.replace(/^(\d{4})(\d{2})(\d{2})$/, "$1-$2-$3");
     // 앞에 '를 붙여 시트가 숫자/날짜로 자동 변환하지 않게 함
-    sheet.appendRow([new Date(), name, "'" + fmtPhone, "'" + fmtBirth, hotel, "Y"]);
+    sheet.appendRow([new Date(), name, "'" + fmtPhone, "'" + fmtBirth, hotel, review, "Y"]);
 
-    notifyTelegram(name, fmtPhone, fmtBirth, hotel);
+    notifyTelegram(name, fmtPhone, fmtBirth, hotel, review);
     return json({ ok: true });
   } finally {
     lock.releaseLock();
   }
 }
 
-function notifyTelegram(name, phone, birth, hotel) {
+function notifyTelegram(name, phone, birth, hotel, review) {
   if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) return;
   const text =
     "🏨 *새 숙박권 응모*\n\n" +
@@ -53,6 +54,7 @@ function notifyTelegram(name, phone, birth, hotel) {
     "• 휴대폰: " + phone + "\n" +
     "• 생년월일: " + birth + "\n" +
     "• 희망 호텔: " + hotel + "\n" +
+    "• 리뷰: " + review + "\n" +
     "• 접수: " + Utilities.formatDate(new Date(), "Asia/Seoul", "yyyy-MM-dd HH:mm");
   try {
     UrlFetchApp.fetch("https://api.telegram.org/bot" + TELEGRAM_BOT_TOKEN + "/sendMessage", {

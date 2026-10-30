@@ -15,7 +15,7 @@
 <meta property="og:image:height" content="1024">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Serif+KR:wght@600;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Serif+KR:wght@500;600;700;900&display=swap" rel="stylesheet">
 <style>
   :root {
     --navy-0: #070d1f;
@@ -35,46 +35,71 @@
   body {
     font-family: "Noto Sans KR", system-ui, sans-serif;
     color: var(--ink);
-    background:
-      radial-gradient(ellipse 80% 40% at 50% 0%, #1d2d5e 0%, transparent 70%),
-      radial-gradient(circle at 15% 70%, rgba(255, 190, 100, .08), transparent 40%),
-      radial-gradient(circle at 85% 80%, rgba(255, 190, 100, .08), transparent 40%),
-      linear-gradient(180deg, var(--navy-1) 0%, var(--navy-0) 100%);
     background-color: var(--navy-0);
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
   }
-  .wrap { max-width: 760px; margin: 0 auto; padding: 48px 16px 64px; }
+  /* 럭셔리 야경 배경 (영상 → 없으면 이미지 poster) */
+  .bg-video {
+    position: fixed; inset: 0; z-index: -3;
+    width: 100%; height: 100%; object-fit: cover;
+    background: #070d1f url("images/hero-bg.jpg") center top / cover no-repeat;
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0; z-index: -2; pointer-events: none;
+    background: linear-gradient(180deg, rgba(7,13,31,.70) 0%, rgba(7,13,31,.84) 46%, rgba(5,9,22,.96) 78%, var(--navy-0) 100%);
+  }
+  body::after {
+    content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background:
+      radial-gradient(circle at 15% 72%, rgba(255,190,100,.06), transparent 40%),
+      radial-gradient(circle at 85% 82%, rgba(255,190,100,.06), transparent 40%);
+  }
+  .wrap { position: relative; max-width: 780px; margin: 0 auto; padding: 56px 20px 72px; }
+  /* 금박 외곽 프레임 */
+  .wrap::before {
+    content: ""; position: absolute; inset: 20px 8px; z-index: -1; pointer-events: none;
+    border: 1px solid rgba(232,201,138,.22);
+    box-shadow: inset 0 0 0 4px rgba(232,201,138,.05);
+    border-radius: 4px;
+  }
 
   /* Hero */
   .hero { text-align: center; }
   .eyebrow {
-    display: inline-block;
-    padding: 8px 22px;
-    border: 1.5px solid var(--gold-2);
+    display: inline-block; position: relative;
+    padding: 9px 26px;
+    border: 1px solid var(--gold-2);
     outline: 1px solid var(--gold-soft);
     outline-offset: 3px;
-    border-radius: 4px;
+    border-radius: 2px;
     color: var(--gold);
-    font-weight: 700;
-    font-size: 15px;
-    letter-spacing: .02em;
-    background: rgba(7, 13, 31, .6);
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: .32em; text-indent: .32em;
+    background: rgba(7, 13, 31, .5);
+    backdrop-filter: blur(2px);
   }
   h1 {
-    margin: 22px 0 14px;
+    margin: 26px 0 16px;
     font-weight: 900;
-    font-size: clamp(36px, 9vw, 68px);
-    line-height: 1.15;
-    letter-spacing: -.02em;
-    text-shadow: 0 4px 24px rgba(0, 0, 0, .5);
+    font-size: clamp(38px, 9.4vw, 74px);
+    line-height: 1.12;
+    letter-spacing: -.015em;
+    text-shadow: 0 6px 34px rgba(0, 0, 0, .65);
   }
   h1 .gold {
-    background: linear-gradient(180deg, #fff1cf 0%, var(--gold) 45%, var(--gold-2) 100%);
+    background: linear-gradient(175deg, #fff6df 0%, #f0d294 38%, var(--gold) 58%, #a9803f 100%);
     -webkit-background-clip: text; background-clip: text;
     color: transparent;
+    filter: drop-shadow(0 2px 14px rgba(232,201,138,.28));
   }
-  .sub { margin: 0; font-size: clamp(15px, 3.6vw, 20px); font-weight: 500; color: var(--ink); }
+  .sub { margin: 0; font-size: clamp(15px, 3.6vw, 20px); font-weight: 400; color: var(--ink-dim); letter-spacing: .01em; }
+  /* 금박 구분 장식 */
+  .divider { display: flex; align-items: center; justify-content: center; gap: 14px; margin: 30px auto 4px; max-width: 320px; }
+  .divider span { height: 1px; flex: 1; background: linear-gradient(90deg, transparent, var(--gold-soft)); }
+  .divider span:last-child { background: linear-gradient(90deg, var(--gold-soft), transparent); }
+  .divider i { width: 7px; height: 7px; transform: rotate(45deg); background: linear-gradient(135deg, #fff2cc, var(--gold-2)); box-shadow: 0 0 10px rgba(232,201,138,.5); }
 
   /* Hotels */
   .hotels {
@@ -88,37 +113,44 @@
   .hotels > :nth-child(2) { grid-column: 3 / span 2; }
   .hotels > :nth-child(3) { grid-column: 5 / span 2; }
   .hotel {
-    background: var(--card);
-    border-radius: 10px;
+    background: linear-gradient(180deg, #14213f, #0d1730);
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, .45);
+    box-shadow: 0 14px 34px rgba(0, 0, 0, .5);
     position: relative;
-    transition: transform .2s ease;
+    transition: transform .25s ease, box-shadow .25s ease;
   }
-  .hotel:hover { transform: translateY(-3px); }
+  .hotel::after {
+    content: ""; position: absolute; inset: 0; border-radius: 12px; pointer-events: none;
+    border: 1px solid rgba(232,201,138,.28);
+  }
+  .hotel:hover { transform: translateY(-4px); box-shadow: 0 20px 44px rgba(0, 0, 0, .6); }
   .hotel img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
   .hotel .badge {
-    position: absolute; top: 8px; right: 8px;
-    background: linear-gradient(180deg, #fbe7b8, var(--gold));
-    color: #3a2a0c; font-weight: 700; font-size: 13px;
-    padding: 3px 10px; border-radius: 999px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, .3);
+    position: absolute; top: 9px; right: 9px;
+    background: linear-gradient(180deg, #fff2cc, var(--gold-2));
+    color: #3a2a0c; font-weight: 700; font-size: 12px; letter-spacing: .05em;
+    padding: 3px 11px; border-radius: 999px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .35);
   }
   .hotel .name {
-    color: var(--card-ink); text-align: center;
-    font-weight: 700; font-size: 15px; padding: 10px 6px;
+    color: var(--ink); text-align: center;
+    font-family: "Noto Serif KR", serif; font-weight: 600; font-size: 15px;
+    padding: 12px 8px; letter-spacing: .01em;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
-  .hotel.featured { box-shadow: 0 0 0 2px var(--gold), 0 0 40px rgba(232, 201, 138, .45), 0 10px 30px rgba(0, 0, 0, .45); }
+  .hotel.featured { transform: translateY(-2px); }
+  .hotel.featured::after { border-color: var(--gold); }
+  .hotel.featured { box-shadow: 0 0 0 1px var(--gold), 0 0 46px rgba(232, 201, 138, .4), 0 14px 34px rgba(0, 0, 0, .5); }
   .ticket {
     display: flex; align-items: center; justify-content: center;
   }
   .ticket div {
-    width: 62%; height: 100%; min-height: 150px;
+    width: 64%; height: 100%; min-height: 150px;
     display: flex; align-items: center; justify-content: center; text-align: center;
-    font-family: "Noto Serif KR", Georgia, serif; font-weight: 600;
-    color: #4a3612; font-size: 15px; line-height: 1.5; letter-spacing: .04em;
-    background: linear-gradient(135deg, #fff2cc 0%, #e8c98a 40%, #b88d43 100%);
+    font-family: "Cormorant Garamond", "Noto Serif KR", Georgia, serif; font-weight: 600;
+    color: #4a3612; font-size: 20px; line-height: 1.35; letter-spacing: .12em; text-indent: .12em;
+    background: linear-gradient(135deg, #fff6dc 0%, #ecd299 42%, #c09a52 100%);
     border-radius: 6px;
     -webkit-mask: radial-gradient(circle 10px at 50% 0, transparent 98%, #000) top / 100% 51% no-repeat,
                   radial-gradient(circle 10px at 50% 100%, transparent 98%, #000) bottom / 100% 51% no-repeat;
@@ -131,40 +163,89 @@
   /* Perks */
   .perks { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 0 0 18px; padding: 0; list-style: none; }
   .perks li {
-    display: flex; align-items: center; gap: 8px;
-    padding: 9px 18px; border: 1px solid var(--gold-soft); border-radius: 999px;
-    background: rgba(7, 13, 31, .55); font-weight: 500; font-size: 15px;
+    display: flex; align-items: center; gap: 9px;
+    padding: 10px 20px; border: 1px solid var(--gold-soft); border-radius: 999px;
+    background: rgba(7, 13, 31, .5); backdrop-filter: blur(3px);
+    font-weight: 500; font-size: 15px; letter-spacing: .01em;
   }
   .perks svg { width: 20px; height: 20px; flex: none; color: var(--gold); }
-  .note { text-align: center; color: var(--gold); font-size: 14px; margin: 0 0 14px; }
+  .note { text-align: center; color: var(--gold); font-size: 13px; letter-spacing: .25em; text-indent: .25em; margin: 0 0 16px; text-transform: none; }
+
+  /* Roulette */
+  .roulette { text-align: center; margin: 44px 0 40px; }
+  .roulette h2 { margin: 0 0 6px; font-family: "Noto Serif KR", serif; font-weight: 900; font-size: 24px; }
+  .wheel-wrap { position: relative; width: min(340px, 82vw); aspect-ratio: 1; margin: 22px auto 10px; }
+  .wheel {
+    width: 100%; height: 100%; border-radius: 50%;
+    /* background(conic-gradient)는 JS에서 칸 수에 맞춰 생성 */
+    box-shadow: 0 0 0 8px rgba(232,201,138,.9), 0 0 0 11px rgba(120,90,30,.9),
+                0 0 50px rgba(232,201,138,.4), inset 0 0 60px rgba(0,0,0,.55);
+    transition: transform 5.4s cubic-bezier(.16,.72,.18,1);
+    position: relative;
+  }
+  /* 세그먼트 라벨 */
+  .wheel .seg { position: absolute; inset: 0; display: flex; justify-content: center; pointer-events: none; }
+  .wheel .seg span {
+    margin-top: 10px; color: #f6efe1; font-size: 10.5px; font-weight: 700; letter-spacing: 0;
+    transform-origin: center; white-space: nowrap; text-shadow: 0 1px 2px rgba(0,0,0,.7);
+  }
+  .wheel .seg.dark span { color: #2a1c05; text-shadow: none; }
+  .wheel-pointer {
+    position: absolute; top: -6px; left: 50%; transform: translateX(-50%); z-index: 3;
+    width: 0; height: 0; border-left: 13px solid transparent; border-right: 13px solid transparent;
+    border-top: 22px solid var(--gold); filter: drop-shadow(0 2px 4px rgba(0,0,0,.5));
+  }
+  .wheel-hub {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 2;
+    width: 78px; height: 78px; border-radius: 50%; cursor: pointer;
+    font: inherit; font-family: "Cormorant Garamond", serif; font-weight: 700; font-size: 20px; letter-spacing: .08em;
+    color: #2a1c05; background: radial-gradient(circle at 50% 35%, #fff6dc, #e8c98a 55%, #c2924a);
+    border: 3px solid #fff2cc; box-shadow: 0 6px 18px rgba(0,0,0,.5), 0 0 24px rgba(232,201,138,.5);
+    transition: transform .15s ease, filter .2s ease;
+  }
+  .wheel-hub:hover { filter: brightness(1.06); }
+  .wheel-hub:active { transform: translate(-50%,-50%) scale(.95); }
+  .wheel-hub:disabled { cursor: default; filter: saturate(.6) brightness(.9); }
+  .wheel-result { margin: 16px 0 4px; font-size: 18px; font-weight: 700; color: var(--ink); min-height: 1.4em; }
+  .wheel-result.win { color: var(--gold); font-family: "Noto Serif KR", serif; font-size: 22px; }
+  .wheel-odds { margin: 0; font-size: 12px; color: var(--ink-dim); letter-spacing: .02em; }
 
   /* Form */
   .apply {
-    background: rgba(13, 23, 51, .85);
-    border: 1.5px solid var(--gold-2);
+    position: relative;
+    background: linear-gradient(180deg, rgba(16,26,56,.82), rgba(9,16,38,.9));
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--gold-2);
     outline: 1px solid var(--gold-soft); outline-offset: 4px;
     border-radius: 8px;
-    padding: 28px 24px;
+    padding: 34px 26px 30px;
     scroll-margin-top: 16px;
   }
-  .apply h2 { margin: 0 0 20px; text-align: center; font-size: 22px; font-weight: 900; }
+  .apply h2 {
+    margin: 0 0 6px; text-align: center; font-size: 24px; font-weight: 900;
+    font-family: "Noto Serif KR", serif; letter-spacing: .02em;
+  }
+  .apply h2 + .apply-sub { text-align: center; color: var(--ink-dim); font-size: 13px; letter-spacing: .2em; text-indent: .2em; margin: 0 0 24px; }
   .field { margin-bottom: 16px; }
   .field label { display: block; font-weight: 700; font-size: 14px; margin-bottom: 6px; color: var(--gold); }
-  .field input, .field select {
+  .field input, .field select, .field textarea {
     width: 100%; padding: 13px 14px; font: inherit; font-size: 16px;
     color: var(--ink); background: rgba(255, 255, 255, .06);
     border: 1px solid rgba(232, 201, 138, .4); border-radius: 6px;
     color-scheme: dark;
   }
+  .field textarea { resize: vertical; min-height: 92px; line-height: 1.5; }
+  .field .hint { font-weight: 400; font-size: 12px; color: var(--ink-dim); margin-left: 6px; }
   .field select { appearance: none;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23e8c98a' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
     background-repeat: no-repeat; background-position: right 14px center; padding-right: 40px; }
   .field select option { color: #1b1b1b; }
-  .field input:focus, .field select:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(232, 201, 138, .2); }
-  .field input[aria-invalid="true"], .field select[aria-invalid="true"] { border-color: var(--error); }
+  .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(232, 201, 138, .2); }
+  .field input[aria-invalid="true"], .field select[aria-invalid="true"], .field textarea[aria-invalid="true"] { border-color: var(--error); }
   .field .err { display: none; color: var(--error); font-size: 13px; margin-top: 5px; }
   .field input[aria-invalid="true"] + .err,
-  .field select[aria-invalid="true"] + .err { display: block; }
+  .field select[aria-invalid="true"] + .err,
+  .field textarea[aria-invalid="true"] + .err { display: block; }
 
   .consent {
     font-size: 13px; color: var(--ink-dim); line-height: 1.6;
@@ -179,12 +260,15 @@
 
   .cta {
     display: flex; align-items: center; justify-content: center; gap: 10px;
-    width: 100%; padding: 16px; font: inherit; font-size: 20px; font-weight: 900;
-    color: var(--ink); background: linear-gradient(180deg, #1f3170, var(--navy-2));
-    border: 1.5px solid var(--gold); border-radius: 6px; cursor: pointer;
-    box-shadow: 0 0 24px rgba(232, 201, 138, .25);
+    width: 100%; padding: 17px; margin-top: 4px; font: inherit; font-size: 19px; font-weight: 900;
+    color: #2a1c05; letter-spacing: .02em;
+    background: linear-gradient(180deg, #fdebc0 0%, #e8c98a 45%, #c89a4e 100%);
+    border: 1px solid #d9b877; border-radius: 6px; cursor: pointer;
+    box-shadow: 0 8px 26px rgba(232, 201, 138, .32), inset 0 1px 0 rgba(255,255,255,.5);
+    transition: transform .15s ease, box-shadow .2s ease, filter .2s ease;
   }
-  .cta:hover { background: linear-gradient(180deg, #273c86, #1b2a5a); }
+  .cta:hover { filter: brightness(1.05); box-shadow: 0 10px 32px rgba(232, 201, 138, .5), inset 0 1px 0 rgba(255,255,255,.6); transform: translateY(-1px); }
+  .cta:active { transform: translateY(0); }
   .cta:disabled { opacity: .6; cursor: progress; }
   .status { text-align: center; margin: 14px 0 0; font-size: 15px; }
   .status:empty { display: none; }
@@ -192,6 +276,80 @@
   .status.fail { color: var(--error); }
   .done { text-align: center; padding: 20px 0; }
   .done strong { display: block; font-size: 22px; margin-bottom: 8px; color: var(--gold); }
+  .entryno {
+    display: inline-block; font-family: "Cormorant Garamond", monospace; font-weight: 700;
+    font-size: 30px; letter-spacing: .08em; color: #2a1c05;
+    background: linear-gradient(180deg, #fdebc0, #e8c98a); border: 1px solid #d9b877;
+    border-radius: 8px; padding: 10px 22px; box-shadow: 0 6px 20px rgba(232,201,138,.3);
+  }
+
+  /* 당첨 조회 */
+  .lookup {
+    text-align: center; margin-top: 22px; padding: 30px 24px;
+    background: linear-gradient(180deg, rgba(16,26,56,.66), rgba(9,16,38,.72));
+    backdrop-filter: blur(6px); border: 1px solid var(--gold-soft);
+    outline: 1px solid rgba(232,201,138,.18); outline-offset: 4px; border-radius: 8px;
+  }
+  .lookup h2 { margin: 0 0 6px; font-family: "Noto Serif KR", serif; font-weight: 900; font-size: 22px; }
+  .lookup-desc { color: var(--ink-dim); font-size: 14px; margin: 0 0 18px; }
+  .lookup-row { display: flex; gap: 10px; max-width: 460px; margin: 0 auto; }
+  .lookup-row input {
+    flex: 1; min-width: 0; padding: 13px 14px; font: inherit; font-size: 16px; text-align: center;
+    letter-spacing: .06em; text-transform: uppercase;
+    color: var(--ink); background: rgba(255,255,255,.06);
+    border: 1px solid rgba(232,201,138,.4); border-radius: 6px; color-scheme: dark;
+  }
+  .lookup-row input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(232,201,138,.2); }
+  .lookup-btn { width: auto; flex: none; margin: 0; padding: 13px 20px; font-size: 15px; }
+  .lookup-result { margin: 16px 0 0; font-size: 15px; min-height: 1.4em; }
+  .lookup-result.searching { color: var(--gold); }
+  .lookup-result.err { color: var(--error); }
+
+  /* AI 상담 위젯 */
+  .music-fab {
+    position: fixed; left: 18px; bottom: 18px; z-index: 50;
+    display: flex; align-items: center; gap: 8px; padding: 11px 16px 11px 13px;
+    font: inherit; font-weight: 700; font-size: 14px; color: #2a1c05; cursor: pointer;
+    background: linear-gradient(180deg, #fdebc0, #e8c98a 55%, #c89a4e);
+    border: 1px solid #d9b877; border-radius: 999px;
+    box-shadow: 0 8px 24px rgba(0,0,0,.45), 0 0 18px rgba(232,201,138,.35);
+  }
+  .music-fab svg { width: 18px; height: 18px; }
+  .music-fab.playing { box-shadow: 0 8px 24px rgba(0,0,0,.45), 0 0 26px rgba(232,201,138,.65); }
+  .music-fab.playing svg { animation: musicpulse 1.6s ease-in-out infinite; }
+  @keyframes musicpulse { 0%,100%{opacity:1} 50%{opacity:.5} }
+  .chat-fab {
+    position: fixed; right: 18px; bottom: 18px; z-index: 50;
+    display: flex; align-items: center; gap: 9px; padding: 13px 18px 13px 15px;
+    font: inherit; font-weight: 700; font-size: 15px; color: #2a1c05; cursor: pointer;
+    background: linear-gradient(180deg, #fdebc0, #e8c98a 55%, #c89a4e);
+    border: 1px solid #d9b877; border-radius: 999px;
+    box-shadow: 0 8px 24px rgba(0,0,0,.45), 0 0 22px rgba(232,201,138,.4);
+  }
+  .chat-fab svg { width: 20px; height: 20px; }
+  .chat-fab .dot { position: absolute; top: 10px; left: 14px; width: 9px; height: 9px; border-radius: 50%; background: #35d07f; box-shadow: 0 0 0 2px #e8c98a; }
+  .chat-panel {
+    position: fixed; right: 18px; bottom: 80px; z-index: 51;
+    width: min(360px, calc(100vw - 36px)); height: min(520px, calc(100vh - 120px));
+    display: none; flex-direction: column; overflow: hidden;
+    background: linear-gradient(180deg, #101a38, #0a1226); border: 1px solid var(--gold-2);
+    border-radius: 14px; box-shadow: 0 20px 60px rgba(0,0,0,.6);
+  }
+  .chat-panel.open { display: flex; }
+  .chat-head { display: flex; align-items: center; gap: 10px; padding: 14px 16px; border-bottom: 1px solid rgba(232,201,138,.25); background: rgba(232,201,138,.06); }
+  .chat-head .av { width: 36px; height: 36px; border-radius: 50%; background: radial-gradient(circle at 50% 35%, #fff6dc, #e8c98a 60%, #c2924a); display: flex; align-items: center; justify-content: center; color: #2a1c05; font-weight: 900; font-family: "Cormorant Garamond", serif; }
+  .chat-head b { font-size: 15px; } .chat-head .st { font-size: 12px; color: #9fe6bf; }
+  .chat-head .x { margin-left: auto; background: none; border: none; color: var(--ink-dim); font-size: 22px; cursor: pointer; line-height: 1; }
+  .chat-body { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+  .msg { max-width: 82%; padding: 10px 13px; font-size: 14px; line-height: 1.5; border-radius: 14px; white-space: pre-line; }
+  .msg.bot { align-self: flex-start; background: rgba(255,255,255,.08); border: 1px solid rgba(232,201,138,.18); border-bottom-left-radius: 4px; }
+  .msg.me { align-self: flex-end; background: linear-gradient(180deg, #e8c98a, #c89a4e); color: #2a1c05; font-weight: 500; border-bottom-right-radius: 4px; }
+  .chat-quick { display: flex; flex-wrap: wrap; gap: 7px; padding: 0 16px 10px; }
+  .chat-quick button { font: inherit; font-size: 12.5px; color: var(--gold); background: rgba(7,13,31,.5); border: 1px solid var(--gold-soft); border-radius: 999px; padding: 7px 12px; cursor: pointer; }
+  .chat-input { display: flex; gap: 8px; padding: 12px 14px; border-top: 1px solid rgba(232,201,138,.2); }
+  .chat-input input { flex: 1; min-width: 0; padding: 11px 13px; font: inherit; font-size: 15px; color: var(--ink); background: rgba(255,255,255,.06); border: 1px solid rgba(232,201,138,.4); border-radius: 999px; color-scheme: dark; }
+  .chat-input input:focus { outline: none; border-color: var(--gold); }
+  .chat-input button { flex: none; width: 44px; border-radius: 50%; border: none; cursor: pointer; background: linear-gradient(180deg, #e8c98a, #c89a4e); color: #2a1c05; font-size: 18px; }
 
   .rules { margin-top: 28px; font-size: 13px; color: var(--ink-dim); line-height: 1.7; }
   .rules h3 { font-size: 15px; color: var(--gold); margin: 0 0 8px; }
@@ -209,15 +367,23 @@
     .ticket div { width: 70%; min-height: 72px; padding: 12px; }
     .hotel .name { font-size: 13px; }
     .apply { padding: 22px 16px; }
+    .lookup-row { flex-direction: column; }
+    .lookup-btn { width: 100%; }
+    .chat-fab { right: 14px; bottom: 14px; }
+    .music-fab { left: 14px; bottom: 14px; }
   }
 </style>
 </head>
 <body>
+<video class="bg-video" autoplay muted loop playsinline preload="auto" poster="images/hero-bg.jpg">
+  <source src="images/hero-loop.mp4" type="video/mp4">
+</video>
 <main class="wrap">
   <section class="hero">
     <span class="eyebrow">야경 연계 숙박 체험</span>
     <h1>호텔 무료 숙박권<br><span class="gold">추첨 이벤트</span></h1>
     <p class="sub">제주·부산·서울 야경, 호텔에서 하루 더 이어가세요</p>
+    <div class="divider" aria-hidden="true"><span></span><i></i><span></span></div>
   </section>
 
   <section class="hotels" aria-label="참여 호텔">
@@ -256,8 +422,21 @@
   </ul>
   <p class="note">선정 시 호텔 체험 혜택 안내</p>
 
+  <section class="roulette" aria-labelledby="rouletteTitle">
+    <h2 id="rouletteTitle">행운의 체험권 룰렛</h2>
+    <p class="apply-sub">SPIN &amp; WIN</p>
+    <div class="wheel-wrap">
+      <div class="wheel-pointer" aria-hidden="true"></div>
+      <div class="wheel" id="wheel"></div>
+      <button type="button" class="wheel-hub" id="spinBtn" aria-label="룰렛 돌리기">SPIN</button>
+    </div>
+    <p class="wheel-result" id="wheelResult" role="status" aria-live="polite">버튼을 눌러 체험권을 뽑아보세요</p>
+    <p class="wheel-odds">1박 60% · 2박 20% · 조식 10% · 3박 5% · 디너 5%</p>
+  </section>
+
   <section class="apply" id="apply">
     <h2>숙박권 추첨 신청</h2>
+    <p class="apply-sub">LUXURY HOTEL STAY</p>
     <form id="applyForm" novalidate>
       <div class="field">
         <label for="name">이름</label>
@@ -286,11 +465,17 @@
         </select>
         <div class="err">희망 호텔을 선택해 주세요.</div>
       </div>
+      <div class="field">
+        <label for="review">리뷰 <span class="hint">참여 조건 · 10자 이상</span></label>
+        <textarea id="review" name="review" maxlength="1000" placeholder="호텔·야경 체험에 대한 기대평이나 후기를 남겨 주세요. (예: 부산 야경 보러 꼭 가보고 싶어요!)" required></textarea>
+        <div class="err">리뷰를 10자 이상 입력해 주세요.</div>
+      </div>
+      <input type="hidden" id="prize" name="prize" value="">
 
       <details class="consent">
         <summary>[필수] 개인정보 수집·이용 동의 내용 보기</summary>
         <table>
-          <tr><th>수집 항목</th><td>이름, 휴대폰 번호, 생년월일, 희망 호텔</td></tr>
+          <tr><th>수집 항목</th><td>이름, 휴대폰 번호, 생년월일, 희망 호텔, 리뷰</td></tr>
           <tr><th>이용 목적</th><td>숙박권 추첨, 당첨자 본인 확인 및 연락</td></tr>
           <tr><th>보유 기간</th><td>이벤트 종료 후 3개월 이내 파기</td></tr>
         </table>
@@ -301,6 +486,17 @@
       <button type="submit" class="cta" id="submitBtn">숙박권 추첨 신청하기 <span aria-hidden="true">▶</span></button>
       <p class="status" id="status" role="status" aria-live="polite"></p>
     </form>
+  </section>
+
+  <section class="lookup" aria-labelledby="lookupTitle">
+    <h2 id="lookupTitle">당첨 번호 조회</h2>
+    <p class="apply-sub">CHECK YOUR NUMBER</p>
+    <p class="lookup-desc">신청 완료 시 받은 추첨 번호를 입력하면 진행 상태를 확인할 수 있어요.</p>
+    <div class="lookup-row">
+      <input type="text" id="lookupNo" inputmode="text" autocapitalize="characters" placeholder="예: HV261030-7F3A" maxlength="14" aria-label="추첨 번호">
+      <button type="button" class="cta lookup-btn" id="lookupBtn">당첨 번호 확인하기</button>
+    </div>
+    <p class="lookup-result" id="lookupResult" role="status" aria-live="polite"></p>
   </section>
 
   <section class="rules" aria-labelledby="rulesTitle">
@@ -323,6 +519,33 @@
   </footer>
 </main>
 
+<!-- 배경 음악 -->
+<audio id="bgm" loop preload="auto" src="images/lobby-music.mp3"></audio>
+<button class="music-fab" id="musicFab" aria-label="배경 음악 켜기" aria-pressed="false">
+  <svg viewBox="0 0 24 24" fill="none" stroke="#2a1c05" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l10-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/></svg>
+  <span id="musicLabel">음악</span>
+</button>
+
+<!-- 실시간 상담 -->
+<button class="chat-fab" id="chatFab" aria-label="상담 열기">
+  <span class="dot"></span>
+  <svg viewBox="0 0 24 24" fill="none" stroke="#2a1c05" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-12.2 7.7L3 21l1.8-5.8A8.5 8.5 0 1 1 21 11.5z"/></svg>
+  AI 상담
+</button>
+<div class="chat-panel" id="chatPanel" role="dialog" aria-label="AI 상담">
+  <div class="chat-head">
+    <span class="av">H</span>
+    <div><b>호텔 이벤트 상담</b><br><span class="st">● 실시간 상담 중</span></div>
+    <button class="x" id="chatClose" aria-label="닫기">×</button>
+  </div>
+  <div class="chat-body" id="chatBody"></div>
+  <div class="chat-quick" id="chatQuick"></div>
+  <form class="chat-input" id="chatForm">
+    <input id="chatText" type="text" placeholder="궁금한 점을 입력해 주세요" autocomplete="off">
+    <button type="submit" aria-label="보내기">➤</button>
+  </form>
+</div>
+
 <script>
   // Meta 픽셀 ID (이벤트 관리자 → 데이터 소스에서 확인). 비워두면 픽셀을 불러오지 않습니다.
   const META_PIXEL_ID = "";
@@ -344,11 +567,23 @@
   const phoneEl = document.getElementById("phone");
   const birthEl = document.getElementById("birth");
   const hotelEl = document.getElementById("hotel");
+  const reviewEl = document.getElementById("review");
   const agreeEl = document.getElementById("agree");
   const statusEl = document.getElementById("status");
   const submitBtn = document.getElementById("submitBtn");
 
   const digits = (s) => s.replace(/\D/g, "");
+
+  // 추첨 번호 생성: HV + YYMMDD + - + 랜덤 4자리 (예: HV261030-7F3A)
+  function genEntryNo() {
+    const d = new Date();
+    const p = (n) => String(n).padStart(2, "0");
+    const ymd = String(d.getFullYear()).slice(2) + p(d.getMonth() + 1) + p(d.getDate());
+    let r = "";
+    const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+    for (let i = 0; i < 4; i++) r += chars[Math.floor(Math.random() * chars.length)];
+    return `HV${ymd}-${r}`;
+  }
 
   phoneEl.addEventListener("input", () => {
     const d = digits(phoneEl.value).slice(0, 11);
@@ -373,11 +608,75 @@
       && y >= 1900 && dt <= new Date();
   }
 
+  // ===== 룰렛 =====
+  // 20개 균등 칸(각 5%) → 1박 12칸(60%) · 2박 4칸(20%) · 조식 2칸(10%) · 3박 1칸(5%) · 디너 1칸(5%)
+  const wheel = document.getElementById("wheel");
+  const spinBtn = document.getElementById("spinBtn");
+  const wheelResult = document.getElementById("wheelResult");
+  const prizeEl = document.getElementById("prize");
+
+  // 경품 정의: 키 → {라벨(결과), 짧은라벨(칸), 색, 어두운글자}
+  const PRIZE = {
+    night1: { full: "1박 체험권",  short: "1박",  color: "#1b2a4d", dark: false },
+    night1b:{ full: "1박 체험권",  short: "1박",  color: "#223663", dark: false },
+    night2: { full: "2박 체험권",  short: "2박",  color: "#2f4c86", dark: false },
+    night3: { full: "3박 체험권",  short: "3박",  color: "#d6a93c", dark: true  },
+    morning:{ full: "조식 이용권",  short: "조식", color: "#8a6a24", dark: false },
+    dinner: { full: "디너 식사권",  short: "디너", color: "#9c4f2a", dark: false },
+  };
+  // 칸 배치(특수 경품을 고르게 분산, 인접 1박은 색을 번갈아)
+  const LAYOUT = [
+    "night1","night1b","night2","night1","night1b","morning","night1","night2",
+    "night1b","night3","night1","night1b","night2","night1","night1b","morning",
+    "night1","night2","night1b","dinner",
+  ];
+  const N = LAYOUT.length, SEGDEG = 360 / N;
+
+  // conic-gradient 배경 + 라벨 생성
+  const stops = LAYOUT.map((k, i) => `${PRIZE[k].color} ${i * SEGDEG}deg ${(i + 1) * SEGDEG}deg`);
+  wheel.style.background = `conic-gradient(${stops.join(",")})`;
+  LAYOUT.forEach((k, i) => {
+    const seg = document.createElement("div");
+    seg.className = "seg" + (PRIZE[k].dark ? " dark" : "");
+    seg.style.transform = `rotate(${i * SEGDEG + SEGDEG / 2}deg)`;
+    const span = document.createElement("span");
+    span.textContent = PRIZE[k].short;
+    seg.appendChild(span);
+    wheel.appendChild(seg);
+  });
+
+  let spinning = false, rotation = 0;
+  spinBtn.addEventListener("click", () => {
+    if (spinning) return;
+    spinning = true;
+    spinBtn.disabled = true;
+    wheelResult.className = "wheel-result";
+    wheelResult.textContent = "추첨 중…";
+
+    const idx = Math.floor(Math.random() * N);   // 균등 추첨 → 정확한 확률
+    const center = idx * SEGDEG + SEGDEG / 2;
+    // 현재 회전을 넘어 6바퀴 돌고 해당 칸이 위쪽 포인터에 멈추도록
+    const target = Math.ceil(rotation / 360) * 360 + 360 * 6 + (360 - center);
+    rotation = target;
+    wheel.style.transform = `rotate(${rotation}deg)`;
+
+    setTimeout(() => {
+      const prize = PRIZE[LAYOUT[idx]].full;
+      prizeEl.value = prize;
+      wheelResult.className = "wheel-result win";
+      wheelResult.textContent = `🎉 ${prize}! 아래에서 신청을 완료하세요`;
+      spinBtn.textContent = "완료";
+      spinning = false;
+      if (window.fbq) fbq("trackCustom", "SpinWheel", { prize });
+    }, 5600);
+  });
+
   const rules = [
     [nameEl, () => nameEl.value.trim().length >= 2],
     [phoneEl, () => /^01[016789]\d{7,8}$/.test(digits(phoneEl.value))],
     [birthEl, () => validBirth(birthEl.value)],
     [hotelEl, () => hotelEl.value !== ""],
+    [reviewEl, () => reviewEl.value.trim().length >= 10],
   ];
 
   rules.forEach(([el, ok]) => el.addEventListener("blur", () => {
@@ -397,6 +696,12 @@
       if (bad && !firstBad) firstBad = el;
     }
     if (firstBad) { firstBad.focus(); return; }
+    if (!prizeEl.value) {
+      statusEl.className = "status fail";
+      statusEl.textContent = "먼저 룰렛을 돌려 체험권을 뽑아 주세요.";
+      document.getElementById("rouletteTitle").scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
     if (!agreeEl.checked) {
       statusEl.className = "status fail";
       statusEl.textContent = "개인정보 수집·이용에 동의해 주세요.";
@@ -411,11 +716,15 @@
 
     submitBtn.disabled = true;
     statusEl.textContent = "신청을 접수하고 있습니다…";
+    const entryNo = genEntryNo();
     const body = new URLSearchParams({
       name: nameEl.value.trim(),
       phone: phoneEl.value,
       birth: birthEl.value,
       hotel: hotelEl.value,
+      review: reviewEl.value.trim(),
+      prize: prizeEl.value,
+      entryNo: entryNo,
       agreed: "Y",
     });
 
@@ -425,8 +734,14 @@
       if (!data.ok) throw new Error(data.message || "fail");
       // 광고 최적화용 전환 이벤트 (개인정보는 보내지 않음)
       if (window.fbq) fbq("track", "Lead");
-      form.innerHTML = `<div class="done"><strong>신청이 완료되었습니다!</strong>
-        당첨 시 입력하신 번호로 안내드릴게요.</div>`;
+      form.innerHTML = `<div class="done">
+        <strong>신청이 완료되었습니다!</strong>
+        <p style="margin:4px 0 14px">아래 <b>추첨 번호</b>를 꼭 저장해 두세요. 당첨 조회 시 사용됩니다.</p>
+        <div class="entryno">${entryNo}</div>
+        <p style="margin:14px 0 0;color:var(--ink-dim);font-size:13px">추첨 결과는 순차적으로 상담원이 개별 연락드립니다.</p>
+      </div>`;
+      const lookupInput = document.getElementById("lookupNo");
+      if (lookupInput) lookupInput.value = entryNo;
     } catch (err) {
       statusEl.className = "status fail";
       statusEl.textContent = err.message === "duplicate"
@@ -435,6 +750,129 @@
       submitBtn.disabled = false;
     }
   });
+
+  // ===== 당첨 번호 조회 =====
+  const lookupBtn = document.getElementById("lookupBtn");
+  const lookupNo = document.getElementById("lookupNo");
+  const lookupResult = document.getElementById("lookupResult");
+  lookupNo.addEventListener("input", () => { lookupNo.value = lookupNo.value.toUpperCase(); });
+  lookupBtn.addEventListener("click", () => {
+    const v = lookupNo.value.trim().toUpperCase();
+    if (!/^HV\d{6}-[A-Z0-9]{4}$/.test(v)) {
+      lookupResult.className = "lookup-result err";
+      lookupResult.textContent = "추첨 번호 형식이 올바르지 않습니다. (예: HV261030-7F3A)";
+      return;
+    }
+    lookupBtn.disabled = true;
+    lookupResult.className = "lookup-result searching";
+    lookupResult.textContent = "조회 중…";
+    setTimeout(() => {
+      lookupResult.className = "lookup-result searching";
+      lookupResult.textContent = "🔎 추첨 중입니다. 순차적으로 상담원이 연락드립니다.";
+      lookupBtn.disabled = false;
+    }, 1200);
+  });
+
+  // ===== AI 상담 (자동 응답) =====
+  const chatFab = document.getElementById("chatFab");
+  const chatPanel = document.getElementById("chatPanel");
+  const chatBody = document.getElementById("chatBody");
+  const chatForm = document.getElementById("chatForm");
+  const chatText = document.getElementById("chatText");
+  const chatQuick = document.getElementById("chatQuick");
+
+  const FAQ = [
+    { q: "참여 방법", a: "① 룰렛을 돌려 체험권을 뽑고\n② 이름·휴대폰·생년월일·희망 호텔·리뷰를 입력하면 응모 완료입니다.\n응모하면 추첨 번호를 드려요." },
+    { q: "경품 종류", a: "1박·2박·3박 체험권, 조식 이용권, 디너 식사권이 있어요. 룰렛으로 뽑은 체험권으로 응모됩니다." },
+    { q: "당첨 확인", a: "응모 완료 시 받은 추첨 번호(예: HV261030-7F3A)를 '당첨 번호 조회'에 입력해 주세요. 추첨 결과는 순차적으로 상담원이 개별 연락드립니다." },
+    { q: "응모 기간", a: "응모 기간과 당첨 발표일은 페이지 하단 '이벤트 유의사항'을 확인해 주세요." },
+    { q: "비용", a: "참여와 숙박권은 무료입니다. 다만 경품가액이 5만 원을 초과하면 제세공과금(22%)은 당첨자 부담이에요." },
+  ];
+
+  function pushMsg(text, who) {
+    const d = document.createElement("div");
+    d.className = "msg " + who;
+    d.textContent = text;
+    chatBody.appendChild(d);
+    chatBody.scrollTop = chatBody.scrollHeight;
+  }
+  function botReply(text) { setTimeout(() => pushMsg(text, "bot"), 450); }
+
+  function answer(input) {
+    const t = input.toLowerCase();
+    if (/번호|조회|확인|당첨|결과/.test(t)) return FAQ[2].a;
+    if (/방법|어떻게|참여|응모|신청/.test(t)) return FAQ[0].a;
+    if (/경품|상품|체험권|디너|조식|박/.test(t)) return FAQ[1].a;
+    if (/기간|언제|마감|발표/.test(t)) return FAQ[3].a;
+    if (/비용|돈|무료|가격|세금|제세/.test(t)) return FAQ[4].a;
+    if (/안녕|하이|hello|문의/.test(t)) return "안녕하세요! 호텔 숙박권 이벤트 상담입니다 😊 궁금한 점을 아래 버튼에서 골라주시거나 직접 입력해 주세요.";
+    return "문의 주셔서 감사합니다. 자세한 사항은 상담원이 순차적으로 안내드려요. 아래 버튼에서 자주 묻는 질문을 확인해 보세요.";
+  }
+
+  let chatStarted = false;
+  function openChat() {
+    chatPanel.classList.add("open");
+    if (!chatStarted) {
+      chatStarted = true;
+      pushMsg("안녕하세요! 호텔 숙박권 추첨 이벤트 상담입니다 😊\n무엇을 도와드릴까요?", "bot");
+      FAQ.forEach((f) => {
+        const b = document.createElement("button");
+        b.type = "button"; b.textContent = f.q;
+        b.addEventListener("click", () => { pushMsg(f.q, "me"); botReply(f.a); });
+        chatQuick.appendChild(b);
+      });
+    }
+    setTimeout(() => chatText.focus(), 100);
+  }
+  chatFab.addEventListener("click", () => chatPanel.classList.contains("open") ? chatPanel.classList.remove("open") : openChat());
+  document.getElementById("chatClose").addEventListener("click", () => chatPanel.classList.remove("open"));
+  chatForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const v = chatText.value.trim();
+    if (!v) return;
+    pushMsg(v, "me");
+    chatText.value = "";
+    botReply(answer(v));
+  });
+
+  // ===== 배경 음악 =====
+  const bgm = document.getElementById("bgm");
+  const musicFab = document.getElementById("musicFab");
+  const musicLabel = document.getElementById("musicLabel");
+  bgm.volume = 0.45;
+  let musicOff = false;
+  try { musicOff = localStorage.getItem("bgmOff") === "1"; } catch (e) {}
+
+  function setMusic(on) {
+    if (on) {
+      bgm.play().then(() => {
+        musicFab.classList.add("playing");
+        musicFab.setAttribute("aria-pressed", "true");
+        musicFab.setAttribute("aria-label", "배경 음악 끄기");
+        musicLabel.textContent = "음악 ON";
+      }).catch(() => {});
+    } else {
+      bgm.pause();
+      musicFab.classList.remove("playing");
+      musicFab.setAttribute("aria-pressed", "false");
+      musicFab.setAttribute("aria-label", "배경 음악 켜기");
+      musicLabel.textContent = "음악";
+    }
+  }
+  musicFab.addEventListener("click", () => {
+    const willPlay = bgm.paused;
+    musicOff = !willPlay;
+    try { localStorage.setItem("bgmOff", musicOff ? "1" : "0"); } catch (e) {}
+    setMusic(willPlay);
+  });
+  // 첫 상호작용 때 부드럽게 자동 시작(사용자가 끈 적 없을 때만)
+  function autoStart() {
+    if (!musicOff && bgm.paused) setMusic(true);
+    window.removeEventListener("pointerdown", autoStart);
+    window.removeEventListener("keydown", autoStart);
+  }
+  window.addEventListener("pointerdown", autoStart, { once: true });
+  window.addEventListener("keydown", autoStart, { once: true });
 </script>
 </body>
 </html>

@@ -8,7 +8,7 @@
 <meta name="description" content="경북 봉화 토속음식점 자갈마당. 메기매운탕, 잡고기 어탕국수, 능이백숙, 은어조림. 쌀·고춧가루·배추·김치 모두 국내산. 100% 예약제. 054-672-5505">
 <meta property="og:title" content="봉화 토속음식점 자갈마당">
 <meta property="og:description" content="메기매운탕 · 잡고기 어탕국수 · 능이백숙 · 은어조림 | 봉화읍 내성로4길 12-25 | 054-672-5505">
-<meta property="og:image" content="images/front.jpg">
+<meta property="og:image" content="https://jagalmadang.pages.dev/images/exterior.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&display=swap">
@@ -89,8 +89,8 @@ h1, h2, h3 { text-wrap: balance; margin: 0; }
 .btn-primary:hover { filter: brightness(1.15); }
 .btn-ghost:hover { background: var(--pebble); }
 .hero-photo { position: relative; }
-.hero-photo img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 46% 54% 42% 58% / 52% 44% 56% 48%; }
-.hero-photo .tag { position: absolute; left: 6%; bottom: 4%; background: var(--surface); color: var(--ink); border-radius: 14px; padding: 8px 14px; font-size: 14px; box-shadow: 0 6px 20px rgb(0 0 0 / .15); }
+.hero-photo img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 22px; }
+.hero-photo .tag { position: absolute; left: 14px; bottom: 14px; background: var(--surface); color: var(--ink); border-radius: 14px; padding: 8px 14px; font-size: 14px; box-shadow: 0 6px 20px rgb(0 0 0 / .15); }
 .hero-photo .tag b { color: var(--sign); font-size: 18px; }
 
 /* 공통 섹션 */
@@ -127,6 +127,10 @@ section { padding-block: 56px; }
 .menu-list .won small { display: block; font-size: 13px; font-weight: 400; color: var(--muted); }
 .origin { grid-column: 1 / -1; margin: 0; padding: 16px 18px; border-radius: 14px; background: var(--pebble); font-size: 15px; }
 .origin b { color: var(--sign); }
+.resv-strip { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 16px; background: var(--navy); color: var(--navy-ink); border-radius: 16px; padding: 14px 20px; margin-bottom: 16px; }
+.resv-strip p { margin: 0; font-size: 16px; }
+.resv-strip b { color: var(--sign); }
+.resv-strip a { font-family: var(--font-display); font-size: 22px; color: #fff; text-decoration: none; letter-spacing: .03em; }
 .custom-order { margin-top: 16px; border: 2px dashed var(--sign); border-radius: 18px; padding: 18px 22px; display: grid; gap: 6px; }
 .custom-order p { margin: 0; font-size: 17px; }
 .custom-order b { color: var(--sign); }
@@ -144,7 +148,7 @@ section { padding-block: 56px; }
 /* 버섯 */
 .mushroom { display: grid; gap: 24px; align-items: center; background: var(--sign-soft); border-radius: 28px; padding: clamp(20px, 4vw, 44px); }
 @media (min-width: 760px) { .mushroom { grid-template-columns: 1fr 1.1fr; gap: 44px; } }
-.mushroom img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 50% 50% 46% 54% / 56% 50% 50% 44%; }
+.mushroom img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 18px; }
 .mushroom h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(30px, 5.4vw, 42px); line-height: 1.2; }
 .mushroom .price-tag { display: inline-block; margin-top: 14px; font-family: var(--font-serif); font-size: 22px; font-weight: 700; }
 .mushroom .price-tag b { color: var(--sign); font-size: 30px; font-variant-numeric: tabular-nums; }
@@ -196,6 +200,14 @@ dialog.lightbox .close { position: absolute; top: 8px; right: 8px; border: 0; bo
 .fest-stat { margin-top: 12px !important; color: var(--ink) !important; }
 .fest-stat b { color: var(--sign); }
 .fest-more { justify-self: start; margin-top: 8px; padding: 9px 16px; border-radius: 10px; border: 2px solid var(--navy); color: var(--ink); text-decoration: none; font-weight: 700; font-size: 15px; }
+details.more { margin-top: 12px; }
+details.more > summary { cursor: pointer; list-style: none; display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 10px; background: var(--pebble); font-weight: 700; font-size: 15px; color: var(--ink); }
+details.more > summary::-webkit-details-marker { display: none; }
+details.more > summary::after { content: "▾"; color: var(--sign); }
+details.more[open] > summary::after { content: "▴"; }
+details.more > summary:focus-visible { outline: 3px solid var(--sign); outline-offset: 2px; }
+.more-spots { margin-top: 20px; }
+.more-spots > summary { background: var(--navy); color: var(--navy-ink); }
 .fest-more:hover { background: var(--pebble); }
 .fest .season { font-size: 14px; color: var(--sign); font-weight: 700; letter-spacing: .06em; }
 .fest h3 { font-family: var(--font-serif); font-size: 24px; }
@@ -273,9 +285,9 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     <a class="brand" href="#top">자갈마당<small>봉화 토속음식점</small></a>
     <nav class="nav" aria-label="바로가기">
       <a href="#menu">메뉴</a>
+      <a href="#visit">오시는 길</a>
       <a href="#look" class="hide-s">둘러보기</a>
       <a href="#bonghwa">봉화 여행</a>
-      <a href="#visit">오시는 길</a>
     </nav>
   </div>
 </header>
@@ -291,8 +303,6 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
           <li>착한가격업소</li>
           <li>모범음식점</li>
           <li>봉화 토속음식점</li>
-          <li>자연담은 음식점</li>
-          <li>100% 예약제 · 하루 전 예약</li>
         </ul>
         <div class="cta">
           <a class="btn btn-primary" href="tel:0546725505">전화 예약 054-672-5505</a>
@@ -300,7 +310,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         </div>
       </div>
       <div class="hero-photo">
-        <img src="images/exterior.jpg" alt="자갈마당 건물 외관과 소나무가 있는 앞마당" width="966" height="725">
+        <img src="images/exterior.jpg" alt="자갈마당 간판이 걸린 건물과 소나무가 있는 앞마당" width="966" height="725">
         <div class="tag"><b>100% 예약제</b> · 하루 전 예약</div>
       </div>
     </div>
@@ -329,14 +339,6 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
             <p>국내산 메기와 민물 잡고기로 얼큰하게 끓여 냅니다.</p>
           </div>
         </article>
-        <article class="dish text-only">
-          <div class="dish-body">
-            <div class="eyebrow">하루 전까지 전화 주세요</div>
-            <div class="big">100<small>% 예약제</small></div>
-            <p>자갈마당은 모든 식사를 예약으로만 받습니다. <b>오시기 하루 전까지</b> 전화로 예약해 주시면 오시는 시간에 맞춰 정성껏 준비해 두겠습니다.</p>
-            <a class="resv-phone" href="tel:0546725505">054-672-5505</a>
-          </div>
-        </article>
       </div>
     </div>
   </section>
@@ -346,6 +348,10 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       <div class="sec-head">
         <div class="eyebrow">메뉴판</div>
         <h2>차림표</h2>
+      </div>
+      <div class="resv-strip">
+        <p><b>100% 예약제</b> 오시기 <b>하루 전까지</b> 전화로 예약해 주세요.</p>
+        <a href="tel:0546725505">054-672-5505</a>
       </div>
       <div class="board">
         <div>
@@ -375,6 +381,52 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         <a href="tel:0546725505">054-672-5505</a>
       </div>
       <p class="fineprint">가격은 원 단위입니다. 가격과 메뉴는 철에 따라 바뀔 수 있으니 자세한 건 전화로 물어봐 주세요.</p>
+    </div>
+  </section>
+
+  <section id="visit" class="visit">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">오시는 길</div>
+        <h2>봉화군민회관 바로 옆</h2>
+        <p>군민회관 옆 언덕, 봉화읍내가 내려다보이는 자리에 있습니다.</p>
+      </div>
+      <div class="visit-grid">
+        <dl class="info">
+          <div>
+            <dt>전화 · 예약</dt>
+            <dd class="phone-row"><a href="tel:0546725505" id="phone">054-672-5505</a><button class="copy" type="button" id="copy-phone">번호 복사</button></dd>
+          </div>
+          <div>
+            <dt>주소</dt>
+            <dd>경상북도 봉화군 봉화읍 내성로4길 12-25<small>봉화군민회관 옆 · 지번: 봉화읍 내성리 304-14</small></dd>
+          </div>
+          <div>
+            <dt>영업시간</dt>
+            <dd>오전 10시부터<small>쉬는 날과 마감 시간은 전화로 확인해 주세요.</small></dd>
+          </div>
+          <div>
+            <dt>네이버 블로그</dt>
+            <dd class="maps"><a href="https://share.google/Ew66S0HbGeQxRNiRw" target="_blank" rel="noopener">자갈마당 블로그 보러 가기</a></dd>
+          </div>
+          <div>
+            <dt>지도에서 보기</dt>
+            <dd class="maps">
+              <a href="https://map.naver.com/p/search/%EB%B4%89%ED%99%94%20%EC%9E%90%EA%B0%88%EB%A7%88%EB%8B%B9" target="_blank" rel="noopener">네이버 지도</a>
+              <a href="https://map.kakao.com/?q=%EB%B4%89%ED%99%94%20%EC%9E%90%EA%B0%88%EB%A7%88%EB%8B%B9" target="_blank" rel="noopener">카카오맵</a>
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=%EC%9E%90%EA%B0%88%EB%A7%88%EB%8B%B9%20%EB%B4%89%ED%99%94%EA%B5%B0" target="_blank" rel="noopener">구글 지도</a>
+            </dd>
+          </div>
+        </dl>
+        <div>
+          <img src="images/garden-pavilion.jpg" alt="자갈마당 간판과 마당의 정자" loading="lazy" width="966" height="725">
+          <ul class="notes">
+            <li><b>100% 예약제</b>로 운영합니다. 오시기 <b>하루 전까지</b> 전화로 예약해 주세요.</li>
+            <li>20인분 이상 미리 예약하시면 원하시는 음식도 요리해 드립니다.</li>
+            <li>반려동물은 함께 들어오실 수 없습니다.</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -419,7 +471,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       <div class="gallery">
         <figure class="wide" style="margin:0"><button type="button" data-full="images/garden.jpg" data-cap="장독과 돌판이 있는 앞마당"><img src="images/garden.jpg" alt="장독과 글귀 돌판, 작은 연못이 있는 앞마당" loading="lazy"><figcaption>앞마당</figcaption></button></figure>
         <figure style="margin:0"><button type="button" data-full="images/garden-pavilion.jpg" data-cap="마당 옆 정자"><img src="images/garden-pavilion.jpg" alt="기와 지붕 정자와 식당 건물" loading="lazy"><figcaption>정자</figcaption></button></figure>
-        <figure style="margin:0"><button type="button" data-full="images/front.jpg" data-cap="가게 입구"><img src="images/front.jpg" alt="자갈마당 간판과 입구" loading="lazy"><figcaption>입구</figcaption></button></figure>
+        <figure style="margin:0"><button type="button" data-full="images/hall-3.jpg" data-cap="단체 손님도 앉을 수 있는 자리"><img src="images/hall-3.jpg" alt="길게 붙인 테이블" loading="lazy"><figcaption>단체석</figcaption></button></figure>
         <figure style="margin:0"><button type="button" data-full="images/hall-1.jpg" data-cap="넓은 홀, 칸막이를 열면 단체석"><img src="images/hall-1.jpg" alt="원목 테이블이 놓인 홀" loading="lazy"><figcaption>홀</figcaption></button></figure>
         <figure style="margin:0"><button type="button" data-full="images/baeksuk-table.jpg" data-cap="능이백숙 한 상"><img src="images/baeksuk-table.jpg" alt="능이백숙과 반찬이 차려진 상" loading="lazy"><figcaption>능이백숙 한 상</figcaption></button></figure>
         <figure style="margin:0"><button type="button" data-full="images/maeuntang-spoon.jpg" data-cap="얼큰한 민물 매운탕"><img src="images/maeuntang-spoon.jpg" alt="숟가락으로 뜬 매운탕 생선살" loading="lazy"><figcaption>매운탕</figcaption></button></figure>
@@ -465,7 +517,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
           <h3>봉화은어축제</h3>
           <p class="when">매년 7월 말 ~ 8월 초 · 봉화읍 내성천</p>
           <p>맑은 내성천에서 은어를 잡고 물놀이하는 여름 축제입니다. 가족 손님이 특히 많이 찾습니다.</p>
-          <dl class="fest-facts"><div><dt>기간</dt><dd>2026년 7월 25일(토) ~ 8월 2일(일), 9일간 · 제28회</dd></div><div><dt>시간</dt><dd>오전 9시 ~ 밤 10시</dd></div><div><dt>장소</dt><dd>봉화읍 내성천 일원</dd></div><div><dt>입장</dt><dd>무료 (일부 체험만 유료)</dd></div></dl><h4>이런 체험을 해요</h4><ul class="fest-prog"><li><b>은어 반두잡이</b><span>그물(반두)로 은어를 몰아 잡는 대표 체험. 매일 11시·15시·17시. 현장 12,000원, 온라인 사전예매 10,000원이고 5,000원은 봉화사랑상품권으로 돌려줍니다.</span></li><li><b>은어 맨손잡이</b><span>물속에서 맨손으로 은어 잡기. 평일 하루 3회, 주말 4회.</span></li><li><b>퐁당! 어린이 워터파크</b><span>내성천 야외 물놀이장의 대형 미끄럼틀. 10시·13시·16시, 3,000원.</span></li><li><b>은어키즈 모래놀이장</b><span>모래성 쌓고 파라솔 아래 쉬어 가는 가족 공간. 오전 10시 ~ 밤 8시.</span></li></ul><h4>먹거리</h4><ul class="fest-prog"><li><b>은어 숯불구이·튀김</b><span>직접 잡은 은어를 바로 튀기거나 구워 먹을 수 있습니다.</span></li><li><b>활어 판매장 · 스낵존</b><span>싱싱한 은어를 사 가거나 간식을 즐길 수 있습니다.</span></li></ul><h4>밤에는</h4><ul class="fest-prog"><li><b>야간 공연 · 물벼락쇼</b><span>낮엔 은어를 잡고, 밤엔 무대 공연과 물놀이 쇼가 이어집니다.</span></li><li><b>폐막 축하공연</b><span>마지막 날 밤 8시, 특설무대에서 가수들의 축하공연.</span></li></ul><p class="fest-stat">2026년 축제에는 <b>24만 명</b>이 다녀갔습니다.</p><a class="fest-more" href="https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=9cfdf097-5fcd-469f-ab72-b979b3cb69ce" target="_blank" rel="noopener">은어축제 공식 안내 보기</a>
+          <details class="more"><summary>프로그램 자세히 보기</summary><dl class="fest-facts"><div><dt>기간</dt><dd>2026년 7월 25일(토) ~ 8월 2일(일), 9일간 · 제28회</dd></div><div><dt>시간</dt><dd>오전 9시 ~ 밤 10시</dd></div><div><dt>장소</dt><dd>봉화읍 내성천 일원</dd></div><div><dt>입장</dt><dd>무료 (일부 체험만 유료)</dd></div></dl><h4>이런 체험을 해요</h4><ul class="fest-prog"><li><b>은어 반두잡이</b><span>그물(반두)로 은어를 몰아 잡는 대표 체험. 매일 11시·15시·17시. 현장 12,000원, 온라인 사전예매 10,000원이고 5,000원은 봉화사랑상품권으로 돌려줍니다.</span></li><li><b>은어 맨손잡이</b><span>물속에서 맨손으로 은어 잡기. 평일 하루 3회, 주말 4회.</span></li><li><b>퐁당! 어린이 워터파크</b><span>내성천 야외 물놀이장의 대형 미끄럼틀. 10시·13시·16시, 3,000원.</span></li><li><b>은어키즈 모래놀이장</b><span>모래성 쌓고 파라솔 아래 쉬어 가는 가족 공간. 오전 10시 ~ 밤 8시.</span></li></ul><h4>먹거리</h4><ul class="fest-prog"><li><b>은어 숯불구이·튀김</b><span>직접 잡은 은어를 바로 튀기거나 구워 먹을 수 있습니다.</span></li><li><b>활어 판매장 · 스낵존</b><span>싱싱한 은어를 사 가거나 간식을 즐길 수 있습니다.</span></li></ul><h4>밤에는</h4><ul class="fest-prog"><li><b>야간 공연 · 물벼락쇼</b><span>낮엔 은어를 잡고, 밤엔 무대 공연과 물놀이 쇼가 이어집니다.</span></li><li><b>폐막 축하공연</b><span>마지막 날 밤 8시, 특설무대에서 가수들의 축하공연.</span></li></ul><p class="fest-stat">2026년 축제에는 <b>24만 명</b>이 다녀갔습니다.</p><a class="fest-more" href="https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=9cfdf097-5fcd-469f-ab72-b979b3cb69ce" target="_blank" rel="noopener">은어축제 공식 안내 보기</a></details>
           <small class="credit">사진 <a href="https://commons.wikimedia.org/wiki/File:Plecoglossus_altivelis_altivelis_ayu.jpg" target="_blank" rel="noopener">Apple2000</a> · <a href="https://creativecommons.org/licenses/by/3.0" target="_blank" rel="noopener">CC BY 3.0</a></small>
         </article>
         <article class="has-photo">
@@ -474,7 +526,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
           <h3>봉화송이축제</h3>
           <p class="when">매년 가을 송이철 · 봉화읍 내성천 일원</p>
           <p>향 좋은 봉화 송이와 봉화 한약우를 맛보고 사 갈 수 있는 가을 축제입니다.</p>
-          <dl class="fest-facts"><div><dt>기간</dt><dd>2026년 10월 15일(목) ~ 18일(일), 4일간 · 제30회</dd></div><div><dt>시간</dt><dd>오전 10시 ~ 밤 10시</dd></div><div><dt>장소</dt><dd>봉화읍 내성천 일원</dd></div><div><dt>입장</dt><dd>무료 (일부 체험만 유료)</dd></div></dl><h4>이런 행사가 열려요</h4><ul class="fest-prog"><li><b>한송이 타임옥션</b><span>봉화 송이를 경매로 사는 행사. 참가비 없이 현장에서 바로 응찰합니다.</span></li><li><b>도전! 송이골든벨 · 송이를 이겨라!</b><span>관람객이 함께하는 퀴즈와 게임, 깜짝 현장 이벤트.</span></li><li><b>송이&한약우 스퀘어</b><span>지역 생산자가 직접 운영하는 송이 판매부스 20곳. 봉화 한약우 불고기 무료 시식회가 하루 세 번 열립니다.</span></li><li><b>오색오미 대형 비빔밥</b><span>송이·한약우·농특산물로 500인분 비빔밥을 함께 비비는 퍼포먼스.</span></li></ul><h4>먹거리</h4><ul class="fest-prog"><li><b>내성천 송이라면</b><span>송이를 넣은 라면을 5,000원에.</span></li><li><b>송이주막 · 푸드트럭존</b><span>송이 요리와 간식을 한자리에서.</span></li></ul><h4>밤에는</h4><ul class="fest-prog"><li><b>매일 축하공연</b><span>개막 공연, 콘서트, 봉화 글로벌 가요제가 이어집니다.</span></li><li><b>드론라이트쇼 · 불꽃쇼</b><span>마지막 날 밤 9시, 내성천 밤하늘을 수놓습니다.</span></li></ul><p class="fest-stat">같은 기간에 <b>청량문화제</b>도 함께 열립니다.</p><a class="fest-more" href="https://bhftf.or.kr/festival/pine_mushroom_festival/" target="_blank" rel="noopener">송이축제 공식 안내 보기</a>
+          <details class="more"><summary>프로그램 자세히 보기</summary><dl class="fest-facts"><div><dt>기간</dt><dd>2026년 10월 15일(목) ~ 18일(일), 4일간 · 제30회</dd></div><div><dt>시간</dt><dd>오전 10시 ~ 밤 10시</dd></div><div><dt>장소</dt><dd>봉화읍 내성천 일원</dd></div><div><dt>입장</dt><dd>무료 (일부 체험만 유료)</dd></div></dl><h4>이런 행사가 열려요</h4><ul class="fest-prog"><li><b>한송이 타임옥션</b><span>봉화 송이를 경매로 사는 행사. 참가비 없이 현장에서 바로 응찰합니다.</span></li><li><b>도전! 송이골든벨 · 송이를 이겨라!</b><span>관람객이 함께하는 퀴즈와 게임, 깜짝 현장 이벤트.</span></li><li><b>송이&한약우 스퀘어</b><span>지역 생산자가 직접 운영하는 송이 판매부스 20곳. 봉화 한약우 불고기 무료 시식회가 하루 세 번 열립니다.</span></li><li><b>오색오미 대형 비빔밥</b><span>송이·한약우·농특산물로 500인분 비빔밥을 함께 비비는 퍼포먼스.</span></li></ul><h4>먹거리</h4><ul class="fest-prog"><li><b>내성천 송이라면</b><span>송이를 넣은 라면을 5,000원에.</span></li><li><b>송이주막 · 푸드트럭존</b><span>송이 요리와 간식을 한자리에서.</span></li></ul><h4>밤에는</h4><ul class="fest-prog"><li><b>매일 축하공연</b><span>개막 공연, 콘서트, 봉화 글로벌 가요제가 이어집니다.</span></li><li><b>드론라이트쇼 · 불꽃쇼</b><span>마지막 날 밤 9시, 내성천 밤하늘을 수놓습니다.</span></li></ul><p class="fest-stat">같은 기간에 <b>청량문화제</b>도 함께 열립니다.</p><a class="fest-more" href="https://bhftf.or.kr/festival/pine_mushroom_festival/" target="_blank" rel="noopener">송이축제 공식 안내 보기</a></details>
           <small class="credit">사진 <a href="https://commons.wikimedia.org/wiki/File:Matsutake.jpg" target="_blank" rel="noopener">Tomomarusan</a> · <a href="https://creativecommons.org/licenses/by/2.5" target="_blank" rel="noopener">CC BY 2.5</a></small>
         </article>
       </div>
@@ -496,7 +548,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       </div>
 
       <div class="spots">
-          <article class="spot wide">
+          <article class="spot">
             <img src="images/places/cheongnyangsan.jpg" alt="청량산 하늘다리" loading="lazy">
             <div class="spot-body">
               <h4>청량산 하늘다리<span class="where">명호면 · 청량산 도립공원</span></h4>
@@ -520,6 +572,9 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
               <small class="credit">사진 <a href="https://commons.wikimedia.org/wiki/File:%EA%B5%AD%EB%A6%BD%EB%B0%B1%EB%91%90%EB%8C%80%EA%B0%84%EC%88%98%EB%AA%A9%EC%9B%90_%EC%97%AC%ED%96%89%EC%9E%90%EC%84%BC%ED%84%B0.jpg" target="_blank" rel="noopener">메라크</a> · <a href="https://creativecommons.org/licenses/by/2.0/kr/deed.en" target="_blank" rel="noopener">CC BY 2.0 kr</a></small>
             </div>
           </article>
+      </div>
+      <details class="more more-spots"><summary>가 볼 만한 곳 더 보기 (관광지 6곳 · 봉화 먹거리)</summary>
+      <div class="spots" style="margin-top:16px">
           <article class="spot">
             <img src="images/places/buncheon.jpg" alt="분천 산타마을" loading="lazy">
             <div class="spot-body">
@@ -536,7 +591,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
               <small class="credit">사진 <a href="https://commons.wikimedia.org/wiki/File:Korail_Yeongdong_Line_Seungbu_Station.jpg" target="_blank" rel="noopener">G43</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0" target="_blank" rel="noopener">CC BY-SA 4.0</a></small>
             </div>
           </article>
-          <article class="spot wide">
+          <article class="spot">
             <img src="images/places/daksil.jpg" alt="닭실마을 청암정" loading="lazy">
             <div class="spot-body">
               <h4>닭실마을 청암정<span class="where">봉화읍 유곡리</span></h4>
@@ -552,7 +607,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
               <small class="credit">사진 한국관광공사 · 촬영 김승진</small>
             </div>
           </article>
-          <article class="spot wide">
+          <article class="spot">
             <img src="images/places/seokcheon.jpg" alt="석천계곡 석천정사" loading="lazy">
             <div class="spot-body">
               <h4>석천계곡 석천정사<span class="where">봉화읍 유곡리</span></h4>
@@ -587,54 +642,10 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
           <li><b>봉성 돼지숯불구이<span class="where">봉성면</span></b><span class="desc">솔잎을 깔고 숯불에 구워 먹는 봉성면의 이름난 돼지고기 구이입니다.</span></li>
         </ul>
       </div>
+      </details>
     </div>
   </section>
 
-  <section id="visit" class="visit">
-    <div class="wrap">
-      <div class="sec-head">
-        <div class="eyebrow">오시는 길</div>
-        <h2>봉화군민회관 바로 옆</h2>
-        <p>군민회관 옆 언덕, 봉화읍내가 내려다보이는 자리에 있습니다.</p>
-      </div>
-      <div class="visit-grid">
-        <dl class="info">
-          <div>
-            <dt>전화 · 예약</dt>
-            <dd class="phone-row"><a href="tel:0546725505" id="phone">054-672-5505</a><button class="copy" type="button" id="copy-phone">번호 복사</button></dd>
-          </div>
-          <div>
-            <dt>주소</dt>
-            <dd>경상북도 봉화군 봉화읍 내성로4길 12-25<small>봉화군민회관 옆 · 지번: 봉화읍 내성리 304-14</small></dd>
-          </div>
-          <div>
-            <dt>영업시간</dt>
-            <dd>오전 10시부터<small>쉬는 날과 마감 시간은 전화로 확인해 주세요.</small></dd>
-          </div>
-          <div>
-            <dt>네이버 블로그</dt>
-            <dd class="maps"><a href="https://share.google/Ew66S0HbGeQxRNiRw" target="_blank" rel="noopener">자갈마당 블로그 보러 가기</a></dd>
-          </div>
-          <div>
-            <dt>지도에서 보기</dt>
-            <dd class="maps">
-              <a href="https://map.naver.com/p/search/%EB%B4%89%ED%99%94%20%EC%9E%90%EA%B0%88%EB%A7%88%EB%8B%B9" target="_blank" rel="noopener">네이버 지도</a>
-              <a href="https://map.kakao.com/?q=%EB%B4%89%ED%99%94%20%EC%9E%90%EA%B0%88%EB%A7%88%EB%8B%B9" target="_blank" rel="noopener">카카오맵</a>
-              <a href="https://www.google.com/maps/search/?api=1&amp;query=%EC%9E%90%EA%B0%88%EB%A7%88%EB%8B%B9%20%EB%B4%89%ED%99%94%EA%B5%B0" target="_blank" rel="noopener">구글 지도</a>
-            </dd>
-          </div>
-        </dl>
-        <div>
-          <img src="images/front.jpg" alt="남색 바탕에 주황 글씨 자갈마당 간판" loading="lazy" width="966" height="725">
-          <ul class="notes">
-            <li><b>100% 예약제</b>로 운영합니다. 오시기 <b>하루 전까지</b> 전화로 예약해 주세요.</li>
-            <li>20인분 이상 미리 예약하시면 원하시는 음식도 요리해 드립니다.</li>
-            <li>반려동물은 함께 들어오실 수 없습니다.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
 </main>
 
 <footer>

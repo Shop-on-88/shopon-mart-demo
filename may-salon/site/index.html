@@ -362,6 +362,16 @@ section.chat { padding: 0; }
 .fb-embed { margin-top: 28px; display: flex; justify-content: center; }
 .fb-embed iframe { width: 100%; max-width: 500px; height: 640px; border: 0; border-radius: 4px; background: #fff; }
 @media (max-width: 760px) { .fb-grid { grid-template-columns: 1fr 1fr; } }
+
+/* 디자인 정리: 예약+오시는 길 통합, 모바일 첫 화면 사진 먼저 */
+.booking { padding-bottom: 32px; }
+.visit { padding-top: 0; }
+.visit h3 { font-family: var(--display-ko); font-size: 20px; margin: 0 0 4px; color: var(--plum); }
+.info { margin-top: 16px; }
+@media (max-width: 760px) {
+  .hero .wrap > .hero-model { order: -1; width: min(62%, 220px); }
+  .hero { padding-top: 24px; }
+}
 </style>
 
 <header>
@@ -441,13 +451,13 @@ section.chat { padding: 0; }
         </div>
       </div>
       <ul class="price-list" id="price-list" role="tabpanel"></ul>
-      <p class="price-note" data-en="* Korean menu: cut, blow-dry, perm and color prices are from the salon’s price board, and length surcharges apply. Filipino stylist, nail and eyelash prices are from the salon’s price list; Filipino stylist hair prices are for minimum length. Extension and clinic prices are samples to be confirmed." data-ko="* 커트·드라이·펌·염색은 매장 가격표 기준이며 기장 추가가 있습니다. 필리핀 디자이너·네일·속눈썹은 매장 가격표 기준이며, 필리핀 디자이너 헤어 가격은 최소 기장 기준입니다. 붙임머리·클리닉 가격은 확인 전 예시입니다.">* Korean menu: cut, blow-dry, perm and color prices are from the salon’s price board, and length surcharges apply. Filipino stylist, nail and eyelash prices are from the salon’s price list; Filipino stylist hair prices are for minimum length. Extension and clinic prices are samples to be confirmed.</p>
+      <p class="price-note" data-en="* Prices may vary with hair length. Filipino stylist hair prices are for minimum length. Ask us for an exact quote." data-ko="* 기장에 따라 가격이 달라질 수 있습니다. 필리핀 디자이너 헤어 가격은 최소 기장 기준입니다. 정확한 가격은 상담해 주세요.">* Prices may vary with hair length. Filipino stylist hair prices are for minimum length. Ask us for an exact quote.</p>
     </div>
   </section>
 
   <section id="gallery">
     <div class="wrap">
-      <div class="eyebrow" data-en="Looks · from Instagram @eunju3108" data-ko="스타일 · 인스타그램 @eunju3108">Looks · from Instagram @eunju3108</div>
+      <div class="eyebrow" data-en="Our work" data-ko="시술 사진">Our work</div>
       <h2 data-en="Recent looks" data-ko="최근 스타일">Recent looks</h2>
       <div class="gtabs" role="tablist" aria-label="Style categories">
         <button class="gtab" type="button" role="tab" id="g-all" data-g="all" aria-selected="true" data-en="All" data-ko="전체">All</button>
@@ -520,7 +530,7 @@ section.chat { padding: 0; }
       <div class="bk-head">
         <div>
           <div class="eyebrow">Booking</div>
-          <h2 data-en="Book your visit" data-ko="예약하기">Book your visit</h2>
+          <h2 data-en="Book &amp; visit" data-ko="예약 · 오시는 길">Book &amp; visit</h2>
         </div>
         <div class="live" id="live" aria-live="polite"><span class="dot" aria-hidden="true"></span><span id="live-text"></span></div>
       </div>
@@ -543,24 +553,17 @@ section.chat { padding: 0; }
   <section class="visit" id="visit">
     <div class="wrap">
       <div>
-        <div class="eyebrow">Visit &amp; Booking</div>
-        <h2 data-en="Find us &amp; book" data-ko="오시는 길 · 예약">Find us &amp; book</h2>
+        <h3 data-en="Find us" data-ko="오시는 길">Find us</h3>
         <dl class="info">
           <div><dt data-en="Address" data-ko="주소">Address</dt><dd><span id="addr">2nd floor, Lot 2, Blk 66, Fil-Am Friendship Hwy, Angeles City, 2009 Pampanga</span><button class="copy" data-copy="addr" type="button">Copy</button></dd></div>
           <div><dt data-en="Call / Text" data-ko="전화·문자">Call / Text</dt><dd><span id="tel">0947 784 1312</span><button class="copy" data-copy="tel" type="button">Copy</button></dd></div>
           <div><dt>KakaoTalk</dt><dd><a href="https://open.kakao.com/o/smmCSkTi" target="_blank" rel="noopener" data-en="Open chat" data-ko="오픈채팅 바로가기">Open chat</a> · ID <span id="kakao">ConyK</span></dd></div>
+          <div><dt data-en="Map" data-ko="지도">Map</dt><dd><a href="https://www.google.com/maps/search/?api=1&amp;query=In+the+month+of+may+hair+salon+%EC%98%A4%EC%9B%94%EC%97%90+%EB%AF%B8%EC%9A%A9%EC%8B%A4+Angeles" target="_blank" rel="noopener" data-en="Open in Google Maps" data-ko="구글 지도에서 보기">Open in Google Maps</a></dd></div>
           <div><dt>Instagram</dt><dd><a href="https://www.instagram.com/eunju3108/">@eunju3108</a></dd></div>
           <div><dt>Facebook</dt><dd><a href="https://www.facebook.com/profile.php?id=61595539443526">May salon</a></dd></div>
           <div><dt data-en="Hours" data-ko="영업">Hours</dt><dd data-en="Open daily 9AM – 7PM<br>Bookings are served first" data-ko="매일 오전 9시 – 오후 7시<br>예약 고객 우선">Open daily 9AM – 7PM<br>Bookings are served first</dd></div>
           <div><dt data-en="Payment" data-ko="결제">Payment</dt><dd><div class="pay"><span class="chip" data-en="Cash" data-ko="현금">Cash</span><span class="chip">GCash</span><span class="chip">PayMaya</span><span class="chip" data-en="Bank transfer" data-ko="계좌이체">Bank transfer</span><span class="chip" data-en="No credit cards" data-ko="카드 결제 불가">No credit cards</span></div></dd></div>
         </dl>
-        <div class="book-ways">
-          <a class="btn btn-rose" href="tel:+639477841312" data-en="Call" data-ko="전화">Call</a>
-          <a class="btn btn-line" href="sms:+639477841312" data-en="Text" data-ko="문자">Text</a>
-          <a class="btn btn-line" href="https://www.google.com/maps/search/?api=1&amp;query=In+the+month+of+may+hair+salon+%EC%98%A4%EC%9B%94%EC%97%90+%EB%AF%B8%EC%9A%A9%EC%8B%A4+Angeles">Google Maps</a>
-          <a class="btn btn-line" href="https://www.instagram.com/eunju3108/">Instagram</a>
-          <a class="btn btn-line" href="https://www.facebook.com/profile.php?id=61595539443526">Facebook</a>
-        </div>
       </div>
       <div class="map lm" role="img" aria-label="Landmark map: salon is on the 2nd floor, across from JMI, between Kings Meat and Coffee Bay on Fil-Am Friendship Highway">
         <svg viewBox="0 0 400 300" aria-hidden="true">
@@ -581,7 +584,6 @@ section.chat { padding: 0; }
 <footer class="site">
   <div class="wrap">
     <span>오월에 · In the month of May hair salon</span>
-    <span>DTI / BIR registration · Privacy policy</span>
   </div>
 </footer>
 
@@ -665,9 +667,9 @@ const MENU = {
     ["Hair Manicure (shine coating)", "헤어 매니큐어", "2,500 – 5,000", "Root 2,500 · Short 2,500 · Medium 3,000 · Long 4,000 · Max 5,000", "뿌리 2,500 · 숏 2,500 · 미디엄 3,000 · 롱 4,000 · 맥스 5,000"]
   ],
   care: [
-    ["Hair Extensions", "붙임머리", "6,000+", "Volume or length, consultation first", "볼륨·기장 연장, 상담 후 결정"],
-    ["Hair Clinic", "헤어 클리닉", "1,500", "Deep treatment for damaged hair", "손상모 집중 케어"],
-    ["Add-on Treatment", "시술 추가 클리닉", "900", "With perm or color", "펌·염색과 함께"]
+    ["Hair Extensions", "붙임머리", "", "Volume or length · price on consultation", "볼륨·기장 연장 · 상담 후 가격 안내"],
+    ["Hair Clinic", "헤어 클리닉", "", "Deep treatment for damaged hair · price on consultation", "손상모 집중 케어 · 상담 후 가격 안내"],
+    ["Add-on Treatment", "시술 추가 클리닉", "", "With perm or color · price on consultation", "펌·염색과 함께 · 상담 후 가격 안내"]
   ],
   nail: [
     ["Mani Gel", "젤 매니큐어", "500", "Gel polish, hands", "손 젤"],
@@ -734,7 +736,7 @@ const list = document.getElementById("price-list");
 function render() {
   const ko = lang === "ko";
   list.innerHTML = MENU[cat].map(([en, k, p, dEn, dKo]) =>
-    `<li><span class="name">${ko ? k : en}${ko ? "" : `<span class="ko-sub">${k}</span>`}</span><span class="price">₱${p}</span><span class="desc">${ko ? dKo : dEn}</span></li>`).join("");
+    `<li><span class="name">${ko ? k : en}${ko ? "" : `<span class="ko-sub">${k}</span>`}</span><span class="price">${p ? "₱" + p : T("Ask us", "상담")}</span><span class="desc">${ko ? dKo : dEn}</span></li>`).join("");
   list.setAttribute("aria-labelledby", "tab-" + cat);
   document.querySelectorAll(".tab").forEach(t => t.setAttribute("aria-selected", t.dataset.cat === cat));
 }
